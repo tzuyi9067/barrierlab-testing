@@ -273,7 +273,7 @@
             </label>
           </div>
 
-          <div id='product-component-1776883932134'></div>
+          <div id='product-component-1776884682068'></div>
           <script type="text/javascript">
           /*<![CDATA[*/
           (function () {
@@ -302,21 +302,17 @@
               ShopifyBuy.UI.onReady(client).then(function (ui) {
                 ui.createComponent('product', {
                   id: '9352105951478',
-                  node: document.getElementById('product-component-1776883932134'),
+                  node: document.getElementById('product-component-1776884682068'),
                   moneyFormat: '%24%7B%7Bamount%7D%7D',
                   options: {
             "product": {
               "styles": {
                 "product": {
                   "@media (min-width: 601px)": {
-                    "max-width": "100%",
-                    "margin-left": "0",
+                    "max-width": "calc(25% - 20px)",
+                    "margin-left": "20px",
                     "margin-bottom": "50px"
-                  },
-                  "text-align": "left"
-                },
-                "title": {
-                  "font-size": "26px"
+                  }
                 },
                 "button": {
                   ":hover": {
@@ -326,24 +322,13 @@
                   ":focus": {
                     "background-color": "#6052e6"
                   }
-                },
-                "price": {
-                  "font-size": "18px"
-                },
-                "compareAt": {
-                  "font-size": "15.299999999999999px"
-                },
-                "unitPrice": {
-                  "font-size": "15.299999999999999px"
                 }
               },
-              "layout": "horizontal",
               "contents": {
                 "img": false,
-                "imgWithCarousel": true,
-                "description": true
+                "title": false,
+                "price": false
               },
-              "width": "100%",
               "text": {
                 "button": "Add to cart"
               }
@@ -380,30 +365,6 @@
                   ":focus": {
                     "background-color": "#6052e6"
                   }
-                },
-                "title": {
-                  "font-family": "Helvetica Neue, sans-serif",
-                  "font-weight": "bold",
-                  "font-size": "26px",
-                  "color": "#4c4c4c"
-                },
-                "price": {
-                  "font-family": "Helvetica Neue, sans-serif",
-                  "font-weight": "normal",
-                  "font-size": "18px",
-                  "color": "#4c4c4c"
-                },
-                "compareAt": {
-                  "font-family": "Helvetica Neue, sans-serif",
-                  "font-weight": "normal",
-                  "font-size": "15.299999999999999px",
-                  "color": "#4c4c4c"
-                },
-                "unitPrice": {
-                  "font-family": "Helvetica Neue, sans-serif",
-                  "font-weight": "normal",
-                  "font-size": "15.299999999999999px",
-                  "color": "#4c4c4c"
                 }
               },
               "text": {
@@ -421,7 +382,20 @@
                   ":focus": {
                     "background-color": "#6052e6"
                   }
-                }
+                },
+                "title": { "color": "#4b4b4b" },
+                "header": { "color": "#4b4b4b" },
+                "lineItems": { "color": "#4b4b4b" },
+                "subtotalText": { "color": "#4b4b4b" },
+                "subtotal": { "color": "#4b4b4b" },
+                "notice": { "color": "#4b4b4b" },
+                "currency": { "color": "#4b4b4b" },
+                "close": { "color": "#4b4b4b", ":hover": { "color": "#4b4b4b" } },
+                "empty": { "color": "#4b4b4b" },
+                "noteDescription": { "color": "#4b4b4b" },
+                "discountText": { "color": "#4b4b4b" },
+                "discountIcon": { "fill": "#4b4b4b" },
+                "discountAmount": { "color": "#4b4b4b" }
               },
               "text": {
                 "total": "Subtotal",
@@ -432,13 +406,23 @@
               "styles": {
                 "toggle": {
                   "background-color": "#6b5bff",
-                  ":hover": {
-                    "background-color": "#6052e6"
-                  },
-                  ":focus": {
-                    "background-color": "#6052e6"
-                  }
+                  ":hover": { "background-color": "#6052e6" },
+                  ":focus": { "background-color": "#6052e6" }
                 }
+              }
+            },
+            "lineItem": {
+              "styles": {
+                "variantTitle": { "color": "#4b4b4b" },
+                "title": { "color": "#4b4b4b" },
+                "price": { "color": "#4b4b4b" },
+                "fullPrice": { "color": "#4b4b4b" },
+                "discount": { "color": "#4b4b4b" },
+                "discountIcon": { "fill": "#4b4b4b" },
+                "quantity": { "color": "#4b4b4b" },
+                "quantityIncrement": { "color": "#4b4b4b", "border-color": "#4b4b4b" },
+                "quantityDecrement": { "color": "#4b4b4b", "border-color": "#4b4b4b" },
+                "quantityInput": { "color": "#4b4b4b", "border-color": "#4b4b4b" }
               }
             }
           },
