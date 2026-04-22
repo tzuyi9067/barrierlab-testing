@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Science — Barrier Lab</title>
+  <meta name="description" content="The science behind Barrier Lab's two-front eczema system: what eczema actually is, the gut-skin axis, and the ingredients that do the work.">
+  <link rel="icon" type="image/png" href="assets/mark-purple.png">
+  <link rel="stylesheet" href="assets/shared.css">
+  <style>
+    /* Hero */
+    .sc-hero { background: linear-gradient(180deg, var(--cream) 0%, var(--lavender) 100%); padding: 3.5rem 0 4rem; }
+    .sc-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); max-width: 760px; margin: 0.75rem 0 1rem; line-height: 1.04; }
+    .sc-hero h1 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+    .sc-hero p { max-width: 620px; color: var(--ink-soft); font-size: 1.1rem; }
+
+    /* Section base */
+    .sc-sec { padding: 5rem 0; }
+    .sc-sec.alt { background: var(--cream-deep); }
+    .sc-sec h2 { font-size: clamp(1.8rem, 3.5vw, 2.75rem); max-width: 780px; }
+    .sc-sec h2 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+    .sc-sec .lede { max-width: 640px; color: var(--ink-soft); font-size: 1.05rem; margin-top: 1rem; }
+
+    /* What is eczema diagram */
+    .eczema-diagram {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    @media (max-width: 880px) { .eczema-diagram { grid-template-columns: 1fr; } }
+    .skin-layers {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      position: relative;
+    }
+    .skin-row {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px dashed var(--line);
+    }
+    .skin-row:last-child { border-bottom: 0; }
+    .skin-row .bar {
+      width: 70px; height: 12px;
+      border-radius: 4px;
+    }
+    .skin-row .bar.h { background: linear-gradient(90deg, #F8E5D0, #E8C08C); }
+    .skin-row .bar.e { background: linear-gradient(90deg, #D8C8E8, #A89EE0); }
+    .skin-row .bar.d { background: linear-gradient(90deg, #C7B6E8, #6B5BFF); }
+    .skin-row .bar.broken {
+      background: linear-gradient(90deg, #F8E5D0 0%, #F8E5D0 40%, transparent 40%, transparent 55%, #F8E5D0 55%);
+    }
+    .skin-row .lbl { font-weight: 600; font-size: 0.95rem; }
+    .skin-row .sub { color: var(--muted); font-size: 0.82rem; }
+    .skin-row.break { background: rgba(255, 180, 120, 0.08); padding: 1rem 1rem; border-radius: 10px; border-bottom: 0; }
+
+    /* Ingredient spec rows (Seed-style) */
+    .spec-list { margin-top: 3rem; }
+    .spec-row {
+      display: grid;
+      grid-template-columns: 1.3fr 1.5fr 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-top: 1px solid var(--line);
+      align-items: start;
+    }
+    .spec-row:last-child { border-bottom: 1px solid var(--line); }
+    @media (max-width: 880px) { .spec-row { grid-template-columns: 1fr; gap: 0.75rem; } }
+    .spec-row h3 {
+      font-size: 1.35rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .spec-row h3 em {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--purple);
+    }
+    .spec-row .role {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 0.35rem;
+    }
+    .spec-row .body p { color: var(--ink-soft); font-size: 0.95rem; margin: 0; line-height: 1.6; }
+    .spec-row .form {
+      padding: 1rem 1.25rem;
+      background: var(--lavender);
+      border-radius: 12px;
+    }
+    .spec-row .form-lbl {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--purple-deep);
+      margin-bottom: 0.3rem;
+    }
+    .spec-row .form-txt { font-size: 0.88rem; color: var(--ink-soft); }
+
+    /* Gut-skin axis diagram */
+    .axis-diagram {
+      background: var(--ink);
+      color: var(--cream);
+      border-radius: var(--radius-lg);
+      padding: 4rem 2rem;
+      margin-top: 3rem;
+      text-align: center;
+    }
+    .axis-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+    .axis-node {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 1.5rem 1.75rem;
+      min-width: 180px;
+    }
+    .axis-node .ic { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .axis-node h4 { color: var(--cream); font-size: 1rem; }
+    .axis-node p { color: #C7C0E8; font-size: 0.82rem; margin: 0.4rem 0 0; }
+    .axis-arrow { font-size: 1.5rem; color: var(--purple-light); }
+    @media (max-width: 700px) { .axis-arrow { transform: rotate(90deg); } }
+
+    /* Compare table */
+    .compare {
+      margin-top: 3rem;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .compare-head {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 1rem;
+      padding: 1.25rem 2rem;
+      background: var(--ink);
+      color: var(--cream);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .compare-head > div:first-child { color: var(--cream); }
+    .compare-head > div { text-align: center; }
+    .compare-head > div:first-child { text-align: left; }
+    .compare-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 1rem;
+      padding: 1.1rem 2rem;
+      border-bottom: 1px solid var(--line-soft);
+      align-items: center;
+      font-size: 0.92rem;
+    }
+    .compare-row:last-child { border-bottom: 0; }
+    .compare-row > div { text-align: center; }
+    .compare-row > div:first-child { text-align: left; font-weight: 500; }
+    .compare-row .yes { color: var(--purple); font-weight: 700; }
+    .compare-row .no { color: var(--muted-soft); }
+    @media (max-width: 700px) {
+      .compare-head, .compare-row { grid-template-columns: 2fr repeat(3, 1fr); font-size: 0.78rem; padding-left: 1rem; padding-right: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="sc-hero">
+    <div class="container">
+      <span class="kicker">The Science</span>
+      <h1>Eczema isn't just a skin problem. It's a <em>barrier problem</em> — on both sides.</h1>
+      <p>Here's how eczema actually works, why single-front products leave most of it untreated, and what our three ingredients do at the cellular level.</p>
+    </div>
+  </section>
+
+  <!-- What is eczema -->
+  <section class="sc-sec">
+    <div class="container">
+      <span class="kicker">Chapter 01</span>
+      <h2 class="mt-2">What is <em>eczema</em>, actually?</h2>
+      <p class="lede">Atopic dermatitis (eczema) is a chronic condition where the skin barrier lets water out and irritants in, while the immune system overreacts to things that shouldn't matter. It's itchy, it flares, and roughly 1 in 10 Americans live with some form of it. For most people, it has two drivers: a compromised skin barrier on the outside, and an overactive immune signal that often starts in the gut.</p>
+
+      <div class="eczema-diagram">
+        <div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 1rem;">Healthy skin vs flaring skin</h3>
+          <p class="muted" style="font-size: 0.92rem; max-width: 420px;">In flaring skin, the outer layer is missing ceramides and cracks between cells. Water evaporates, irritants get in, and nerves fire itch signals. The immune system, already primed, overreacts.</p>
+        </div>
+        <div class="skin-layers">
+          <div class="skin-row">
+            <span class="bar h"></span>
+            <span>
+              <div class="lbl">Stratum corneum — healthy</div>
+              <div class="sub">Ceramides + lipids glue cells together. Waterproof.</div>
+            </span>
+          </div>
+          <div class="skin-row break">
+            <span class="bar broken"></span>
+            <span>
+              <div class="lbl" style="color: #C45A2B;">Stratum corneum — flaring</div>
+              <div class="sub">Ceramide gaps. Water escapes, irritants enter, nerves fire.</div>
+            </span>
+          </div>
+          <div class="skin-row">
+            <span class="bar e"></span>
+            <span>
+              <div class="lbl">Epidermis</div>
+              <div class="sub">Filaggrin, keratin — the cell factory floor.</div>
+            </span>
+          </div>
+          <div class="skin-row">
+            <span class="bar d"></span>
+            <span>
+              <div class="lbl">Dermis</div>
+              <div class="sub">Blood vessels, nerves, immune cells — the signaling layer.</div>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gut-skin axis -->
+  <section class="sc-sec alt">
+    <div class="container">
+      <span class="kicker">Chapter 02</span>
+      <h2 class="mt-2">The <em>gut-skin axis</em> is why the inside matters.</h2>
+      <p class="lede">The gut and the skin are the body's two biggest interfaces with the outside world. They talk to each other constantly through the immune and nervous systems. When the gut microbiome is imbalanced, the skin gets a steady drip of inflammatory signals — and the barrier can't keep up.</p>
+
+      <div class="axis-diagram">
+        <span class="kicker" style="color: var(--purple-light);">Inflammation loop</span>
+        <h3 style="color: var(--cream); font-size: 1.5rem; margin-top: 1rem;">How an imbalanced gut shows up as a flare.</h3>
+        <div class="axis-row">
+          <div class="axis-node">
+            <div class="ic">⌘</div>
+            <h4>Microbiome shift</h4>
+            <p>Lower diversity, fewer anti-inflammatory strains.</p>
+          </div>
+          <div class="axis-arrow">→</div>
+          <div class="axis-node">
+            <div class="ic">▲</div>
+            <h4>Immune activation</h4>
+            <p>Th2/Th17 cells ramp up, releasing IL-4, IL-13, IL-31.</p>
+          </div>
+          <div class="axis-arrow">→</div>
+          <div class="axis-node">
+            <div class="ic">◎</div>
+            <h4>Barrier breakdown</h4>
+            <p>Inflammation reduces filaggrin + ceramide production.</p>
+          </div>
+          <div class="axis-arrow">→</div>
+          <div class="axis-node">
+            <div class="ic">※</div>
+            <h4>Flare</h4>
+            <p>Itch, redness, cracking — the visible part.</p>
+          </div>
+        </div>
+        <p style="color: #C7C0E8; margin-top: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">Treat the flare only, and you're mopping with the faucet running. Treat both, and the barrier can actually hold.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ingredient spec rows -->
+  <section class="sc-sec">
+    <div class="container">
+      <span class="kicker">Chapter 03</span>
+      <h2 class="mt-2">The <em>six ingredients</em> doing the real work.</h2>
+      <p class="lede">Every Barrier Lab formula is built around clinically-studied actives at clinical doses. No filler. No "also contains." If an ingredient is in the bottle, it's there because the research says it matters at the amount we included.</p>
+
+      <div class="spec-list">
+
+        <div class="spec-row">
+          <div>
+            <div class="role">Outside · BL-01</div>
+            <h3>Ceramides <em>NP, AP, EOP</em></h3>
+          </div>
+          <div class="body">
+            <p>A 3:1:1 ratio of the same lipid fractions your own stratum corneum produces. Ceramide-deficient skin is a defining feature of atopic dermatitis — rebuilding supply restores the barrier's waterproof seal within days of consistent use.</p>
+          </div>
+          <div class="form">
+            <div class="form-lbl">Bioavailable form</div>
+            <div class="form-txt">Skin-identical synthetic ceramides in a multilamellar emulsion for penetration past the outer layer.</div>
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div>
+            <div class="role">Outside · BL-01</div>
+            <h3>4% <em>Niacinamide</em></h3>
+          </div>
+          <div class="body">
+            <p>At 4%, niacinamide is a clinical-grade anti-inflammatory: it reduces redness, itch, and post-flare pigmentation. Unlike steroids, it doesn't thin the skin — you can use it indefinitely.</p>
+          </div>
+          <div class="form">
+            <div class="form-lbl">Bioavailable form</div>
+            <div class="form-txt">Pharma-grade nicotinamide, pH-matched to the skin's acid mantle (4.8–5.5).</div>
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div>
+            <div class="role">Inside · BL-02 + BL-03</div>
+            <h3>Probiotic <em>blend</em></h3>
+          </div>
+          <div class="body">
+            <p>L. rhamnosus GG and L. paracasei are the two strains with the deepest published research in eczema and atopic disease — particularly in pediatric populations. They rebalance the gut microbiome and moderate the inflammatory signals that drive flares.</p>
+          </div>
+          <div class="form">
+            <div class="form-lbl">Bioavailable form</div>
+            <div class="form-txt">10B CFU per serving, delayed-release delivery so strains survive stomach acid.</div>
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div>
+            <div class="role">Inside · BL-02 + BL-03</div>
+            <h3>Lactoferrin</h3>
+          </div>
+          <div class="body">
+            <p>An iron-binding protein found in colostrum and tears. It modulates immune response and starves unfriendly bacteria. Kids and adults with eczema often run low — lactoferrin supplementation is one of the quieter wins in the literature.</p>
+          </div>
+          <div class="form">
+            <div class="form-lbl">Bioavailable form</div>
+            <div class="form-txt">Bovine-source lactoferrin, ≥95% purity, cold-processed to preserve activity.</div>
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div>
+            <div class="role">Inside · BL-02 + BL-03</div>
+            <h3>Zinc + <em>Vitamin D</em></h3>
+          </div>
+          <div class="body">
+            <p>Zinc is a cofactor for skin repair enzymes. Vitamin D regulates the skin's immune tone. Both are frequently under-supplied in atopic populations; both support barrier repair when replenished to RDA.</p>
+          </div>
+          <div class="form">
+            <div class="form-lbl">Bioavailable form</div>
+            <div class="form-txt">Zinc bisglycinate (gentle on digestion) + cholecalciferol (vitamin D3).</div>
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div>
+            <div class="role">Inside · BL-03</div>
+            <h3><em>Quercetin</em> + Vitamin C</h3>
+          </div>
+          <div class="body">
+            <p>Quercetin stabilizes mast cells — the immune cells that release histamine during a flare. Paired with vitamin C (which recycles quercetin), it's a smarter approach than OTC antihistamines for chronic, low-grade immune noise.</p>
+          </div>
+          <div class="form">
+            <div class="form-lbl">Bioavailable form</div>
+            <div class="form-txt">Quercetin dihydrate (higher absorption than plain quercetin) + ascorbic acid.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compare table -->
+  <section class="sc-sec alt">
+    <div class="container">
+      <span class="kicker">Chapter 04</span>
+      <h2 class="mt-2">How Barrier Lab <em>compares.</em></h2>
+      <p class="lede">Most eczema brands pick one front. Dermatologist brands treat the skin; supplement brands treat the gut; prescription lines treat the flare. Barrier Lab is the only system engineered for both, built on 20 years of real-world data.</p>
+
+      <div class="compare">
+        <div class="compare-head">
+          <div>&nbsp;</div>
+          <div>Barrier Lab</div>
+          <div>Derm brands</div>
+          <div>Supplement brands</div>
+        </div>
+        <div class="compare-row">
+          <div>Treats the skin barrier directly</div>
+          <div class="yes">✓</div>
+          <div class="yes">✓</div>
+          <div class="no">—</div>
+        </div>
+        <div class="compare-row">
+          <div>Targets the gut-skin axis</div>
+          <div class="yes">✓</div>
+          <div class="no">—</div>
+          <div class="yes">✓</div>
+        </div>
+        <div class="compare-row">
+          <div>Clinical-dose niacinamide (4%+)</div>
+          <div class="yes">✓</div>
+          <div class="no">~</div>
+          <div class="no">—</div>
+        </div>
+        <div class="compare-row">
+          <div>Probiotic + lactoferrin + zinc + D</div>
+          <div class="yes">✓</div>
+          <div class="no">—</div>
+          <div class="no">~</div>
+        </div>
+        <div class="compare-row">
+          <div>Kids + adult formulas from one brand</div>
+          <div class="yes">✓</div>
+          <div class="no">~</div>
+          <div class="no">—</div>
+        </div>
+        <div class="compare-row">
+          <div>20 years of real-world data</div>
+          <div class="yes">✓</div>
+          <div class="no">—</div>
+          <div class="no">—</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How we tested this -->
+  <section class="sc-sec">
+    <div class="container">
+      <span class="kicker">How we tested this</span>
+      <h2 class="mt-2">Built on <em>science</em>. Refined on <em>real people.</em></h2>
+      <p style="max-width:760px; color:var(--ink-soft); margin-top:1rem; font-size:1.05rem;">Every Barrier Lab product starts with the peer-reviewed literature on skin-barrier biology — then gets iterated with real users until the formula actually works in real life, not just on paper. Here's what that looked like for each product.</p>
+
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1.25rem; margin-top:2.5rem;" class="tested-grid">
+        <div style="background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); padding:1.75rem;">
+          <div style="font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; font-weight:700; color:var(--purple-deep); margin-bottom:0.75rem;">BL-01 · Recovery Balm</div>
+          <h3 style="font-size:1.2rem; letter-spacing:-0.015em; margin-bottom:0.75rem;">Formulated, then re-formulated.</h3>
+          <p style="color:var(--ink-soft); font-size:0.92rem; line-height:1.55;">The balm was built from the clinical literature on ceramide ratios, filaggrin support, and fragrance-free formulation — then run through repeated rounds of use-testing with real families. We iterated on texture, sink-in time, and how it layers under prescriptions before finalizing the formula.</p>
+        </div>
+
+        <div style="background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); padding:1.75rem;">
+          <div style="font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; font-weight:700; color:var(--purple-deep); margin-bottom:0.75rem;">BL-02 · Inner Powder</div>
+          <h3 style="font-size:1.2rem; letter-spacing:-0.015em; margin-bottom:0.75rem;">Tested with the pickiest users alive.</h3>
+          <p style="color:var(--ink-soft); font-size:0.92rem; line-height:1.55;">The probiotic strain selection, the lactoferrin sourcing, and every micronutrient came out of the peer-reviewed research on pediatric skin-barrier and immune support. The taste, the solubility, the mouthfeel, and how it hides in a smoothie — that came out of months of real-kid testing.</p>
+        </div>
+
+        <div style="background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); padding:1.75rem;">
+          <div style="font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; font-weight:700; color:var(--purple-deep); margin-bottom:0.75rem;">BL-03 · Inner Barrier Complex</div>
+          <h3 style="font-size:1.2rem; letter-spacing:-0.015em; margin-bottom:0.75rem;">Built around adult atopic biology.</h3>
+          <p style="color:var(--ink-soft); font-size:0.92rem; line-height:1.55;">The amino-acid quartet, the algal omega-3 dose, the co-formulated minerals — every input was chosen from the adult skin-barrier literature. Then the capsule size, the scheduling, and the tolerability were refined through real-user testing with adults who've lived with reactive skin for years.</p>
+        </div>
+      </div>
+
+      <p style="margin-top:2rem; font-size:0.8rem; color:var(--muted); line-height:1.6; max-width:900px;">A note on language. Barrier Lab supplements (Inner Powder, Inner Barrier Complex) are dietary supplements. They are designed to support normal skin-barrier and immune function — they are not drugs, and the FDA has not evaluated claims on this page for the purpose of diagnosing, treating, curing, or preventing any disease, including eczema. If you're managing a dermatological condition, please keep working with your prescribing clinician; our products are designed to complement, not replace, medical care.</p>
+    </div>
+  </section>
+
+  <style>
+    @media (max-width: 880px) {
+      .tested-grid { grid-template-columns: 1fr !important; }
+    }
+  </style>
+
+  <!-- CTA -->
+  <section class="sc-sec">
+    <div class="container" style="text-align:center;">
+      <h2 style="margin: 0 auto 1rem;">Ready to try the <em>whole system?</em></h2>
+      <p class="lede" style="margin-left:auto; margin-right:auto;">Start with a single product, or save 15% with a bundle. 30-day risk-free return on your first order.</p>
+      <div style="margin-top: 2rem; display: inline-flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">
+        <a href="shop.html" class="btn btn-primary btn-lg">Shop the system</a>
+        <a href="learn.html" class="btn btn-outline btn-lg">Learn the ingredients</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="assets/shared.js"></script>
+</body>
+</html>

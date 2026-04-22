@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Barrier Lab — Eczema care from the outside and inside.</title>
+  <meta name="description" content="Barrier Lab is a two-front eczema system: ceramide recovery on the skin, oral barrier support from within. Built by people who live with eczema.">
+  <link rel="icon" type="image/png" href="assets/mark-purple.png">
+  <link rel="stylesheet" href="assets/shared.css">
+  <style>
+    /* ---------- Home-only styles ---------- */
+
+    /* HERO */
+    .home-hero {
+      position: relative;
+      background: linear-gradient(180deg, var(--cream) 0%, var(--lavender) 100%);
+      padding: 3rem 0 5rem;
+      overflow: hidden;
+    }
+    .home-hero .badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: white;
+      border: 1px solid var(--line);
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink-soft);
+      margin-bottom: 1.75rem;
+    }
+    .home-hero .badge .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--purple);
+    }
+    .home-hero h1 {
+      font-size: clamp(2.75rem, 6vw, 5.5rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.5rem;
+    }
+    .home-hero h1 em {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--purple);
+      letter-spacing: -0.02em;
+    }
+    .home-hero .lede {
+      font-size: 1.15rem;
+      color: var(--ink-soft);
+      max-width: 500px;
+      margin-bottom: 2rem;
+      line-height: 1.55;
+    }
+    .hero-ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .hero-meta {
+      display: flex;
+      gap: 2.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+    .hero-meta .hm { display: inline-flex; align-items: baseline; gap: 0.5rem; }
+    .hero-meta .num {
+      font-weight: 700; color: var(--ink-text);
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+
+    /* Barrier-lattice hero visual — replaces the seed/plant mark in V3 */
+    .barrier-visual {
+      position: relative;
+      aspect-ratio: 1 / 1.05;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .barrier-visual .barrier-disk {
+      position: absolute;
+      inset: 10% 6%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 35%, #ffffff 0%, var(--lavender) 65%, var(--lavender-deep) 100%);
+      box-shadow: 0 40px 80px rgba(43, 31, 128, 0.2);
+    }
+    .barrier-visual svg.barrier-lattice {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 72%;
+      filter: drop-shadow(0 20px 30px rgba(43, 31, 128, 0.22));
+    }
+    .barrier-visual .ring {
+      position: absolute;
+      border: 1px dashed rgba(43, 31, 128, 0.25);
+      border-radius: 50%;
+    }
+    .barrier-visual .ring-1 { inset: 2%; }
+    .barrier-visual .ring-2 { inset: -6%; border-color: rgba(43, 31, 128, 0.12); }
+    .barrier-visual .spinning { animation: spin 80s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .barrier-caption {
+      position: absolute;
+      bottom: 3%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1rem;
+      color: var(--purple-deep);
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    /* PLANT ANALOGY ribbon */
+    .analogy {
+      background: var(--cream-deep);
+      padding: 6rem 0;
+    }
+    .analogy-head {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 4rem;
+    }
+    .analogy-head h2 em {
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 500;
+      color: var(--purple);
+    }
+    .analogy-head p { color: var(--muted); font-size: 1.05rem; margin-top: 1rem; }
+    .analogy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      position: relative;
+    }
+    @media (max-width: 880px) { .analogy-grid { grid-template-columns: 1fr; } }
+    .analogy-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      position: relative;
+    }
+    .analogy-card .ic {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background: var(--lavender);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+    }
+    .analogy-card .step {
+      font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+      font-weight: 700; color: var(--purple);
+      margin-bottom: 0.6rem;
+    }
+    .analogy-card h3 {
+      font-size: 1.4rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .analogy-card h3 em {
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 500;
+      color: var(--purple);
+    }
+    .analogy-card p { color: var(--ink-soft); margin-top: 0.5rem; font-size: 0.95rem; line-height: 1.55; }
+
+    /* TWO-FRONT callout */
+    .two-front { padding: 6rem 0; background: var(--cream); }
+    .two-front-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    @media (max-width: 880px) { .two-front-grid { grid-template-columns: 1fr; } }
+    .front-card {
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .front-card.outside {
+      background: linear-gradient(160deg, #FFFFFF 0%, var(--lavender) 100%);
+      border: 1px solid var(--line);
+    }
+    .front-card.inside {
+      background: linear-gradient(160deg, var(--lavender) 0%, var(--lavender-deep) 100%);
+      border: 1px solid var(--lavender-deep);
+    }
+    .front-card .front-tag {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--purple-deep); margin-bottom: 1rem;
+    }
+    .front-card h2 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height: 1.05;
+      margin-bottom: 1rem;
+    }
+    .front-card h2 em {
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 500;
+      color: var(--purple);
+    }
+    .front-card p { color: var(--ink-soft); max-width: 400px; font-size: 0.98rem; }
+    .front-card .front-link {
+      display: inline-block;
+      font-size: 0.95rem; font-weight: 600; color: var(--purple-deep);
+      border-bottom: 1px solid currentColor; padding-bottom: 2px;
+      margin-top: 1rem;
+    }
+
+    /* SHOP grid */
+    .shop-strip {
+      padding: 6rem 0;
+      background: var(--cream-deep);
+    }
+    .shop-strip-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      margin-bottom: 3rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .shop-strip-head h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+      max-width: 600px;
+    }
+    .shop-strip-head h2 em {
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 500;
+      color: var(--purple);
+    }
+    .shop-strip-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 980px) { .shop-strip-grid { grid-template-columns: 1fr; } }
+
+    /* BUNDLE duo callout (like Seed's "Daily essentials duo") */
+    .bundle-duo {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 5rem 0;
+    }
+    .bundle-duo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    @media (max-width: 980px) { .bundle-duo-grid { grid-template-columns: 1fr; } }
+    .bundle-duo h2 { color: var(--cream); font-size: clamp(2rem, 3.5vw, 2.75rem); margin-bottom: 1rem; }
+    .bundle-duo h2 em {
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 500;
+      color: var(--purple-light);
+    }
+    .bundle-duo p { color: #C7C0E8; font-size: 1rem; max-width: 460px; line-height: 1.6; }
+    .bundle-duo-right {
+      background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple) 100%);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2.5rem;
+      color: white;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .bundle-duo-right .chip {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .bundle-duo-right h3 { color: white; font-size: 1.8rem; margin: 1rem 0 0.75rem; letter-spacing: -0.02em; }
+    .bundle-duo-right h3 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; }
+    .bundle-duo-right .price-row {
+      display: flex; align-items: baseline; gap: 0.75rem;
+      margin: 1.25rem 0 1.5rem;
+    }
+    .bundle-duo-right .price-row .p { font-weight: 700; font-size: 1.5rem; letter-spacing: -0.02em; }
+    .bundle-duo-right .price-row .p-old { text-decoration: line-through; color: rgba(255,255,255,0.7); font-size: 0.95rem; }
+    .bundle-duo-right .price-row .save {
+      font-size: 0.7rem; background: white; color: var(--purple-deep);
+      padding: 0.25rem 0.55rem; border-radius: 999px; font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    /* Big-type moment */
+    .big-type-home {
+      padding: 7rem 0;
+      text-align: center;
+    }
+    .big-type-home h2 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 1.03;
+      max-width: 1000px;
+      margin: 0 auto;
+      letter-spacing: -0.03em;
+    }
+    .big-type-home h2 em {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--purple);
+      letter-spacing: -0.015em;
+    }
+    .big-type-home p {
+      margin-top: 2rem;
+      max-width: 600px;
+      margin-left: auto; margin-right: auto;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .big-type-home .cta-row {
+      margin-top: 2.5rem;
+      display: inline-flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;
+    }
+
+    /* COMPARE table — homepage snapshot */
+    .compare {
+      padding: 6rem 0;
+      background: var(--lavender-soft);
+    }
+    .compare-head {
+      text-align: center;
+      max-width: 740px;
+      margin: 0 auto 3rem;
+    }
+    .compare-head h2 {
+      font-size: clamp(1.9rem, 3.5vw, 2.75rem);
+      margin: 1rem 0 0.75rem;
+    }
+    .compare-head h2 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+    .compare-head p { color: var(--muted); font-size: 1.02rem; }
+    .compare-table-wrap {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      max-width: 960px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-card);
+    }
+    table.compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    .compare-table thead th {
+      text-align: left;
+      padding: 1.15rem 1.25rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--muted);
+      background: var(--lavender);
+      border-bottom: 1px solid var(--line);
+    }
+    .compare-table thead th.us {
+      color: white;
+      background: var(--purple);
+    }
+    .compare-table tbody th {
+      text-align: left;
+      padding: 1rem 1.25rem;
+      font-weight: 600;
+      color: var(--ink-text);
+      border-bottom: 1px solid var(--line-soft);
+      width: 38%;
+      font-size: 0.95rem;
+    }
+    .compare-table tbody td {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--line-soft);
+      color: var(--ink-soft);
+      vertical-align: top;
+    }
+    .compare-table tbody td.us {
+      background: var(--lavender-soft);
+      color: var(--purple-deep);
+      font-weight: 600;
+    }
+    .compare-table tr:last-child th,
+    .compare-table tr:last-child td { border-bottom: 0; }
+    .compare-check { color: var(--purple); font-weight: 700; }
+    .compare-dash { color: var(--muted-soft); }
+    @media (max-width: 720px) {
+      .compare-table { font-size: 0.85rem; }
+      .compare-table thead th,
+      .compare-table tbody th,
+      .compare-table tbody td { padding: 0.8rem 0.7rem; }
+    }
+
+    /* FINAL mission strip */
+    .mission {
+      padding: 5rem 0 6rem;
+      background: linear-gradient(135deg, var(--purple) 0%, var(--purple-deep) 100%);
+      color: white;
+      text-align: center;
+    }
+    .mission h3 {
+      color: white;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.05;
+      max-width: 780px;
+      margin: 0 auto 1.5rem;
+      letter-spacing: -0.03em;
+    }
+    .mission h3 em {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+    }
+    .mission p { color: rgba(255,255,255,0.9); max-width: 520px; margin: 0 auto 2rem; }
+    .mission-form {
+      display: flex; gap: 0.5rem; max-width: 440px; margin: 0 auto;
+      flex-wrap: wrap; justify-content: center;
+    }
+    .mission-form input {
+      flex: 1; min-width: 220px;
+      padding: 1rem 1.25rem; border-radius: 999px; border: 0;
+      font-family: inherit; font-size: 0.95rem; color: var(--ink-text);
+    }
+    .mission-form button {
+      padding: 1rem 1.75rem; border-radius: 999px;
+      background: var(--ink); color: var(--cream);
+      border: 0; font-family: inherit; font-weight: 600;
+      font-size: 0.95rem; cursor: pointer;
+    }
+    .mission-form button:hover { background: var(--cream); color: var(--ink-text); }
+    .mission-fine { font-size: 0.8rem; margin-top: 1rem; color: rgba(255,255,255,0.7); }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="home-hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <span class="badge"><span class="dot"></span>US launch 2026 · Founder spent 30 years trying to fix this</span>
+          <h1>Skin heals from the <em>outside.</em><br>Eczema heals from the <em>inside.</em></h1>
+          <p class="lede">Barrier Lab is a two-front eczema system. A ceramide recovery balm for the skin, and an oral line for the gut-skin axis. Built by a founder who lived with eczema for thirty years and refused to settle for half a solution.</p>
+          <div class="hero-ctas">
+            <a href="shop.html" class="btn btn-primary btn-lg">Shop the system</a>
+            <a href="science.html" class="btn btn-outline btn-lg">See the science</a>
+          </div>
+          <div class="hero-meta">
+            <span class="hm"><span class="num">30</span> years in the making</span>
+            <span class="hm"><span class="num">3</span> products, one system</span>
+            <span class="hm"><span class="num">0</span> fragrance / steroid</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="barrier-visual">
+            <div class="ring ring-2"></div>
+            <div class="barrier-disk"></div>
+            <div class="ring ring-1 spinning"></div>
+            <svg class="barrier-lattice" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-label="Barrier lattice diagram">
+              <defs>
+                <linearGradient id="bl-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#5444DB"/>
+                  <stop offset="100%" stop-color="#2B1F80"/>
+                </linearGradient>
+              </defs>
+
+              <!-- outer ring of hexagons (softer, background texture) -->
+              <g fill="#EEEBFF" stroke="#5444DB" stroke-width="1.4" opacity="0.65">
+                <polygon points="200,70 244.98,95 244.98,145 200,170 155.02,145 155.02,95"/>
+                <polygon points="317.96,115 362.94,140 362.94,190 317.96,215 272.98,190 272.98,140"/>
+                <polygon points="317.96,215 362.94,240 362.94,290 317.96,315 272.98,290 272.98,240"/>
+                <polygon points="200,260 244.98,285 244.98,335 200,360 155.02,335 155.02,285"/>
+                <polygon points="82.04,215 127.02,240 127.02,290 82.04,315 37.06,290 37.06,240"/>
+                <polygon points="82.04,115 127.02,140 127.02,190 82.04,215 37.06,190 37.06,140"/>
+              </g>
+
+              <!-- inner ring — the reinforced barrier (solid indigo strokes, lavender fill) -->
+              <g fill="#DBD4FF" stroke="#3F30B0" stroke-width="2">
+                <polygon points="200,120 244.98,145 244.98,195 200,220 155.02,195 155.02,145"/>
+                <polygon points="258.98,155 303.96,180 303.96,230 258.98,255 214,230 214,180"/>
+                <polygon points="258.98,245 303.96,270 303.96,320 258.98,345 214,320 214,270"/>
+                <polygon points="141.02,245 186,270 186,320 141.02,345 96.04,320 96.04,270"/>
+                <polygon points="141.02,155 186,180 186,230 141.02,255 96.04,230 96.04,180"/>
+              </g>
+
+              <!-- center hex — core, filled indigo gradient (represents the sealed barrier) -->
+              <polygon points="200,200 244.98,225 244.98,275 200,300 155.02,275 155.02,225"
+                       fill="url(#bl-grad)" stroke="#2B1F80" stroke-width="2"/>
+
+              <!-- molecular dots (decorative atoms) -->
+              <g fill="#5444DB">
+                <circle cx="200" cy="120" r="3.5"/>
+                <circle cx="244.98" cy="145" r="3.5"/>
+                <circle cx="155.02" cy="145" r="3.5"/>
+                <circle cx="303.96" cy="180" r="3"/>
+                <circle cx="303.96" cy="230" r="3"/>
+                <circle cx="96.04" cy="180" r="3"/>
+                <circle cx="96.04" cy="230" r="3"/>
+                <circle cx="244.98" cy="275" r="3.5"/>
+                <circle cx="155.02" cy="275" r="3.5"/>
+                <circle cx="200" cy="300" r="3.5"/>
+              </g>
+            </svg>
+            <span class="barrier-caption">one lattice. two sides.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANT ANALOGY: seed → root → leaf -->
+  <section class="analogy">
+    <div class="container">
+      <div class="analogy-head">
+        <span class="kicker">The plant analogy</span>
+        <h2 class="mt-2">Cream is part of the story. Not <em>all</em> of it.</h2>
+        <p>Think of a plant. The leaf matters — and so does the root, and the seed it grew from. A good ceramide cream is essential. Pair it with the inside work, and the whole plant gets healthier. That's the Barrier Lab system.</p>
+      </div>
+      <div class="analogy-grid">
+        <div class="analogy-card">
+          <div class="ic">◯</div>
+          <div class="step">01 — The seed</div>
+          <h3>The <em>microbiome</em> that started it all.</h3>
+          <p>Gut bacteria set the immune tone for your whole body, including your skin. Research shows imbalances here drive eczema flares long before you see them on the surface.</p>
+        </div>
+        <div class="analogy-card">
+          <div class="ic">△</div>
+          <div class="step">02 — The root</div>
+          <h3>The barrier nutrients you're <em>running low on.</em></h3>
+          <p>Eczema-prone bodies tend to be short on lactoferrin, zinc, and vitamin D — the nutrients the skin's barrier is built from. Food alone rarely closes the gap.</p>
+        </div>
+        <div class="analogy-card">
+          <div class="ic">▽</div>
+          <div class="step">03 — The leaf</div>
+          <h3>The skin, where <em>cream does its best work.</em></h3>
+          <p>A ceramide cream rebuilds the outer wall and brings immediate relief. Paired with the inside work underneath, the relief lasts. Cream is essential — and it's stronger with a root.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TWO FRONT -->
+  <section class="two-front">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:3rem;">
+        <span class="kicker">Two halves of the same barrier</span>
+        <h2 style="margin-top:1rem; max-width: 800px; margin-left: auto; margin-right: auto;">Eczema isn't one problem. It's <em>two barriers</em> failing at once.</h2>
+      </div>
+      <div class="two-front-grid">
+        <div class="front-card outside">
+          <div>
+            <span class="front-tag">The outside</span>
+            <h2><em>Recovery</em> Balm</h2>
+            <p>Ceramide + niacinamide + shea butter rebuild the skin barrier during flare-ups. Fragrance-free, steroid-free, safe for infants through adults.</p>
+          </div>
+          <a href="recovery-balm.html" class="front-link">See Recovery Balm →</a>
+        </div>
+        <div class="front-card inside">
+          <div>
+            <span class="front-tag">The inside</span>
+            <h2><em>Inner</em> Barrier line.</h2>
+            <p>Oral formulations that target the gut-skin axis — the part most eczema brands skip. Kids' sachets and adult capsules with probiotics, lactoferrin, zinc, and vitamin D.</p>
+          </div>
+          <a href="science.html" class="front-link">See the inside line →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOP strip: 3 products -->
+  <section class="shop-strip" id="shop">
+    <div class="container">
+      <div class="shop-strip-head">
+        <h2>The <em>three-piece</em> Barrier Lab system.</h2>
+        <a href="shop.html" class="btn btn-ink">Shop all + bundles →</a>
+      </div>
+      <div class="shop-strip-grid">
+
+        <!-- BL-01 -->
+        <article class="product-card">
+          <a href="recovery-balm.html" class="pc-visual" aria-label="Recovery Balm">
+            <div class="viz-jar">
+              <span class="viz-label">recovery<br>balm</span>
+              <span class="viz-code">BL-01</span>
+            </div>
+          </a>
+          <div class="pc-body">
+            <div class="pc-code">BL-01 · OUTSIDE</div>
+            <h3 class="pc-name">Recovery Balm</h3>
+            <p class="pc-tag">1.7 oz topical · ceramide barrier cream for flare-ups.</p>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+              <div>
+                <div class="pc-price">$32</div>
+                <div class="pc-sub">$27.20 subscribe</div>
+              </div>
+              <button class="btn btn-primary btn-sm js-add-to-cart" data-sku="bl-01">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- BL-02 -->
+        <article class="product-card">
+          <a href="inner-powder.html" class="pc-visual" aria-label="Inner Powder">
+            <div class="viz-tin">
+              <span class="viz-label">inner<br>powder</span>
+              <span class="viz-code">BL-02</span>
+            </div>
+          </a>
+          <div class="pc-body">
+            <div class="pc-code">BL-02 · INSIDE · KIDS</div>
+            <h3 class="pc-name">Inner Powder</h3>
+            <p class="pc-tag">30 sachets · kids oral barrier support, mild taste.</p>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+              <div>
+                <div class="pc-price">$44</div>
+                <div class="pc-sub">$37.40 subscribe</div>
+              </div>
+              <button class="btn btn-primary btn-sm js-add-to-cart" data-sku="bl-02">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- BL-03 -->
+        <article class="product-card">
+          <a href="inner-barrier.html" class="pc-visual" aria-label="Inner Barrier Complex">
+            <div class="viz-bottle">
+              <span class="viz-label">inner<br>barrier</span>
+              <span class="viz-code">BL-03</span>
+            </div>
+          </a>
+          <div class="pc-body">
+            <div class="pc-code">BL-03 · INSIDE · ADULT</div>
+            <h3 class="pc-name">Inner Barrier Complex</h3>
+            <p class="pc-tag">90 caps · adult daily oral barrier system.</p>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+              <div>
+                <div class="pc-price">$49</div>
+                <div class="pc-sub">$41.65 subscribe</div>
+              </div>
+              <button class="btn btn-primary btn-sm js-add-to-cart" data-sku="bl-03">Add</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- INGREDIENT RAIL (Seed-style horizontal scroll) -->
+  <section class="rail" id="ingredients">
+    <div class="container">
+      <div class="rail-head">
+        <div>
+          <span class="kicker">What's actually inside</span>
+          <h2 class="mt-2">Nine <em>clinical</em> ingredients. Every one earns its place.</h2>
+        </div>
+        <p>Scroll sideways — no filler, no fragrance, no fillers you've never heard of.</p>
+        <div class="rail-controls">
+          <button class="rail-btn" id="railPrev" aria-label="Scroll left">←</button>
+          <button class="rail-btn" id="railNext" aria-label="Scroll right">→</button>
+        </div>
+      </div>
+      <div class="rail-track" id="railTrack">
+
+        <article class="rail-card">
+          <div class="rail-molecule">Cer</div>
+          <span class="rail-badge">Balm · hero</span>
+          <h4>Ceramide NP + AP + EOP</h4>
+          <div class="rail-dose">Dose · 3% w/w</div>
+          <p>The three ceramides your skin cells naturally produce. Replaces the lipids eczema-prone skin is losing, seals moisture, ends the itch-scratch loop.</p>
+          <div class="rail-source">Formulation · Recovery Balm (BL-01)</div>
+        </article>
+
+        <article class="rail-card">
+          <div class="rail-molecule">Ni</div>
+          <span class="rail-badge">Balm</span>
+          <h4>Niacinamide (B3)</h4>
+          <div class="rail-dose">Dose · 4% w/w</div>
+          <p>Clinically shown to reinforce the skin barrier and calm redness. Non-comedogenic, tolerated by infants and adults alike.</p>
+          <div class="rail-source">Formulation · Recovery Balm (BL-01)</div>
+        </article>
+
+        <article class="rail-card">
+          <div class="rail-molecule">Sh</div>
+          <span class="rail-badge">Balm</span>
+          <h4>Unrefined shea butter</h4>
+          <div class="rail-dose">Dose · 12% w/w</div>
+          <p>The occlusive layer. Cold-pressed, fragrance-free, rich in vitamin E and essential fatty acids. Holds the ceramides where they need to be.</p>
+          <div class="rail-source">Formulation · Recovery Balm (BL-01)</div>
+        </article>
+
+        <article class="rail-card">
+          <div class="rail-molecule">LGG</div>
+          <span class="rail-badge">Inside</span>
+          <h4>Lactobacillus rhamnosus GG</h4>
+          <div class="rail-dose">Dose · 10B CFU</div>
+          <p>The most-studied probiotic in pediatric eczema trials. Shifts the gut immune tone away from the allergic response that drives flares.</p>
+          <div class="rail-source">Inner Powder (BL-02) · Inner Barrier (BL-03)</div>
+        </article>
+
+        <article class="rail-card">
+          <div class="rail-molecule">Lp</div>
+          <span class="rail-badge">Inside · adult</span>
+          <h4>Lactobacillus paracasei</h4>
+          <div class="rail-dose">Dose · 5B CFU</div>
+          <p>Complementary strain that balances Th1/Th2 immune signaling. Pairs with LGG — together, they cover more of the eczema mechanism than either alone.</p>
+          <div class="rail-source">Inner Barrier Complex (BL-03)</div>
+        </article>
+
+        <article class="rail-card">
+          <div class="rail-molecule">Lf</div>
+          <span class="rail-badge">Inside · hero</span>
+          <h4>Lactoferrin</h4>
+          <div class="rail-dose">Dose · 200 mg</div>
+          <p>The iron-binding protein in breast milk. Caps the overgrowth of eczema-linked staph and feeds the microbiome's good actors.</p>
+          <div class="rail-source">Inner Powder (BL-02) · Inner Barrier (BL-03)</div>
+        </article>
+
+        <article class="rail-card">
+          <div class="rail-molecule">Zn</div>
+          <span class="rail-badge">Inside</span>
+          <h4>Zinc bisglycinate</h4>
+          <div class="rail-dose">Dose · 15 mg</div>
+          <p>Bioavailable zinc — the mineral skin-barrier proteins are literally built from. Most eczema-prone kids and adults are mildly deficient.</p>
+          <div class="rail-source">Inner Barrier Complex (BL-03)</div>
+        </article>
+
+        <article class="rail-card">
+          <div class="rail-molecule">D3</div>
+          <span class="rail-badge">Inside</span>
+          <h4>Vitamin D3 (cholecalciferol)</h4>
+          <div class="rail-dose">Dose · 2000 IU</div>
+          <p>Regulates skin antimicrobial peptides and immune tolerance. Low vitamin D is one of the most consistent findings in atopic dermatitis research.</p>
+          <div class="rail-source">Inner Barrier Complex (BL-03)</div>
+        </article>
+
+        <article class="rail-card">
+          <div class="rail-molecule">Qc</div>
+          <span class="rail-badge">Inside · adult</span>
+          <h4>Quercetin + Vitamin C</h4>
+          <div class="rail-dose">Dose · 250 mg + 100 mg</div>
+          <p>Natural mast-cell stabilizer pairing. Helps quiet the histamine response that keeps flares itching through the night.</p>
+          <div class="rail-source">Inner Barrier Complex (BL-03)</div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BUNDLE DUO (Seed-style "essentials duo") -->
+  <section class="bundle-duo">
+    <div class="container">
+      <div class="bundle-duo-grid">
+        <div>
+          <span class="kicker" style="color: var(--purple-light);">Bundle + save 15%</span>
+          <h2 style="margin-top:1rem;">The whole system, <em>packaged together.</em></h2>
+          <p>Most families buy both halves. So we bundled them. Pick the Adult System (Balm + Capsules) or the Family System (Balm + Kids' Powder) and get 15% off.</p>
+          <a href="shop.html#bundles" class="btn btn-primary btn-lg" style="margin-top:1.5rem;">See the bundles →</a>
+        </div>
+        <div class="bundle-duo-right">
+          <div>
+            <span class="chip">Adult system</span>
+            <h3>Balm + <em>Complex</em></h3>
+            <p style="color: rgba(255,255,255,0.85); font-size: 0.95rem;">Our Recovery Balm paired with Inner Barrier Complex — outside + inside, in one order.</p>
+          </div>
+          <div>
+            <div class="price-row">
+              <span class="p">$68.85</span>
+              <span class="p-old">$81.00</span>
+              <span class="save">SAVE $12.15</span>
+            </div>
+            <button class="btn btn-ink btn-full js-add-to-cart" data-sku="bl-bundle-adult" style="background: var(--ink); color: white;">Add Adult System</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIG TYPE moment -->
+  <section class="big-type-home">
+    <div class="container">
+      <span class="kicker">Skin is a barrier — and so is the gut.</span>
+      <h2 class="mt-2">Eczema is more than <em>skin deep.</em></h2>
+      <p>The skin and the gut are the body's two outer walls. They're made by the same barrier proteins and regulated by the same immune signals. When one is broken, the other usually is too. Barrier Lab treats both — so you don't have to chase the flare forever.</p>
+      <div class="cta-row">
+        <a href="science.html" class="btn btn-primary btn-lg">Read the science</a>
+        <a href="learn.html" class="btn btn-outline btn-lg">Learn the ingredients</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARE table -->
+  <section class="compare">
+    <div class="container">
+      <div class="compare-head">
+        <span class="kicker">Barrier Lab vs. the usual playbook</span>
+        <h2>Most eczema brands pick <em>one side.</em> We do both.</h2>
+        <p>Drugstore creams soothe the surface. Supplement brands skip the skin. Dermatologist lines prescribe steroids. Barrier Lab is the system families actually need — ceramide outside, gut-skin inside, one checkout.</p>
+      </div>
+      <div class="compare-table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="us">Barrier Lab</th>
+              <th>Drugstore creams</th>
+              <th>Supplement brands</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Ceramide barrier balm</th>
+              <td class="us"><span class="compare-check">✓</span> 4-ceramide + niacinamide</td>
+              <td>Some (CeraVe-tier only)</td>
+              <td><span class="compare-dash">—</span></td>
+            </tr>
+            <tr>
+              <th>Gut-skin axis support</th>
+              <td class="us"><span class="compare-check">✓</span> Probiotic + lactoferrin</td>
+              <td><span class="compare-dash">—</span></td>
+              <td>Generic probiotic only</td>
+            </tr>
+            <tr>
+              <th>Kids' and adult dosing</th>
+              <td class="us"><span class="compare-check">✓</span> Sachets + capsules</td>
+              <td>One cream for everyone</td>
+              <td>Adult-only</td>
+            </tr>
+            <tr>
+              <th>Fragrance / steroid free</th>
+              <td class="us"><span class="compare-check">✓</span> Always</td>
+              <td>Usually fragranced</td>
+              <td>N/A</td>
+            </tr>
+            <tr>
+              <th>Built as one system</th>
+              <td class="us"><span class="compare-check">✓</span> Bundled by design</td>
+              <td>Buy cream, that's it</td>
+              <td>Buy a jar, that's it</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="text-align:center; margin-top: 2.5rem;">
+        <a href="science.html" class="btn btn-outline btn-lg">See the full science →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION / WAITLIST STRIP -->
+  <section class="mission">
+    <div class="container">
+      <span class="kicker" style="color: rgba(255,255,255,0.75);">Join the first 500</span>
+      <h3 style="margin-top: 1rem;">Be first to <em>cross over.</em></h3>
+      <p>Launch-day access, founder's pricing on the first 500 systems, and one short note from our founder John on what thirty years of eczema taught him.</p>
+      <form class="mission-form" onsubmit="event.preventDefault(); BarrierLab.handleSignup(this);">
+        <input type="email" required placeholder="you@example.com" aria-label="Email address">
+        <button type="submit">Join waitlist →</button>
+      </form>
+      <p class="mission-fine">One email at launch. No spam. Unsubscribe anytime.</p>
+    </div>
+  </section>
+
+  <script src="assets/shared.js"></script>
+  <script>
+    // Horizontal rail scroll controls
+    (function () {
+      const track = document.getElementById('railTrack');
+      const prev = document.getElementById('railPrev');
+      const next = document.getElementById('railNext');
+      if (!track || !prev || !next) return;
+      const step = () => {
+        const card = track.querySelector('.rail-card');
+        if (!card) return 300;
+        return card.getBoundingClientRect().width + 20;
+      };
+      prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+      next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+    })();
+  </script>
+</body>
+</html>

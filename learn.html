@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learn — Barrier Lab</title>
+  <meta name="description" content="Everything you'd want to know about our ingredients, how we built each formula, and how to use the Barrier Lab system. Plus answers to every question we get.">
+  <link rel="icon" type="image/png" href="assets/mark-purple.png">
+  <link rel="stylesheet" href="assets/shared.css">
+  <style>
+    .ln-hero {
+      background: linear-gradient(180deg, var(--cream) 0%, var(--lavender) 100%);
+      padding: 3.5rem 0 4rem;
+    }
+    .ln-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); max-width: 720px; margin: 0.75rem 0 1rem; }
+    .ln-hero h1 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+    .ln-hero p { max-width: 620px; color: var(--ink-soft); font-size: 1.1rem; }
+    .ln-hero-nav {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .ln-hero-nav a {
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid var(--line);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink-text);
+    }
+    .ln-hero-nav a:hover { background: var(--lavender); color: var(--purple-deep); border-color: var(--purple); }
+
+    .ln-sec { padding: 5rem 0; }
+    .ln-sec.alt { background: var(--cream-deep); }
+    .ln-sec h2 { font-size: clamp(1.8rem, 3.5vw, 2.75rem); max-width: 780px; }
+    .ln-sec h2 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+    .ln-sec .lede { max-width: 640px; color: var(--ink-soft); font-size: 1.05rem; margin-top: 1rem; }
+
+    /* Ingredient library — Seed-style grid */
+    .ing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 980px) { .ing-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .ing-grid { grid-template-columns: 1fr; } }
+
+    .ing-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+      display: flex;
+      flex-direction: column;
+    }
+    .ing-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card); }
+    .ing-card .chip-row { display: flex; gap: 0.4rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .ing-card .chip {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      background: var(--lavender);
+      color: var(--purple-deep);
+      text-transform: uppercase;
+    }
+    .ing-card .chip.outside { background: var(--lavender); color: var(--purple-deep); }
+    .ing-card .chip.inside { background: var(--lavender-deep); color: var(--purple-deep); }
+    .ing-card h3 {
+      font-size: 1.2rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .ing-card h3 em {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--purple);
+    }
+    .ing-card .sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      font-style: normal;
+    }
+    .ing-card .body { color: var(--ink-soft); font-size: 0.9rem; line-height: 1.6; flex: 1; }
+    .ing-card .meta-row {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line-soft);
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .ing-card .meta-row strong { color: var(--ink-text); font-weight: 600; }
+
+    /* How to use guide */
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 900px) { .how-grid { grid-template-columns: 1fr; } }
+    .how-block {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+    }
+    .how-block .pkg-ic {
+      width: 72px; height: 72px;
+      background: var(--lavender);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+    .how-block h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .how-block h3 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+    .how-block .sub { font-size: 0.8rem; color: var(--purple); font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; }
+    .how-block ol {
+      padding-left: 1.25rem;
+      margin: 1rem 0 0;
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .how-block ol li { margin-bottom: 0.5rem; }
+
+    /* FAQ */
+    .faq-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .faq-layout { grid-template-columns: 1fr; } }
+    .faq-cats { position: sticky; top: calc(var(--nav-h) + 1rem); }
+    .faq-cats ul { list-style: none; padding: 0; margin: 0; }
+    .faq-cats li { margin-bottom: 0.5rem; }
+    .faq-cats a {
+      display: block;
+      padding: 0.65rem 1rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+    }
+    .faq-cats a:hover { background: white; color: var(--purple-deep); }
+    .faq-group { margin-bottom: 3rem; }
+    .faq-group h3 { font-size: 1.2rem; margin-bottom: 1rem; color: var(--purple-deep); }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="ln-hero">
+    <div class="container">
+      <span class="kicker">Learn</span>
+      <h1>Everything we'd tell you at the <em>pharmacy counter</em> — if we had one.</h1>
+      <p>The full ingredient library, how to use each product, and answers to every question we've been asked. Built for people who want to actually understand what they're putting on and in their body.</p>
+      <div class="ln-hero-nav">
+        <a href="#ingredients">Ingredient library</a>
+        <a href="#how">How to use</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INGREDIENT LIBRARY -->
+  <section class="ln-sec" id="ingredients">
+    <div class="container">
+      <span class="kicker">Ingredient library</span>
+      <h2 class="mt-2">Every active, <em>unpacked.</em></h2>
+      <p class="lede">Ten ingredients do most of the work across the three Barrier Lab products. Here's what each one is, where it lives, and why it earned its spot.</p>
+
+      <div class="ing-grid">
+
+        <article class="ing-card">
+          <div class="chip-row">
+            <span class="chip outside">Outside · BL-01</span>
+            <span class="chip">Rebuild</span>
+          </div>
+          <h3>Ceramides <em>NP, AP, EOP</em></h3>
+          <div class="sub">3:1:1 ratio · skin-identical lipids</div>
+          <p class="body">The cement between your skin cells. Eczema-prone skin makes roughly 30% less of them than healthy skin, which is why water escapes and irritants get in. Topical replacement restores the seal in days.</p>
+          <div class="meta-row"><span><strong>Origin</strong> · Japan</span><span>Est. 1994</span></div>
+        </article>
+
+        <article class="ing-card">
+          <div class="chip-row">
+            <span class="chip outside">Outside · BL-01</span>
+            <span class="chip">Calm</span>
+          </div>
+          <h3>4% <em>Niacinamide</em></h3>
+          <div class="sub">Vitamin B3 · clinical anti-inflammatory</div>
+          <p class="body">At 4% (vs the 2% most brands use), niacinamide reduces redness, itch, and post-flare pigmentation. Works even on broken skin without stinging. Steroid-free and indefinitely safe.</p>
+          <div class="meta-row"><span><strong>Origin</strong> · US pharma-grade</span><span>1930s</span></div>
+        </article>
+
+        <article class="ing-card">
+          <div class="chip-row">
+            <span class="chip outside">Outside · BL-01</span>
+            <span class="chip">Seal</span>
+          </div>
+          <h3>Shea Butter + <em>Colloidal Oat</em></h3>
+          <div class="sub">Occlusive + OTC eczema active</div>
+          <p class="body">Shea butter locks water in. Colloidal oat is the one over-the-counter active the FDA recognizes for eczema symptom relief — it calms itch while the ceramides rebuild underneath.</p>
+          <div class="meta-row"><span><strong>Origin</strong> · West Africa / US oats</span><span>Ancestral</span></div>
+        </article>
+
+        <article class="ing-card">
+          <div class="chip-row">
+            <span class="chip inside">Inside · BL-02 + BL-03</span>
+            <span class="chip">Restore</span>
+          </div>
+          <h3>L. <em>rhamnosus GG</em></h3>
+          <div class="sub">Probiotic · 10B CFU per serving</div>
+          <p class="body">The most-studied probiotic strain in pediatric eczema research. Rebalances the gut microbiome and reduces Th2-driven immune signals — the ones that drive atopic flares.</p>
+          <div class="meta-row"><span><strong>Delivery</strong> · Delayed-release</span><span>Since 1985</span></div>
+        </article>
+
+        <article class="ing-card">
+          <div class="chip-row">
+            <span class="chip inside">Inside · BL-02 + BL-03</span>
+            <span class="chip">Restore</span>
+          </div>
+          <h3>L. <em>paracasei</em></h3>
+          <div class="sub">Probiotic · strain-specific</div>
+          <p class="body">Pairs with L. rhamnosus GG to broaden the anti-inflammatory signal. Research suggests the combination outperforms either strain alone for atopic conditions.</p>
+          <div class="meta-row"><span><strong>Delivery</strong> · Delayed-release</span><span>Since 1990s</span></div>
+        </article>
+
+        <article class="ing-card">
+          <div class="chip-row">
+            <span class="chip inside">Inside · BL-02 + BL-03</span>
+            <span class="chip">Supply</span>
+          </div>
+          <h3><em>Lactoferrin</em></h3>
+          <div class="sub">Iron-binding protein · bovine-source</div>
+          <p class="body">Found in colostrum and tears. Modulates the immune response and starves harmful bacteria. Atopic populations consistently show low lactoferrin — supplementation is a quiet but well-documented win.</p>
+          <div class="meta-row"><span><strong>Origin</strong> · New Zealand</span><span>Identified 1939</span></div>
+        </article>
+
+        <article class="ing-card">
+          <div class="chip-row">
+            <span class="chip inside">Inside · BL-02 + BL-03</span>
+            <span class="chip">Supply</span>
+          </div>
+          <h3><em>Zinc</em> Bisglycinate</h3>
+          <div class="sub">Chelated form · gentle on digestion</div>
+          <p class="body">Zinc is a cofactor for the enzymes that repair skin. Bisglycinate is the form your gut actually absorbs — unlike zinc oxide or sulfate, which are cheaper but cause stomach upset.</p>
+          <div class="meta-row"><span><strong>Origin</strong> · US</span><span>RDA standard</span></div>
+        </article>
+
+        <article class="ing-card">
+          <div class="chip-row">
+            <span class="chip inside">Inside · BL-02 + BL-03</span>
+            <span class="chip">Supply</span>
+          </div>
+          <h3>Vitamin <em>D3</em></h3>
+          <div class="sub">Cholecalciferol · natural form</div>
+          <p class="body">Regulates the skin's immune tone and barrier gene expression. Atopic kids and adults are disproportionately likely to be deficient. D3 is the form the body actually makes — more effective than synthetic D2.</p>
+          <div class="meta-row"><span><strong>Origin</strong> · Lanolin-derived</span><span>Discovered 1922</span></div>
+        </article>
+
+        <article class="ing-card">
+          <div class="chip-row">
+            <span class="chip inside">Inside · BL-03</span>
+            <span class="chip">Calm</span>
+          </div>
+          <h3><em>Quercetin</em> Dihydrate</h3>
+          <div class="sub">Flavonoid · mast cell stabilizer</div>
+          <p class="body">Calms the immune cells that release histamine during a flare. Smarter than a daily antihistamine for chronic low-grade inflammation — more targeted, no drowsiness, no tachyphylaxis.</p>
+          <div class="meta-row"><span><strong>Origin</strong> · Japanese knotweed</span><span>Research since 1990s</span></div>
+        </article>
+
+        <article class="ing-card">
+          <div class="chip-row">
+            <span class="chip inside">Inside · BL-03</span>
+            <span class="chip">Supply</span>
+          </div>
+          <h3>Vitamin <em>C</em></h3>
+          <div class="sub">Ascorbic acid · pairs with quercetin</div>
+          <p class="body">Recycles used-up quercetin so it can work longer, and supports collagen production for skin healing. Included at a modest dose because co-factor, not headline act.</p>
+          <div class="meta-row"><span><strong>Origin</strong> · Fermented corn</span><span>Est. 1933</span></div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- HOW TO USE -->
+  <section class="ln-sec" id="how">
+    <div class="container">
+      <span class="kicker">How to use each product</span>
+      <h2 class="mt-2">A quick <em>field guide.</em></h2>
+      <p class="lede">Each product has a simple routine. Put them together and they're the Barrier Lab system. Give the inside line 6–8 weeks to show up in the mirror — probiotics aren't rescue products.</p>
+
+      <div class="how-grid">
+        <div class="how-block">
+          <div class="pkg-ic">◔</div>
+          <div class="sub">BL-01 · Outside</div>
+          <h3><em>Recovery</em> Balm</h3>
+          <ol>
+            <li>Cleanse with a fragrance-free wash. Pat skin damp.</li>
+            <li>Within 3 min, apply a pea-sized dab to each patch.</li>
+            <li>Layer any prescription Rx first, then seal with balm.</li>
+            <li>Use morning + night. Expect visible improvement in 5–10 days.</li>
+          </ol>
+        </div>
+        <div class="how-block">
+          <div class="pkg-ic">▤</div>
+          <div class="sub">BL-02 · Inside · Kids</div>
+          <h3><em>Inner</em> Powder</h3>
+          <ol>
+            <li>One sachet per day, for ages 3+.</li>
+            <li>Stir into 4–6 oz cool or room-temp liquid (water, milk, juice).</li>
+            <li>Give with a meal. Consistency matters more than timing.</li>
+            <li>Expect skin changes in 6–8 weeks of daily use.</li>
+          </ol>
+        </div>
+        <div class="how-block">
+          <div class="pkg-ic">◈</div>
+          <div class="sub">BL-03 · Inside · Adult</div>
+          <h3><em>Inner Barrier</em> Complex</h3>
+          <ol>
+            <li>Three capsules per day (we used to recommend two; new research supports three).</li>
+            <li>Take with food — the lactoferrin absorbs best with a meal.</li>
+            <li>Space 2 hours from antibiotics if you're on any.</li>
+            <li>Expect skin changes in 6–8 weeks of daily use.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="ln-sec alt" id="faq">
+    <div class="container">
+      <span class="kicker">FAQ</span>
+      <h2 class="mt-2">Every question we've <em>actually been asked.</em></h2>
+      <p class="lede">If you don't see yours here, email <a href="mailto:hello@barrierlab.com" style="color: var(--purple-deep); font-weight: 600;">hello@barrierlab.com</a> — we read every message.</p>
+
+      <div class="faq-layout">
+        <aside class="faq-cats">
+          <ul>
+            <li><a href="#faq-general">General</a></li>
+            <li><a href="#faq-kids">Kids + pregnancy</a></li>
+            <li><a href="#faq-rx">With prescriptions</a></li>
+            <li><a href="#faq-ship">Shipping + returns</a></li>
+            <li><a href="#faq-sub">Subscriptions</a></li>
+          </ul>
+        </aside>
+
+        <div>
+          <div class="faq-group" id="faq-general">
+            <h3>General</h3>
+            <div class="acc-item">
+              <button class="acc-btn">Is Barrier Lab a prescription? <span class="acc-icon">+</span></button>
+              <div class="acc-content"><p>No. Recovery Balm is an over-the-counter cosmetic using colloidal oat (FDA-recognized for eczema). Inner Powder and Inner Barrier Complex are dietary supplements. None of them require a prescription, and none of them replace one — you can and should pair them with your doctor's protocol.</p></div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-btn">How long until I see results? <span class="acc-icon">+</span></button>
+              <div class="acc-content"><p>Recovery Balm: most people see visible improvement in 5–10 days of twice-daily use. The inside line (Powder + Complex) takes 6–8 weeks because probiotics need time to colonize and the immune system shifts slowly. This isn't a rescue product — it's a daily routine.</p></div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-btn">Do I have to take both inside + outside? <span class="acc-icon">+</span></button>
+              <div class="acc-content"><p>You don't have to. But the whole thesis behind Barrier Lab is that doing both does more than doing either alone. If you're only going to pick one, start with Recovery Balm for relief, then add the inside line once you have headspace.</p></div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-btn">Is this safe for sensitive skin? <span class="acc-icon">+</span></button>
+              <div class="acc-content"><p>Recovery Balm is fragrance-free, dye-free, steroid-free, and patch-tested on atopic skin. That said, every atopic person reacts differently — we recommend a patch test on the inner forearm for 48 hours before using on a larger area.</p></div>
+            </div>
+          </div>
+
+          <div class="faq-group" id="faq-kids">
+            <h3>Kids + pregnancy</h3>
+            <div class="acc-item">
+              <button class="acc-btn">What age is Inner Powder safe for? <span class="acc-icon">+</span></button>
+              <div class="acc-content"><p>Ages 3 and up. Under 3, please talk to your pediatrician — we have a lower-dose formula in development and recommend medical supervision for infants and toddlers.</p></div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-btn">Can I use Recovery Balm on my baby? <span class="acc-icon">+</span></button>
+              <div class="acc-content"><p>Yes, Recovery Balm is pediatrician-reviewed for infants 4 months and up. For infants younger than 4 months, check with your pediatrician first.</p></div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-btn">Is Inner Barrier Complex safe during pregnancy? <span class="acc-icon">+</span></button>
+              <div class="acc-content"><p>The ingredients are individually recognized as safe during pregnancy, but we recommend checking with your OB or midwife before starting any new supplement during pregnancy or breastfeeding.</p></div>
+            </div>
+          </div>
+
+          <div class="faq-group" id="faq-rx">
+            <h3>With prescriptions</h3>
+            <div class="acc-item">
+              <button class="acc-btn">Can I use Recovery Balm with my topical steroid? <span class="acc-icon">+</span></button>
+              <div class="acc-content"><p>Yes. Apply the prescription first, wait 2 minutes, then seal with Recovery Balm. Most dermatologists encourage pairing a barrier cream with any topical corticosteroid or calcineurin inhibitor.</p></div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-btn">Is Inner Barrier Complex safe with Dupixent or other biologics? <span class="acc-icon">+</span></button>
+              <div class="acc-content"><p>In general, yes — the probiotic and nutrient ingredients don't interact with biologics. But we still recommend looping in your prescribing doctor when adding any supplement, especially with immune-modulating drugs.</p></div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-btn">What about antibiotics? <span class="acc-icon">+</span></button>
+              <div class="acc-content"><p>Take the probiotic at least 2 hours apart from the antibiotic dose. You can continue Inner Powder / Complex through an antibiotic course — just space the timing.</p></div>
+            </div>
+          </div>
+
+          <div class="faq-group" id="faq-ship">
+            <h3>Shipping + returns</h3>
+            <div class="acc-item">
+              <button class="acc-btn">How long does shipping take? <span class="acc-icon">+</span></button>
+              <div class="acc-content"><p>Standard shipping is 3–5 business days from our US warehouse. Express is 2 business days. Free standard shipping on orders over $50.</p></div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-btn">What's your return policy? <span class="acc-icon">+</span></button>
+              <div class="acc-content"><p>30-day risk-free trial on your first order. If it doesn't work for you — for any reason — email us and we'll refund the full amount. Keep the product or pass it to a neighbor.</p></div>
+            </div>
+          </div>
+
+          <div class="faq-group" id="faq-sub">
+            <h3>Subscriptions</h3>
+            <div class="acc-item">
+              <button class="acc-btn">How does the subscription save 15%? <span class="acc-icon">+</span></button>
+              <div class="acc-content"><p>Subscribing to any single product (Balm every 8 wks, Powder every 30 days, Complex every 30 days) drops the per-unit price by 15%. You can pause or cancel anytime from your account — no phone calls.</p></div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-btn">Can I change the cadence? <span class="acc-icon">+</span></button>
+              <div class="acc-content"><p>Yes. You can speed up, slow down, skip a shipment, or pause indefinitely from your account page. We'll email you a few days before each shipment in case you want to adjust.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="assets/shared.js"></script>
+</body>
+</html>

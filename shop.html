@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop — Barrier Lab</title>
+  <meta name="description" content="The Barrier Lab system: Recovery Balm, Inner Powder, and Inner Barrier Complex. Build your own bundle or save with the Adult or Family systems.">
+  <link rel="icon" type="image/png" href="assets/mark-purple.png">
+  <link rel="stylesheet" href="assets/shared.css">
+  <style>
+    .shop-head {
+      padding: 4rem 0 2rem;
+      background: linear-gradient(180deg, var(--cream) 0%, var(--lavender) 100%);
+    }
+    .shop-head h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+    .shop-head h1 em {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--purple);
+    }
+    .shop-head p { max-width: 540px; color: var(--ink-soft); font-size: 1.1rem; margin-top: 1rem; }
+
+    .shop-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin: 2rem 0 0;
+      border-bottom: 1px solid var(--line);
+      overflow-x: auto;
+    }
+    .shop-tab {
+      background: transparent;
+      border: 0;
+      padding: 0.85rem 1rem;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      white-space: nowrap;
+    }
+    .shop-tab.is-active { color: var(--purple); border-bottom-color: var(--purple); }
+
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 3rem 0 6rem;
+    }
+
+    .bundle-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .bundle-card .bundle-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--purple);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      z-index: 2;
+    }
+    .bundle-visual {
+      background: var(--lavender);
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1.5rem;
+    }
+    .bundle-visual .mini {
+      transform: scale(0.65);
+      transform-origin: center;
+    }
+    .bundle-visual .mini.left { margin-right: -1rem; }
+    .bundle-body { padding: 1.5rem; }
+    .bundle-body h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.25rem;
+    }
+    .bundle-body h3 em {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--purple);
+    }
+    .bundle-body .b-tag {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .bundle-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .bundle-price-row .bp { font-size: 1.35rem; font-weight: 700; }
+    .bundle-price-row .bp-old { color: var(--muted); text-decoration: line-through; font-size: 0.95rem; }
+    .bundle-price-row .bp-save { font-size: 0.75rem; background: var(--lavender); color: var(--purple-deep); padding: 0.2rem 0.55rem; border-radius: 999px; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <section class="shop-head">
+    <div class="container">
+      <span class="kicker">Shop all</span>
+      <h1 style="margin-top:1rem;">The <em>complete</em> Barrier Lab system.</h1>
+      <p>Three products. Two pathways. One system that actually works together. Every SKU is designed to pair with the others — buy a bundle or mix your own.</p>
+      <div class="shop-tabs" role="tablist">
+        <button class="shop-tab is-active" data-tab="all">All (5)</button>
+        <button class="shop-tab" data-tab="outside">Outside</button>
+        <button class="shop-tab" data-tab="inside">Inside</button>
+        <button class="shop-tab" data-tab="bundles">Bundles</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="shop-grid" id="shopGrid">
+
+        <!-- BL-01 -->
+        <article class="product-card" data-cat="outside">
+          <a href="recovery-balm.html" class="pc-visual" aria-label="Recovery Balm">
+            <div class="viz-jar">
+              <span class="viz-label">barrier<br>lab.</span>
+              <span class="viz-code">BL-01</span>
+            </div>
+          </a>
+          <div class="pc-body">
+            <div class="pc-code">BL-01 · OUTSIDE</div>
+            <h3 class="pc-name">Recovery Balm</h3>
+            <p class="pc-tag">1.7 oz · ceramide + niacinamide flare cream.</p>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+              <div>
+                <div class="pc-price">$32</div>
+                <div class="pc-sub">$27.20 subscribe</div>
+              </div>
+              <button class="btn btn-primary js-add-to-cart" data-sku="bl-01">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- BL-02 -->
+        <article class="product-card" data-cat="inside">
+          <a href="inner-powder.html" class="pc-visual" aria-label="Inner Powder">
+            <div class="viz-tin">
+              <span class="viz-label">inner<br>powder</span>
+              <span class="viz-code">BL-02</span>
+            </div>
+          </a>
+          <div class="pc-body">
+            <div class="pc-code">BL-02 · INSIDE (KIDS)</div>
+            <h3 class="pc-name">Inner Powder</h3>
+            <p class="pc-tag">30 sachets · kids oral barrier support.</p>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+              <div>
+                <div class="pc-price">$44</div>
+                <div class="pc-sub">$37.40 subscribe</div>
+              </div>
+              <button class="btn btn-primary js-add-to-cart" data-sku="bl-02">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- BL-03 -->
+        <article class="product-card" data-cat="inside">
+          <a href="inner-barrier.html" class="pc-visual" aria-label="Inner Barrier Complex">
+            <div class="viz-bottle">
+              <span class="viz-label">inner<br>barrier</span>
+              <span class="viz-code">BL-03</span>
+            </div>
+          </a>
+          <div class="pc-body">
+            <div class="pc-code">BL-03 · INSIDE (ADULT)</div>
+            <h3 class="pc-name">Inner Barrier Complex</h3>
+            <p class="pc-tag">90 caps · adult daily oral system.</p>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+              <div>
+                <div class="pc-price">$49</div>
+                <div class="pc-sub">$41.65 subscribe</div>
+              </div>
+              <button class="btn btn-primary js-add-to-cart" data-sku="bl-03">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Adult Bundle -->
+        <article class="bundle-card" data-cat="bundles">
+          <span class="bundle-badge">Save 15%</span>
+          <div class="bundle-visual">
+            <div class="mini left">
+              <div class="viz-jar" style="width:110px;height:130px;">
+                <span class="viz-label" style="font-size:0.75rem;top:50px;">barrier<br>lab.</span>
+              </div>
+            </div>
+            <div class="mini">
+              <div class="viz-bottle" style="width:85px;height:135px;">
+                <span class="viz-label" style="font-size:0.65rem;top:70px;">inner<br>barrier</span>
+              </div>
+            </div>
+          </div>
+          <div class="bundle-body">
+            <div class="pc-code">BUNDLE · ADULT</div>
+            <h3><em>Adult</em> System</h3>
+            <p class="b-tag">Recovery Balm + Inner Barrier Complex. The two-front adult kit.</p>
+            <div class="bundle-price-row">
+              <span class="bp">$68.85</span>
+              <span class="bp-old">$81</span>
+              <span class="bp-save">Save $12.15</span>
+            </div>
+            <button class="btn btn-primary btn-full js-add-to-cart" data-sku="bl-bundle-adult">Add bundle</button>
+          </div>
+        </article>
+
+        <!-- Family Bundle -->
+        <article class="bundle-card" data-cat="bundles">
+          <span class="bundle-badge">Save 15%</span>
+          <div class="bundle-visual">
+            <div class="mini left">
+              <div class="viz-jar" style="width:110px;height:130px;">
+                <span class="viz-label" style="font-size:0.75rem;top:50px;">barrier<br>lab.</span>
+              </div>
+            </div>
+            <div class="mini">
+              <div class="viz-tin" style="width:120px;height:120px;">
+                <span class="viz-label" style="font-size:0.75rem;top:55px;">inner<br>powder</span>
+              </div>
+            </div>
+          </div>
+          <div class="bundle-body">
+            <div class="pc-code">BUNDLE · FAMILY</div>
+            <h3><em>Family</em> System</h3>
+            <p class="b-tag">Recovery Balm + Inner Powder. Shared kit for parents and kids.</p>
+            <div class="bundle-price-row">
+              <span class="bp">$64.60</span>
+              <span class="bp-old">$76</span>
+              <span class="bp-save">Save $11.40</span>
+            </div>
+            <button class="btn btn-primary btn-full js-add-to-cart" data-sku="bl-bundle-family">Add bundle</button>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <script src="assets/shared.js"></script>
+  <script>
+    // Shop filtering
+    document.querySelectorAll('.shop-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.shop-tab').forEach(t => t.classList.remove('is-active'));
+        tab.classList.add('is-active');
+        const cat = tab.dataset.tab;
+        document.querySelectorAll('#shopGrid > [data-cat]').forEach(card => {
+          card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Our Story — Barrier Lab</title>
+  <meta name="description" content="Barrier Lab was built by John — thirty years of personal eczema, every treatment tried, and the two-front routine he finally landed on. Now he's sharing it.">
+  <link rel="icon" type="image/png" href="assets/mark-purple.png">
+  <link rel="stylesheet" href="assets/shared.css">
+  <style>
+    .st-hero {
+      background: linear-gradient(180deg, var(--cream) 0%, var(--lavender) 100%);
+      padding: 3.5rem 0 4rem;
+    }
+    .st-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); max-width: 720px; margin: 0.75rem 0 1rem; }
+    .st-hero h1 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+    .st-hero p { max-width: 620px; color: var(--ink-soft); font-size: 1.1rem; }
+
+    .st-sec { padding: 5rem 0; }
+    .st-sec.alt { background: var(--cream-deep); }
+
+    .st-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .st-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+    .st-grid h2 { font-size: clamp(1.8rem, 3.5vw, 2.75rem); margin-bottom: 1.25rem; }
+    .st-grid h2 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+    .st-grid p { color: var(--ink-soft); font-size: 1rem; line-height: 1.7; max-width: 620px; }
+    .st-grid p:last-child { margin-bottom: 0; }
+
+    .st-visual {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      position: sticky;
+      top: calc(var(--nav-h) + 2rem);
+    }
+    .st-visual .meta {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 1rem;
+    }
+    .st-visual h4 { font-size: 1rem; margin-bottom: 0.5rem; }
+    .st-visual p { font-size: 0.88rem; color: var(--muted); margin: 0; }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      margin-top: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px; top: 4px; bottom: 4px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--purple) 0%, var(--lavender) 100%);
+    }
+    .tl-item {
+      position: relative;
+      padding: 0 0 2.5rem;
+    }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -28px; top: 6px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--purple);
+      border: 3px solid var(--cream-deep);
+    }
+    .tl-item .year {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1.4rem;
+      color: var(--purple);
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.01em;
+    }
+    .tl-item h4 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+    .tl-item p { color: var(--ink-soft); font-size: 0.95rem; max-width: 640px; margin: 0; }
+
+    /* Founder quote */
+    .quote {
+      background: var(--ink);
+      color: var(--cream);
+      border-radius: var(--radius-lg);
+      padding: 4rem 3rem;
+      margin-top: 4rem;
+      text-align: center;
+    }
+    .quote blockquote {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      line-height: 1.4;
+      max-width: 760px;
+      margin: 0 auto 1.5rem;
+      color: var(--cream);
+      letter-spacing: -0.01em;
+    }
+    .quote cite {
+      font-family: 'Inter', sans-serif;
+      font-style: normal;
+      font-size: 0.85rem;
+      color: var(--purple-light);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    /* Two-author layout */
+    .duo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 800px) { .duo { grid-template-columns: 1fr; } }
+    .duo-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+    }
+    .duo-card .avatar {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--lavender);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1.5rem;
+      color: var(--purple-deep);
+      margin-bottom: 1rem;
+    }
+    .duo-card h3 { font-size: 1.2rem; margin-bottom: 0.25rem; }
+    .duo-card .role { font-size: 0.8rem; color: var(--purple); font-weight: 600; letter-spacing: 0.05em; }
+    .duo-card p { color: var(--ink-soft); font-size: 0.95rem; margin-top: 1rem; line-height: 1.6; }
+
+    .values {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 800px) { .values { grid-template-columns: 1fr; } }
+    .value {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+    }
+    .value h4 { font-size: 1rem; margin-bottom: 0.6rem; }
+    .value h4 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+    .value p { color: var(--muted); font-size: 0.92rem; margin: 0; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+  <section class="st-hero">
+    <div class="container">
+      <span class="kicker">Our Story</span>
+      <h1>Thirty years of eczema. One system that <em>finally</em> worked.</h1>
+      <p>Barrier Lab was built by John — a guy who spent three decades as an eczema patient before he was a founder. Every cream. Every elimination diet. Every prescription. This is what he landed on, and why he's sharing it.</p>
+    </div>
+  </section>
+
+  <!-- Origin -->
+  <section class="st-sec">
+    <div class="container">
+      <div class="st-grid">
+        <div>
+          <span class="kicker">The origin</span>
+          <h2 class="mt-2">It started when I was <em>four years old</em>, and didn't let up until I was thirty-four.</h2>
+          <p>I've had eczema since I was a kid. Insides of my elbows, backs of my knees, patches on my neck that showed up in every school photo. My mom kept a plastic bin under the bathroom sink full of every cream a pediatrician had ever recommended. None of it ever really worked — they'd take a flare down for a week, then it'd come back worse.</p>
+          <p>By my teens I was on steroid cycles. By my twenties I'd done three elimination diets, a "gut cleanse" I still feel bad about spending money on, and two rounds of Dupixent injections that helped but cost more than my rent. I'd given up on the idea that I was ever going to not itch.</p>
+          <p>In my early thirties something changed. I started reading the atopic dermatitis research myself — not the blog posts about it, the actual papers. And what I found was that the people who got durable relief weren't doing one thing. They were doing two things at once: rebuilding the skin barrier from the outside, and quieting the gut-immune axis from the inside. Most products only do one or the other. Nobody was selling the full routine.</p>
+          <p>So I built it. First for myself. Then, when it kept working, for anyone else who was tired of getting only half an answer.</p>
+        </div>
+        <aside class="st-visual">
+          <div class="meta">What finally worked</div>
+          <h4>Outside</h4>
+          <p style="margin-bottom: 1.25rem;">A ceramide + niacinamide balm morning and night. No fragrance, no steroid. Became Recovery Balm.</p>
+          <h4>Inside</h4>
+          <p>A daily probiotic + lactoferrin + zinc + D3 stack. Took six weeks to kick in; the difference was unmistakable by week eight. Became Inner Barrier Complex (and, for kids, Inner Powder).</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="st-sec alt">
+    <div class="container">
+      <span class="kicker">The long version</span>
+      <h2 class="mt-2" style="max-width: 780px;">Thirty years, <em>one stubborn patient</em>, one system that stuck.</h2>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="year">Age 4</div>
+          <h4>First flare</h4>
+          <p>Eczema shows up for the first time. Pediatrician prescribes hydrocortisone. Mom starts the cream collection under the bathroom sink.</p>
+        </div>
+        <div class="tl-item">
+          <div class="year">Age 12</div>
+          <h4>First dermatologist</h4>
+          <p>Stronger topical steroids. Lotion rotation. A list of foods to avoid. I stop wearing shorts to PE.</p>
+        </div>
+        <div class="tl-item">
+          <div class="year">Age 19</div>
+          <h4>The itch year</h4>
+          <p>Worst flare of my life, mid-college. Allergist tells me it's "chronic" and I should get used to it. I don't get used to it.</p>
+        </div>
+        <div class="tl-item">
+          <div class="year">Age 26</div>
+          <h4>Elimination diets + Dupixent</h4>
+          <p>Thirteen weeks of cutting out dairy, gluten, and eggs. Then a year on biologics. Relief, but expensive and partial — the flares shrank, they didn't leave.</p>
+        </div>
+        <div class="tl-item">
+          <div class="year">Age 31</div>
+          <h4>Reading the research myself</h4>
+          <p>I start pulling atopic dermatitis papers on the gut-skin axis. Lactoferrin trials. Probiotic meta-analyses. The pattern no one had ever told me about.</p>
+        </div>
+        <div class="tl-item">
+          <div class="year">Age 33</div>
+          <h4>The personal prototype</h4>
+          <p>I build a two-part routine from the literature: a ceramide-heavy balm and a daily oral stack. Six weeks in, my skin is the calmest it's been since I was three.</p>
+        </div>
+        <div class="tl-item">
+          <div class="year">2026 — now</div>
+          <h4>Barrier Lab launches</h4>
+          <p>Three products. One system. Formulated in the US, tested on me and a hundred beta users. No fragrance, no steroid, no half answers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founder quote -->
+  <section class="st-sec">
+    <div class="container">
+      <div class="quote">
+        <blockquote>"I spent thirty years being sold one side of the fix. Eczema isn't a skin problem or a gut problem — it's both. Once I stopped picking a side, everything changed. This is the routine I wish someone had handed me at twelve."</blockquote>
+        <cite>— John, Founder</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who's behind this -->
+  <section class="st-sec alt">
+    <div class="container">
+      <span class="kicker">Who's behind this</span>
+      <h2 class="mt-2" style="max-width: 720px;">A small team and <em>one long-running patient.</em></h2>
+
+      <div class="duo">
+        <div class="duo-card">
+          <div class="avatar">J</div>
+          <h3>John</h3>
+          <div class="role">Founder · patient-zero</div>
+          <p>I've had eczema for thirty years. I've tried most of what's on the drugstore shelf and a fair chunk of what requires a prescription. Barrier Lab is the routine that finally worked for me — rebuilt, dosed, and packaged so the next person doesn't have to piece it together alone.</p>
+        </div>
+        <div class="duo-card">
+          <div class="avatar">M</div>
+          <h3>Medical advisory board</h3>
+          <div class="role">Dermatology · pediatric allergy · nutrition</div>
+          <p>Three US clinicians — a board-certified dermatologist, a pediatric allergist, and a registered dietitian — review every formula for safety, dosing, and claims. They keep us honest about what the eczema literature does (and doesn't) support.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="st-sec">
+    <div class="container">
+      <span class="kicker">What we believe</span>
+      <h2 class="mt-2" style="max-width: 720px;">Three things we won't <em>compromise on.</em></h2>
+
+      <div class="values">
+        <div class="value">
+          <h4><em>Both</em>, not either.</h4>
+          <p>Eczema is a two-front problem. We refuse to sell only the outside or only the inside, even though narrower lines are easier to market.</p>
+        </div>
+        <div class="value">
+          <h4>Clinical <em>dosing.</em></h4>
+          <p>If an ingredient is in the bottle, it's at a dose the research actually supports. No "also contains" trace amounts. No label-only formulas.</p>
+        </div>
+        <div class="value">
+          <h4>Honest <em>claims.</em></h4>
+          <p>Eczema is chronic. We won't promise cures. What we promise: better days, fewer flares, and a system you can stay on without thinking about it.</p>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top: 4rem;">
+        <a href="shop.html" class="btn btn-primary btn-lg">Shop the system</a>
+        <a href="science.html" class="btn btn-outline btn-lg" style="margin-left: 0.5rem;">See the science</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="assets/shared.js"></script>
+</body>
+</html>

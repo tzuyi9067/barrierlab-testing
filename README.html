@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>README — Barrier Lab website</title>
+  <link rel="icon" type="image/png" href="assets/mark-purple.png">
+  <link rel="stylesheet" href="assets/shared.css">
+  <style>
+    body { background: var(--cream); }
+    main { padding: 5rem 0 6rem; }
+    main .container { max-width: 820px; }
+    main h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 0.75rem; }
+    main h1 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+    main h2 { font-size: 1.5rem; margin: 3rem 0 1rem; }
+    main h3 { font-size: 1.05rem; margin: 1.75rem 0 0.5rem; }
+    main p { color: var(--ink-soft); line-height: 1.65; margin-bottom: 1rem; }
+    main code {
+      background: var(--lavender); color: var(--purple-deep);
+      padding: 0.1rem 0.45rem; border-radius: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.88em;
+    }
+    main pre {
+      background: var(--ink); color: #D9D3F5;
+      padding: 1.25rem 1.5rem; border-radius: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.85rem; line-height: 1.55;
+      overflow-x: auto;
+      margin: 0.75rem 0 1.5rem;
+    }
+    main ul { padding-left: 1.25rem; color: var(--ink-soft); line-height: 1.65; }
+    main ul li { margin-bottom: 0.35rem; }
+    main table {
+      width: 100%; border-collapse: collapse;
+      margin: 1rem 0 2rem;
+      background: white; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+    }
+    main th, main td {
+      padding: 0.75rem 1rem; text-align: left;
+      border-bottom: 1px solid var(--line-soft);
+      font-size: 0.92rem;
+    }
+    main th { background: var(--lavender); font-weight: 700; }
+    main tr:last-child td { border-bottom: 0; }
+    .file-list a { color: var(--purple); font-weight: 600; }
+    .site-map {
+      background: white; border: 1px solid var(--line); border-radius: 16px;
+      padding: 1.5rem; margin: 2rem 0;
+    }
+    .site-map a { color: var(--purple-deep); font-weight: 600; display: inline-block; padding: 0.3rem 0.6rem; margin: 0.15rem; border-radius: 8px; background: var(--lavender); font-size: 0.85rem; }
+    .site-map a:hover { background: var(--purple); color: white; }
+    .callout {
+      background: var(--ink); color: var(--cream);
+      border-radius: 14px; padding: 1.5rem 1.75rem;
+      margin: 2rem 0;
+    }
+    .callout strong { color: var(--purple-light); }
+  </style>
+</head>
+<body>
+
+  <main>
+    <div class="container">
+      <span class="kicker">Handoff · V3</span>
+      <h1>Barrier Lab website — <em>V3 · high-contrast, trust-led.</em></h1>
+      <p class="muted">Vanilla HTML / CSS / JS. No framework, no build step. Shopify-portable. This file lives at <code>README.html</code> inside the Website folder and is safe to delete before deploy.</p>
+
+      <div class="callout" style="background: var(--ind-900);">
+        <strong style="color: var(--ind-300);">What changed in V3</strong>
+        <p style="margin:0.5rem 0 0; color: var(--ind-100);">Body and heading text returned to near-black (<code style="color: var(--ind-300); background: rgba(255,255,255,0.08);">#0F0F0F</code>) for readability. Dark section <em>backgrounds</em> stay deep indigo (<code style="color: var(--ind-300); background: rgba(255,255,255,0.08);">#2B1F80</code>), so the brand still reads as one indigo system. Muted meta/label text bumped darker to <code style="color: var(--ind-300); background: rgba(255,255,255,0.08);">#525252</code>. Homepage hero swaps the seed-mark for a new barrier-lattice SVG (hexagonal mesh, indigo). Each PDP gets a <em>human-tested</em> trust strip above the ingredient grid — compliant, non-efficacy language about formulation. Science page gets a "How we tested this" block explaining the formulation process for all three products, with an FDA structure/function disclaimer at the bottom. V2 and V1 still live next door in <code style="color: var(--ind-300); background: rgba(255,255,255,0.08);">Barrier Lab - Website v2/</code> and <code style="color: var(--ind-300); background: rgba(255,255,255,0.08);">Barrier Lab - Website/</code>.</p>
+      </div>
+
+      <div class="site-map">
+        <div style="font-weight:700; margin-bottom:0.5rem;">Click through the site:</div>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="recovery-balm.html">BL-01 Recovery Balm</a>
+        <a href="inner-powder.html">BL-02 Inner Powder</a>
+        <a href="inner-barrier.html">BL-03 Inner Barrier Complex</a>
+        <a href="science.html">Science</a>
+        <a href="story.html">Our Story</a>
+        <a href="learn.html">Learn</a>
+        <a href="cart.html">Cart</a>
+        <a href="checkout.html">Checkout</a>
+      </div>
+
+      <h2>How to run it locally</h2>
+      <p>Any static server works. No build step, no dependencies. From this folder:</p>
+      <pre>python3 -m http.server 8000
+# then open http://localhost:8000</pre>
+      <p>You can also double-click <code>index.html</code> to open it in a browser — the cart, nav, and dropdown all work from <code>file://</code>.</p>
+
+      <h2>What's in the folder</h2>
+      <table class="file-list">
+        <tr><th style="width:220px;">File</th><th>What it is</th></tr>
+        <tr><td><code>index.html</code></td><td>Homepage — hero, plant analogy, two-front system, ingredient rail, bundles, compare table, mission strip.</td></tr>
+        <tr><td><code>shop.html</code></td><td>All 5 SKUs (3 products + 2 bundles) with filter tabs: Outside / Inside / Bundles.</td></tr>
+        <tr><td><code>recovery-balm.html</code></td><td>BL-01 PDP — $32 / $27.20 subscribe · outside.</td></tr>
+        <tr><td><code>inner-powder.html</code></td><td>BL-02 PDP — $44 / $37.40 subscribe · inside (kids).</td></tr>
+        <tr><td><code>inner-barrier.html</code></td><td>BL-03 PDP — $49 / $41.65 subscribe · inside (adults).</td></tr>
+        <tr><td><code>science.html</code></td><td>What is eczema, gut-skin axis, 6 clinical ingredients, vs-competitors table.</td></tr>
+        <tr><td><code>story.html</code></td><td>John's 30-year eczema journey, timeline, founder quote, team.</td></tr>
+        <tr><td><code>learn.html</code></td><td>Ingredient library (10 cards) + how-to + FAQ.</td></tr>
+        <tr><td><code>cart.html</code></td><td>Full cart review with qty +/−, promo input, order summary.</td></tr>
+        <tr><td><code>checkout.html</code></td><td>Mock Shopify checkout — Contact / Ship / Method / Payment → confirmation.</td></tr>
+        <tr><td><code>assets/shared.css</code></td><td>Design system: palette, typography, buttons, product cards, nav, cart, accordions.</td></tr>
+        <tr><td><code>assets/shared.js</code></td><td>Injects nav + footer + cart drawer. localStorage cart. Auto-wires <code>.js-add-to-cart</code>.</td></tr>
+        <tr><td><code>assets/mark-*.png</code></td><td>Brand mark in white / ink / purple / black-tile variants (1024×1024).</td></tr>
+      </table>
+
+      <h2>Design system</h2>
+      <h3>Palette</h3>
+      <ul>
+        <li><code>--purple</code> #6B5BFF — primary CTA and brand accent</li>
+        <li><code>--purple-deep</code> #4A3FCC — hover and emphasis</li>
+        <li><code>--lavender</code> #EEEBFF — soft tint for cards and chips</li>
+        <li><code>--lavender-deep</code> #DCD5FA — stronger periwinkle for gradients</li>
+        <li><code>--cream</code> #FFFFFF — primary background (pure white)</li>
+        <li><code>--ink</code> #1A1A1A — primary text, dark sections</li>
+      </ul>
+      <h3>Typography</h3>
+      <p>Inter (sans) for everything. Fraunces italic is reserved — it appears only in: the wordmark, <code>&lt;em&gt;</code> inside <code>h1 / h2 / h3</code>, and decorative stat numbers. Never in buttons, product names, small copy, or thumbnails.</p>
+
+      <h2>Cart architecture</h2>
+      <p>One source of truth: the <code>CATALOG</code> object in <code>assets/shared.js</code>. Each entry maps 1:1 to a future Shopify product.</p>
+      <pre>CATALOG = {
+  'bl-01': { code, name, tag, shortTag, price, subPrice, href, viz, initial },
+  'bl-02': { ... },
+  'bl-03': { ... },
+  'bl-bundle-adult': { ... },
+  'bl-bundle-family': { ... },
+}</pre>
+      <p>Cart state lives in <code>localStorage</code> at key <code>barrierlab:cart:v1</code> — an array of <code>{ sku, qty, subscribe }</code>. Any DOM change fires a <code>barrierlab:cart-updated</code> custom event so <code>cart.html</code> and <code>checkout.html</code> stay in sync.</p>
+      <h3>Wiring "Add to cart"</h3>
+      <p>Put <code>class="js-add-to-cart"</code> and <code>data-sku="bl-01"</code> on any button. Add <code>data-subscribe="true"</code> to route to the subscription price. That's it — <code>shared.js</code> auto-wires them on every page.</p>
+
+      <h2>Porting to Shopify</h2>
+      <div class="callout">
+        <strong>The site is built to swap into Shopify cleanly.</strong> Nothing here holds you hostage.
+      </div>
+      <p>Three steps:</p>
+      <ul>
+        <li><strong>Products:</strong> Create five products in Shopify admin with handles matching the SKUs (<code>bl-01</code>, <code>bl-02</code>, <code>bl-03</code>, <code>bl-bundle-adult</code>, <code>bl-bundle-family</code>). Prices and subscription pricing are already set in <code>CATALOG</code> — copy them over.</li>
+        <li><strong>Cart routing:</strong> Replace the localStorage cart in <code>shared.js</code> with Shopify's AJAX Cart API (<code>/cart/add.js</code>, <code>/cart.js</code>). Keep the same function signatures (<code>addToCart</code>, <code>loadCart</code>, <code>setQty</code>, <code>removeItem</code>) — every page already calls through these.</li>
+        <li><strong>Checkout:</strong> Replace the "Place mock order" button in <code>checkout.html</code> with a redirect to Shopify's <code>/checkout</code>. The rest of the demo checkout can be deleted; it exists to show you what a styled checkout looks like.</li>
+      </ul>
+      <p>Subscriptions: connect via <strong>Recharge</strong>, <strong>Shopify Subscriptions</strong>, or <strong>Appstle</strong>. The <code>subPrice</code> field in <code>CATALOG</code> corresponds to the subscription price you'll set in your chosen app — 15% off by default.</p>
+
+      <h2>Adding a new page</h2>
+      <pre>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Your page — Barrier Lab&lt;/title&gt;
+  &lt;link rel="icon" type="image/png" href="assets/mark-purple.png"&gt;
+  &lt;link rel="stylesheet" href="assets/shared.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;section&gt;
+    &lt;div class="container"&gt;
+      &lt;!-- your content --&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+  &lt;script src="assets/shared.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p>Nav, footer, and cart drawer inject automatically. Don't hand-roll them.</p>
+
+      <h2>QA status</h2>
+      <p>Every page injects nav + footer + cart drawer. All internal links resolve. Cart flow verified end-to-end: add → qty +/− → remove → cart.html → checkout.html → confirmation. Shipping threshold ($6.50 under $50, free at or over) confirmed. Subscribe flag routes to the discounted price on every PDP.</p>
+
+      <p style="margin-top:3rem; font-size:0.85rem; color:var(--muted);">Last QA pass: April 2026.</p>
+    </div>
+  </main>
+
+  <script src="assets/shared.js"></script>
+</body>
+</html>

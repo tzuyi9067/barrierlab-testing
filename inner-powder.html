@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inner Powder — BL-02 | Barrier Lab</title>
+  <meta name="description" content="Inner Powder: 30 single-serve sachets of gut-skin support for kids with eczema-prone skin. Mild taste, no dye, no artificial sweetener.">
+  <link rel="icon" type="image/png" href="assets/mark-purple.png">
+  <link rel="stylesheet" href="assets/shared.css">
+  <style>
+    .pdp-hero {
+      padding: 3rem 0 4rem;
+      background: linear-gradient(180deg, var(--cream) 0%, var(--lavender) 100%);
+    }
+    .pdp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    @media (max-width: 900px) { .pdp-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+    .pdp-visual-panel {
+      background: white;
+      border-radius: 22px;
+      aspect-ratio: 4 / 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+    }
+    .pdp-visual-panel .viz-tin { transform: scale(1.3); }
+
+    .pdp-thumbs { display: flex; gap: 0.75rem; margin-top: 1rem; }
+    .pdp-thumb {
+      width: 72px; height: 72px; background: var(--lavender);
+      border: 1px solid var(--line); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 0.72rem; font-weight: 600;
+      color: var(--purple-deep); text-transform: lowercase;
+      letter-spacing: 0.02em;
+    }
+    .pdp-thumb.is-active { border-color: var(--purple); border-width: 2px; }
+
+    .pdp-code { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.2em; color: var(--purple); text-transform: uppercase; }
+    .pdp-h1 { font-size: clamp(2.25rem, 4.5vw, 3.5rem); line-height: 1.05; margin: 0.75rem 0; }
+    .pdp-h1 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+    .pdp-subhead { font-size: 1.1rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
+
+    .pdp-price-block { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem; }
+    .pdp-price { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.02em; }
+    .pdp-price-sub { color: var(--muted); font-size: 0.95rem; }
+
+    .pdp-opt { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; }
+    .pdp-opt label {
+      display: flex; flex-direction: column; gap: 0.2rem;
+      padding: 1rem 1.25rem; border: 1.5px solid var(--line);
+      border-radius: 14px; cursor: pointer; transition: all 0.15s; position: relative;
+    }
+    .pdp-opt label:has(input:checked) { border-color: var(--purple); background: var(--lavender); }
+    .pdp-opt input { position: absolute; opacity: 0; }
+    .pdp-opt .opt-label { font-weight: 600; font-size: 0.95rem; }
+    .pdp-opt .opt-price { color: var(--muted); font-size: 0.85rem; }
+    .pdp-opt .opt-save { font-size: 0.7rem; color: var(--purple); font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
+
+    .pdp-benefits {
+      list-style: none; padding: 1.5rem; margin: 1.5rem 0 0;
+      background: var(--lavender); border-radius: 14px;
+    }
+    .pdp-benefits li { padding: 0.45rem 0; font-size: 0.92rem; color: var(--ink-soft); }
+    .pdp-benefits li::before { content: '✓'; color: var(--purple); font-weight: 700; margin-right: 0.75rem; }
+
+    .pdp-strip {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+      padding: 2.5rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+      margin: 4rem 0; text-align: center;
+    }
+    @media (max-width: 700px) { .pdp-strip { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
+    .pdp-strip-item .num {
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 500;
+      font-size: 1.8rem; color: var(--purple); line-height: 1;
+    }
+    .pdp-strip-item .lbl { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+
+    .pdp-section { padding: 4rem 0; }
+    .pdp-section h2 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+
+    .ingredient-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+    @media (max-width: 800px) { .ingredient-grid { grid-template-columns: 1fr; } }
+    .ing-card { background: white; border: 1px solid var(--line); border-radius: 16px; padding: 1.5rem; }
+    .ing-card h4 { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; color: var(--ink-text); margin: 0.35rem 0 0.5rem; }
+    .ing-card p { font-size: 0.9rem; color: var(--muted); margin: 0; }
+    .ing-card .role { font-size: 0.7rem; color: var(--purple); letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700; }
+
+    .how-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+    @media (max-width: 800px) { .how-steps { grid-template-columns: 1fr; } }
+    .how-step { background: var(--lavender); border-radius: 16px; padding: 1.75rem; }
+    .how-step .step-num { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; font-size: 2rem; color: var(--purple-deep); line-height: 1; margin-bottom: 0.5rem; }
+    .how-step h4 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+    .how-step p { font-size: 0.9rem; color: var(--ink-soft); margin: 0; }
+
+    .pair-callout {
+      background: var(--ink); color: var(--cream); border-radius: 22px; padding: 3rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; margin: 4rem 0;
+    }
+    @media (max-width: 800px) { .pair-callout { grid-template-columns: 1fr; } }
+    .pair-callout h3 { color: var(--cream); font-size: 1.8rem; margin-bottom: 0.75rem; }
+    .pair-callout h3 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple-light); }
+    .pair-callout p { color: #C7C0E8; font-size: 0.95rem; }
+
+    .kids-banner {
+      background: linear-gradient(135deg, #FFE8D1 0%, #FFD4B5 100%);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin: 2rem 0 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    @media (max-width: 800px) { .kids-banner { grid-template-columns: 1fr; } }
+    .kids-banner h3 {
+      font-size: 1.5rem;
+      color: #8B4513;
+    }
+    .kids-banner h3 em {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      color: #C45A2B;
+    }
+    .kids-banner p { color: #6B3410; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+
+  <section class="pdp-hero">
+    <div class="container">
+      <div class="pdp-grid">
+        <div>
+          <div class="pdp-visual-panel">
+            <div class="viz-tin">
+              <span class="viz-label">inner<br>powder</span>
+              <span class="viz-code">BL-02</span>
+            </div>
+          </div>
+          <div class="pdp-thumbs">
+            <div class="pdp-thumb is-active">tin</div>
+            <div class="pdp-thumb">sachet</div>
+            <div class="pdp-thumb">mixed</div>
+            <div class="pdp-thumb">kid</div>
+          </div>
+        </div>
+
+        <div>
+          <span class="pdp-code">BL-02 · Inside · Kids</span>
+          <h1 class="pdp-h1"><em>Inner</em> Powder</h1>
+          <p class="pdp-subhead">A daily kids' sachet that supports the gut-skin axis — the part most eczema routines skip. Mild taste, no dye, no artificial sweetener. Mixes into water, milk, or yogurt.</p>
+
+          <div class="pdp-price-block">
+            <span class="pdp-price" id="pdpPrice">$44.00</span>
+            <span class="pdp-price-sub">30 sachets · 30-day supply</span>
+          </div>
+
+          <div class="pdp-opt">
+            <label>
+              <input type="radio" name="sub" value="once" checked>
+              <span class="opt-label">One-time</span>
+              <span class="opt-price">$44.00</span>
+            </label>
+            <label>
+              <input type="radio" name="sub" value="subscribe">
+              <span class="opt-label">Subscribe</span>
+              <span class="opt-price">$37.40 · every 30 days</span>
+              <span class="opt-save">Save 15%</span>
+            </label>
+          </div>
+
+          <button class="btn btn-primary btn-full btn-lg js-add-to-cart" data-sku="bl-02" id="pdpAdd">Add to cart — $44.00</button>
+
+          <ul class="pdp-benefits">
+            <li>Clinically-studied probiotic strains (L. rhamnosus GG, L. paracasei)</li>
+            <li>Lactoferrin + zinc — barrier nutrients kids often run low on</li>
+            <li>Mild vanilla taste · no dye · no artificial sweetener</li>
+            <li>Mixes clear into water, milk, or yogurt</li>
+            <li>Ages 3+ · pediatrician-reviewed</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+
+      <div class="pdp-strip">
+        <div class="pdp-strip-item"><div class="num">30</div><div class="lbl">Single-serve sachets</div></div>
+        <div class="pdp-strip-item"><div class="num">10B</div><div class="lbl">CFU live cultures</div></div>
+        <div class="pdp-strip-item"><div class="num">0g</div><div class="lbl">Added sugar</div></div>
+        <div class="pdp-strip-item"><div class="num">3y+</div><div class="lbl">Ages</div></div>
+      </div>
+
+      <!-- Trust strip — how the formula was developed -->
+      <div class="trust-strip">
+        <div class="trust-head">
+          <span class="kicker">How it was built</span>
+          <h3>A <em>human-tested</em> formula — not a marketing formulation.</h3>
+        </div>
+        <div class="trust-grid">
+          <div class="trust-cell">
+            <div class="ic">◉</div>
+            <div class="body">
+              <strong>Human-tested</strong>
+              The Inner Powder blend was refined across repeated rounds of real-user testing — parents and kids, real mornings, real mouths — before a single sachet shipped.
+            </div>
+          </div>
+          <div class="trust-cell">
+            <div class="ic">▲</div>
+            <div class="body">
+              <strong>Science-backed ingredients</strong>
+              Every active — the probiotic strain, lactoferrin, D3, zinc, vitamin C — is chosen from peer-reviewed research on children's skin-barrier and immune support.
+            </div>
+          </div>
+          <div class="trust-cell">
+            <div class="ic">◆</div>
+            <div class="body">
+              <strong>Proprietary complex</strong>
+              Individual ingredients you can read below. The specific ratios, sequencing, and co-formulation work stays ours.
+            </div>
+          </div>
+        </div>
+        <p class="trust-foot">These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Inner Powder is a dietary supplement designed to support normal skin-barrier and immune function in children.</p>
+      </div>
+
+      <!-- Ingredient grid — horizontal-scroll molecule rail (BL-02) -->
+      <div class="ing-scroll is-inside">
+        <div class="ing-scroll-head">
+          <div>
+            <span class="ing-kicker">• BL-02 · The Inner Powder · Kids 3+</span>
+            <h2>The raw materials kids' skin <em>keeps running out of.</em></h2>
+          </div>
+          <p>Each strawberry-vanilla sachet delivers seven nutrients tied to barrier function in pediatric research — dosed for small bodies, mixed into water, milk, or yogurt.</p>
+          <div class="ing-scroll-controls">
+            <button class="ing-scroll-btn" data-rail="ingTrackBL02" data-dir="-1" aria-label="Scroll left">←</button>
+            <button class="ing-scroll-btn" data-rail="ingTrackBL02" data-dir="1" aria-label="Scroll right">→</button>
+          </div>
+        </div>
+
+        <div class="ing-scroll-track" id="ingTrackBL02">
+          <!-- 1. L-Histidine -->
+          <div class="ing-mol-card">
+            <span class="ing-top-tag">Powder Hero</span>
+            <h3>L-Histidine</h3>
+            <p class="ing-desc">Precursor to filaggrin — the protein that holds the skin barrier together.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <polygon class="mol-stroke" points="55,50 75,42 90,55 80,72 60,68" fill="#fff"/>
+                  <line class="mol-stroke" x1="90" y1="55" x2="110" y2="48"/>
+                  <line class="mol-stroke" x1="110" y1="48" x2="125" y2="60"/>
+                  <line class="mol-stroke" x1="125" y1="60" x2="140" y2="50"/>
+                  <line class="mol-stroke" x1="55" y1="50" x2="40" y2="62"/>
+                  <line class="mol-stroke" x1="80" y1="72" x2="78" y2="88"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="75" cy="42" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="110" cy="48" r="3.5"/>
+                  <circle class="mol-fill" cx="125" cy="60" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="140" cy="50" r="3.5"/>
+                  <circle class="mol-fill" cx="40" cy="62" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="78" cy="88" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 500 mg per sachet</p>
+            <p class="ing-form">Fermentation-derived, vegan L-histidine — the form studied in atopic-dermatitis trials.</p>
+          </div>
+
+          <!-- 2. Algal DHA -->
+          <div class="ing-mol-card">
+            <h3>Algal DHA</h3>
+            <p class="ing-desc">A clean-source omega-3 — the barrier's anti-inflammatory fuel.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <path class="mol-stroke" d="M15 55 L30 42 L50 52 L65 40 L85 52 L100 40 L120 52 L135 40 L155 52 L170 42" />
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="15" cy="55" r="4"/>
+                  <circle class="mol-fill-hollow" cx="30" cy="42" r="3"/>
+                  <circle class="mol-fill" cx="50" cy="52" r="3"/>
+                  <circle class="mol-fill-hollow" cx="65" cy="40" r="3"/>
+                  <circle class="mol-fill" cx="85" cy="52" r="3"/>
+                  <circle class="mol-fill-hollow" cx="100" cy="40" r="3"/>
+                  <circle class="mol-fill" cx="120" cy="52" r="3"/>
+                  <circle class="mol-fill-hollow" cx="135" cy="40" r="3"/>
+                  <circle class="mol-fill" cx="155" cy="52" r="3"/>
+                  <circle class="mol-fill-hollow" cx="170" cy="42" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 100 mg per sachet</p>
+            <p class="ing-form">Schizochytrium-derived algal DHA — vegan, fish-free, heavy-metal-tested.</p>
+          </div>
+
+          <!-- 3. Vitamin D3 -->
+          <div class="ing-mol-card">
+            <h3>Vitamin D3</h3>
+            <p class="ing-desc">Supports immune regulation in the skin; levels often run low in eczema-prone kids.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <polygon class="mol-stroke" points="55,55 72,42 92,50 95,70 75,80 58,73" fill="#fff"/>
+                  <polygon class="mol-stroke" points="95,70 112,58 130,65 128,82" fill="#fff"/>
+                  <line class="mol-stroke" x1="72" y1="42" x2="70" y2="22"/>
+                  <line class="mol-stroke" x1="92" y1="50" x2="108" y2="38"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="72" cy="42" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="112" cy="58" r="3.5"/>
+                  <circle class="mol-fill" cx="70" cy="22" r="3"/>
+                  <circle class="mol-fill-hollow" cx="108" cy="38" r="3"/>
+                  <circle class="mol-fill" cx="58" cy="73" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 600 IU per sachet</p>
+            <p class="ing-form">Lichen-sourced cholecalciferol — the natural D3 form (not synthetic D2) and fully vegan.</p>
+          </div>
+
+          <!-- 4. Zinc -->
+          <div class="ing-mol-card">
+            <h3>Zinc</h3>
+            <p class="ing-desc">Micronutrient for immune function and skin cell turnover.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <circle class="mol-stroke" cx="90" cy="50" r="18"/>
+                  <line class="mol-stroke" x1="90" y1="32" x2="90" y2="15"/>
+                  <line class="mol-stroke" x1="90" y1="68" x2="90" y2="88"/>
+                  <line class="mol-stroke" x1="72" y1="50" x2="55" y2="50"/>
+                  <line class="mol-stroke" x1="108" y1="50" x2="125" y2="50"/>
+                  <line class="mol-stroke" x1="102" y1="38" x2="115" y2="28"/>
+                  <line class="mol-stroke" x1="78" y1="62" x2="65" y2="72"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="90" cy="50" r="5"/>
+                  <circle class="mol-fill-hollow" cx="90" cy="15" r="3.5"/>
+                  <circle class="mol-fill" cx="55" cy="50" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="125" cy="50" r="3.5"/>
+                  <circle class="mol-fill" cx="90" cy="88" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="115" cy="28" r="3"/>
+                  <circle class="mol-fill" cx="65" cy="72" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 5 mg per sachet</p>
+            <p class="ing-form">Zinc glycinate — chelated to the amino acid glycine for gentler absorption than zinc oxide.</p>
+          </div>
+
+          <!-- 5. Biotin -->
+          <div class="ing-mol-card">
+            <h3>Biotin</h3>
+            <p class="ing-desc">B-vitamin involved in the fatty acid synthesis the skin uses for barrier lipids.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <polygon class="mol-stroke" points="50,55 65,40 85,40 90,58 78,75 60,72" fill="#fff"/>
+                  <line class="mol-stroke" x1="90" y1="58" x2="110" y2="55"/>
+                  <line class="mol-stroke" x1="110" y1="55" x2="128" y2="45"/>
+                  <line class="mol-stroke" x1="128" y1="45" x2="148" y2="55"/>
+                  <line class="mol-stroke" x1="148" y1="55" x2="165" y2="48"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="65" cy="40" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="85" cy="40" r="3.5"/>
+                  <circle class="mol-fill" cx="110" cy="55" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="128" cy="45" r="3.5"/>
+                  <circle class="mol-fill" cx="148" cy="55" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="165" cy="48" r="3.5"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 75 mcg per sachet</p>
+            <p class="ing-form">D-biotin — the naturally active isomer, at a pediatric dose (not the megadoses in beauty gummies).</p>
+          </div>
+
+          <!-- 6. L-Glutamine -->
+          <div class="ing-mol-card">
+            <h3>L-Glutamine</h3>
+            <p class="ing-desc">The gut lining's favorite amino acid — supports the skin-gut axis.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <line class="mol-stroke" x1="30" y1="50" x2="50" y2="40"/>
+                  <line class="mol-stroke" x1="50" y1="40" x2="70" y2="52"/>
+                  <line class="mol-stroke" x1="70" y1="52" x2="90" y2="40"/>
+                  <line class="mol-stroke" x1="90" y1="40" x2="110" y2="52"/>
+                  <line class="mol-stroke" x1="110" y1="52" x2="130" y2="40"/>
+                  <line class="mol-stroke" x1="130" y1="40" x2="150" y2="52"/>
+                  <line class="mol-stroke" x1="70" y1="52" x2="70" y2="72"/>
+                  <line class="mol-stroke" x1="110" y1="52" x2="110" y2="30"/>
+                </g>
+                <g>
+                  <circle class="mol-fill-hollow" cx="30" cy="50" r="3.5"/>
+                  <circle class="mol-fill" cx="50" cy="40" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="70" cy="52" r="3.5"/>
+                  <circle class="mol-fill" cx="90" cy="40" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="110" cy="52" r="3.5"/>
+                  <circle class="mol-fill" cx="130" cy="40" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="150" cy="52" r="3.5"/>
+                  <circle class="mol-fill" cx="70" cy="72" r="3"/>
+                  <circle class="mol-fill-hollow" cx="110" cy="30" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 250 mg per sachet</p>
+            <p class="ing-form">Fermentation-derived, vegan L-glutamine — the free-form version absorbed straight from the gut.</p>
+          </div>
+
+          <!-- 7. Prebiotic GOS -->
+          <div class="ing-mol-card">
+            <h3>Prebiotic GOS</h3>
+            <p class="ing-desc">Galacto-oligosaccharides — food for the friendly gut bacteria linked to eczema severity.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <polygon class="mol-stroke" points="30,55 45,42 62,48 64,66 48,76 32,70" fill="#fff"/>
+                  <polygon class="mol-stroke" points="64,66 80,54 96,62 96,80 80,88 66,82" fill="#fff"/>
+                  <polygon class="mol-stroke" points="96,62 112,50 128,58 128,76 112,84 96,80" fill="#fff"/>
+                  <polygon class="mol-stroke" points="128,58 144,46 160,54" fill="#fff"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="45" cy="42" r="3"/>
+                  <circle class="mol-fill-hollow" cx="80" cy="54" r="3"/>
+                  <circle class="mol-fill" cx="112" cy="50" r="3"/>
+                  <circle class="mol-fill-hollow" cx="144" cy="46" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 2 g per sachet</p>
+            <p class="ing-form">Short-chain GOS — the same prebiotic fiber found in human breast milk.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pdp-section" style="padding-top:0;">
+        <span class="kicker">How to use</span>
+        <h2 style="margin-top:1rem;">One sachet. <em>Once a day.</em></h2>
+        <div class="how-steps">
+          <div class="how-step">
+            <div class="step-num">01</div>
+            <h4>Open a sachet</h4>
+            <p>Tear along the indicated line. Pour into 4–6 oz of cool or room-temp liquid.</p>
+          </div>
+          <div class="how-step">
+            <div class="step-num">02</div>
+            <h4>Stir or shake</h4>
+            <p>Mixes clear in seconds. Works in water, milk, juice, yogurt, or a smoothie.</p>
+          </div>
+          <div class="how-step">
+            <div class="step-num">03</div>
+            <h4>Daily, with food</h4>
+            <p>Morning or evening with a meal. Give it 6–8 weeks to see skin settle — probiotics need time.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kids safety/taste reassurance -->
+      <div class="kids-banner">
+        <div>
+          <span class="kicker" style="color:#C45A2B;">For the picky ones</span>
+          <h3 style="margin-top:0.5rem;">Made to survive <em>a Tuesday</em>.</h3>
+        </div>
+        <div>
+          <p>Our pilot group with families of 4–10 year olds told us two things: make it taste like nothing weird, and make it invisible in chocolate milk. We did both. If your child hates it, we'll take it back — no questions.</p>
+        </div>
+      </div>
+
+      <!-- Pair with outside -->
+      <div class="pair-callout">
+        <div>
+          <span class="kicker" style="color:var(--purple-light);">Pair with the outside</span>
+          <h3>Inside is the <em>root</em>. Skin is the surface.</h3>
+          <p>Inner Powder targets the gut-skin axis that drives kids' flare cycles. Recovery Balm treats what's already broken on the surface. Most families buy them together.</p>
+        </div>
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <a href="recovery-balm.html" class="btn btn-primary">Recovery Balm →</a>
+          <a href="shop.html" class="btn btn-outline" style="color:var(--cream); border-color:var(--cream);">Family bundle →</a>
+        </div>
+      </div>
+
+      <!-- How the Inner Powder compares -->
+      <section class="cmp-stage" style="background:
+          radial-gradient(ellipse at 85% 15%, rgba(107,91,255,0.30), transparent 55%),
+          radial-gradient(ellipse at 10% 90%, rgba(107,91,255,0.45), transparent 60%),
+          linear-gradient(160deg, #322878 0%, #211A5E 55%, #150F3F 100%);">
+        <div class="cmp-top">
+          <div>
+            <h2 class="cmp-title">How the <em>Inner<br/>Powder</em> compares:</h2>
+            <p class="cmp-lead">Most kids' supplements are built for "general nutrition." Eczema-prone skin needs specific inputs the average children's multivitamin doesn't deliver — and the average kids' probiotic doesn't either.</p>
+          </div>
+          <div class="cmp-panel">
+            <div class="cmp-highlight-col" style="left: calc(1.7/4.7 * 100%); right: calc(2/4.7 * 100%); top: 0.5rem; bottom: 0.5rem;"></div>
+            <div class="cmp-grid">
+              <div class="cmp-head cmp-head--label">&nbsp;</div>
+              <div class="cmp-head">
+                <span class="cmp-chip">BL-02</span>
+                <div style="margin-top:0.45rem;">Inner<br/>Powder</div>
+              </div>
+              <div class="cmp-head">Kids'<br/>Multivitamin</div>
+              <div class="cmp-head">Kids'<br/>Probiotic</div>
+
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">L-Histidine at clinical pediatric dose <small>(the amino acid that becomes filaggrin)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Algal omega-3 DHA <small>(no fish, no burps, heavy-metal tested)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Chelated zinc (glycinate, not oxide) <small>(higher absorption, gentler stomach)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot partial"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Prebiotic GOS (gut-skin axis) <small>(fiber linked to eczema severity in trials)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot partial"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">L-Glutamine for gut lining <small>(supports the inside-out story)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Vitamin D3 as cholecalciferol <small>(lichen-derived, not synthetic D2)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot partial"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">No added sugar, dyes, or gummy base <small>(strawberry-vanilla, flavor only)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Formulated for skin barrier specifically <small>(not "general wellness")</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+            </div>
+            <div class="cmp-legend">
+              <span class="cmp-legend-item"><span class="cmp-dot yes"></span>Yes</span>
+              <span class="cmp-legend-item"><span class="cmp-dot partial"></span>Partial</span>
+              <span class="cmp-legend-item"><span class="cmp-dot no"></span>No</span>
+            </div>
+            <p class="cmp-foot">"Kids' Multivitamin" = typical formulations like Flintstones or SmartyPants Kids. "Kids' Probiotic" = typical formulations like Culturelle Kids. Brand-specific formulations vary.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="pdp-section" style="padding-top:0;">
+        <span class="kicker">Good to know</span>
+        <h2 style="margin-top:1rem;">Common <em>questions</em>.</h2>
+        <div style="max-width:800px; margin-top:2rem;">
+          <div class="acc-item">
+            <button class="acc-btn">What age is this safe for? <span class="acc-icon">+</span></button>
+            <div class="acc-content"><p>Ages 3 and up. Under 3, please talk to your pediatrician — we have a lower-dose formula in development and recommend medical supervision for infants and toddlers.</p></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn">How long until I see a difference? <span class="acc-icon">+</span></button>
+            <div class="acc-content"><p>In the clinical literature on LGG + lactoferrin in pediatric eczema, most parents notice fewer flare-ups after 6–8 weeks of daily use. Probiotics take time to colonize — this isn't a rescue product, it's a daily routine.</p></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn">Can my child take this with other supplements? <span class="acc-icon">+</span></button>
+            <div class="acc-content"><p>Yes, in almost all cases. If your child is on antibiotics, we recommend spacing them at least 2 hours apart. Always check with your pediatrician if you have specific concerns.</p></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn">What does it taste like? <span class="acc-icon">+</span></button>
+            <div class="acc-content"><p>A very mild vanilla. No added sugar, no stevia, no artificial sweetener. Most kids don't notice when mixed into milk, juice, or a smoothie.</p></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="assets/shared.js"></script>
+  <script>
+    const radios = document.querySelectorAll('input[name=sub]');
+    const priceEl = document.getElementById('pdpPrice');
+    const addBtn = document.getElementById('pdpAdd');
+    radios.forEach(r => r.addEventListener('change', () => {
+      const sub = document.querySelector('input[name=sub]:checked').value === 'subscribe';
+      priceEl.textContent = sub ? '$37.40' : '$44.00';
+      addBtn.textContent = sub ? 'Add to cart — $37.40 / mo' : 'Add to cart — $44.00';
+      addBtn.dataset.subscribe = sub ? 'true' : 'false';
+    }));
+
+    // Wire ingredient-scroll prev/next buttons
+    document.querySelectorAll('.ing-scroll-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const track = document.getElementById(btn.dataset.rail);
+        if (!track) return;
+        const dir = Number(btn.dataset.dir);
+        track.scrollBy({ left: dir * (track.clientWidth * 0.85), behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>

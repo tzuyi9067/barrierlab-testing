@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cart — Barrier Lab</title>
+  <link rel="icon" type="image/png" href="assets/mark-purple.png">
+  <link rel="stylesheet" href="assets/shared.css">
+  <style>
+    .cart-page { padding: 4rem 0 6rem; }
+    .cart-page h1 { margin-bottom: 0.5rem; }
+    .cart-page h1 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .cart-layout { grid-template-columns: 1fr; } }
+
+    .cart-table { background: white; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; }
+    .cart-row {
+      display: grid;
+      grid-template-columns: 90px 1fr auto;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--line-soft);
+      align-items: center;
+    }
+    .cart-row:last-child { border-bottom: 0; }
+    .cart-row-thumb {
+      width: 90px; height: 90px;
+      background: var(--lavender);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: var(--purple-deep);
+      font-size: 1.2rem;
+    }
+    .cart-row-name { font-weight: 600; font-size: 1rem; margin-bottom: 0.2rem; }
+    .cart-row-meta { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .cart-row-qty { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; }
+    .cart-row-qty button {
+      width: 28px; height: 28px; border-radius: 999px;
+      border: 1px solid var(--line); background: white;
+      cursor: pointer; font-size: 0.9rem; line-height: 1;
+    }
+    .cart-row-remove {
+      background: transparent; border: 0;
+      color: var(--muted); font-size: 0.8rem;
+      cursor: pointer; padding: 0;
+      margin-left: 1rem;
+    }
+    .cart-row-remove:hover { color: var(--purple-deep); text-decoration: underline; }
+    .cart-row-price { font-weight: 700; font-size: 1.1rem; text-align: right; white-space: nowrap; }
+
+    .cart-empty-page {
+      padding: 4rem 2rem;
+      text-align: center;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+    }
+
+    .summary {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      position: sticky;
+      top: calc(var(--nav-h) + 1rem);
+    }
+    .summary h3 { font-size: 1rem; letter-spacing: -0.01em; margin-bottom: 1.25rem; }
+    .summary-row {
+      display: flex; justify-content: space-between;
+      font-size: 0.95rem; padding: 0.5rem 0;
+    }
+    .summary-row.total {
+      border-top: 1px solid var(--line);
+      margin-top: 0.5rem; padding-top: 1rem;
+      font-weight: 700; font-size: 1.1rem;
+    }
+    .summary-note { font-size: 0.78rem; color: var(--muted); margin: 0.75rem 0 1.5rem; }
+    .summary .promo {
+      display: flex; gap: 0.5rem; margin: 1.25rem 0;
+    }
+    .summary .promo input {
+      flex: 1; padding: 0.7rem 1rem; border-radius: 999px;
+      border: 1px solid var(--line); background: var(--cream); color: var(--ink-text);
+      font-family: inherit; font-size: 0.9rem;
+    }
+    .summary .promo button {
+      padding: 0.7rem 1.1rem; border-radius: 999px;
+      background: var(--ink); color: white; border: 0;
+      cursor: pointer; font-weight: 600; font-size: 0.85rem;
+      font-family: inherit;
+    }
+    .shopify-strip {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: var(--cream);
+      border-radius: 12px;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .shopify-strip strong { color: var(--ink-text); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <section class="cart-page">
+    <div class="container">
+      <span class="kicker">Your cart</span>
+      <h1>Review your <em>order.</em></h1>
+      <p class="muted" style="max-width: 520px;">Final pricing, shipping, and tax confirmed at checkout. Subscriptions can be paused or cancelled anytime from your account.</p>
+
+      <div class="cart-layout" id="cartLayout">
+        <!-- rendered by script -->
+      </div>
+    </div>
+  </section>
+
+  <script src="assets/shared.js"></script>
+  <script>
+    const CATALOG = window.BarrierLab.catalog;
+
+    function renderCartPage() {
+      const cart = window.BarrierLab.loadCart();
+      const layout = document.getElementById('cartLayout');
+
+      if (cart.length === 0) {
+        layout.innerHTML = `
+          <div class="cart-empty-page" style="grid-column: 1 / -1;">
+            <p style="font-size: 1.1rem;">Your cart is empty.</p>
+            <p style="margin-top: 1.5rem;"><a href="shop.html" class="btn btn-primary btn-lg">Browse the system →</a></p>
+          </div>`;
+        return;
+      }
+
+      const subtotal = window.BarrierLab.cartSubtotal();
+      const shipping = subtotal >= 50 ? 0 : 6.5;
+      const tax = subtotal * 0.0875;
+      const total = subtotal + shipping + tax;
+
+      const rows = cart.map((item, i) => {
+        const p = CATALOG[item.sku];
+        const price = item.subscribe ? p.subPrice : p.price;
+        const lineTotal = (price * item.qty).toFixed(2);
+        return `
+          <div class="cart-row">
+            <div class="cart-row-thumb">${p.initial}</div>
+            <div>
+              <div class="cart-row-name">${p.name}${item.subscribe ? ' · Subscribe' : ''}</div>
+              <div class="cart-row-meta">${p.code} · ${p.shortTag} · $${price.toFixed(2)} ea</div>
+              <div class="cart-row-qty">
+                <button data-action="dec" data-idx="${i}" aria-label="Decrease">−</button>
+                <span>${item.qty}</span>
+                <button data-action="inc" data-idx="${i}" aria-label="Increase">+</button>
+                <button class="cart-row-remove" data-action="rm" data-idx="${i}">Remove</button>
+              </div>
+            </div>
+            <div class="cart-row-price">$${lineTotal}</div>
+          </div>`;
+      }).join('');
+
+      layout.innerHTML = `
+        <div class="cart-table">${rows}</div>
+        <div class="summary">
+          <h3>Order summary</h3>
+          <div class="summary-row"><span>Subtotal</span><span>$${subtotal.toFixed(2)}</span></div>
+          <div class="summary-row"><span>Shipping${shipping === 0 ? ' (free over $50)' : ''}</span><span>${shipping === 0 ? 'FREE' : '$' + shipping.toFixed(2)}</span></div>
+          <div class="summary-row"><span>Estimated tax</span><span>$${tax.toFixed(2)}</span></div>
+          <div class="summary-row total"><span>Estimated total</span><span>$${total.toFixed(2)}</span></div>
+
+          <div class="promo">
+            <input type="text" placeholder="Promo code" aria-label="Promo code">
+            <button type="button">Apply</button>
+          </div>
+
+          <a href="checkout.html" class="btn btn-primary btn-full btn-lg">Continue to checkout →</a>
+          <p class="summary-note">Checkout is encrypted. No account required.</p>
+
+          <div class="shopify-strip">
+            <span style="font-size: 1.1rem;">⬢</span>
+            <span><strong>Shopify-ready.</strong> At launch, this button routes to Shopify's secure checkout. Today it's a demo of what your customers will see.</span>
+          </div>
+        </div>
+      `;
+
+      // Wire up qty + remove
+      layout.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = Number(btn.dataset.idx);
+          const a = btn.dataset.action;
+          const c = window.BarrierLab.loadCart();
+          if (a === 'inc') window.BarrierLab.setQty(idx, c[idx].qty + 1);
+          if (a === 'dec') window.BarrierLab.setQty(idx, c[idx].qty - 1);
+          if (a === 'rm') window.BarrierLab.removeItem(idx);
+          renderCartPage();
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', renderCartPage);
+    window.addEventListener('barrierlab:cart-updated', renderCartPage);
+  </script>
+</body>
+</html>

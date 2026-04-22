@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout — Barrier Lab</title>
+  <link rel="icon" type="image/png" href="assets/mark-purple.png">
+  <link rel="stylesheet" href="assets/shared.css">
+  <style>
+    body { background: var(--cream-deep); }
+    .checkout {
+      padding: 3rem 0 6rem;
+    }
+    .checkout-head { margin-bottom: 2rem; }
+    .checkout-head h1 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+    .checkout-head h1 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+    .shopify-banner {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: white;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--purple);
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+    .shopify-banner .icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: var(--lavender);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .shopify-banner h4 { font-size: 0.9rem; margin-bottom: 0.15rem; }
+    .shopify-banner p { font-size: 0.82rem; color: var(--muted); margin: 0; }
+
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 3rem;
+    }
+    @media (max-width: 900px) { .checkout-layout { grid-template-columns: 1fr; } }
+
+    .check-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 1.25rem;
+    }
+    .check-card h3 {
+      font-size: 0.95rem; letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .check-card .step-num {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--purple); color: white;
+      font-size: 0.72rem; font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .field-row-3 { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0.75rem; }
+    @media (max-width: 600px) { .field-row, .field-row-3 { grid-template-columns: 1fr; } }
+    .field { margin-bottom: 0.75rem; }
+    .field label {
+      font-size: 0.78rem; color: var(--muted);
+      display: block; margin-bottom: 0.3rem;
+      letter-spacing: 0.02em;
+    }
+    .field input, .field select {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--cream);
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--ink-text);
+    }
+    .field input:focus, .field select:focus {
+      outline: none; border-color: var(--purple); background: white;
+    }
+
+    .radio-group { display: grid; gap: 0.5rem; }
+    .radio-group label {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.12s;
+      font-size: 0.9rem;
+    }
+    .radio-group label:has(input:checked) {
+      border-color: var(--purple);
+      background: var(--lavender);
+    }
+    .radio-group .method-price { margin-left: auto; font-weight: 600; }
+
+    .summary {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      position: sticky;
+      top: calc(var(--nav-h) + 1rem);
+    }
+    .summary h3 { font-size: 1rem; letter-spacing: -0.01em; margin-bottom: 1.25rem; }
+    .summary-item {
+      display: grid;
+      grid-template-columns: 50px 1fr auto;
+      gap: 0.75rem;
+      align-items: center;
+      padding: 0.65rem 0;
+      font-size: 0.88rem;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .summary-item:last-of-type { border-bottom: 0; }
+    .summary-item .thumb {
+      width: 50px; height: 50px; border-radius: 10px;
+      background: var(--lavender);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .summary-item .qty-bubble {
+      position: absolute;
+      top: -6px; right: -6px;
+      background: var(--ink); color: white;
+      font-size: 0.7rem; font-weight: 700;
+      width: 20px; height: 20px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .summary-item .nm { font-weight: 600; }
+    .summary-item .mt { color: var(--muted); font-size: 0.78rem; }
+
+    .summary-totals { padding-top: 1rem; margin-top: 1rem; border-top: 1px solid var(--line); }
+    .summary-totals .row {
+      display: flex; justify-content: space-between;
+      padding: 0.35rem 0;
+      font-size: 0.9rem;
+    }
+    .summary-totals .row.total {
+      border-top: 1px solid var(--line);
+      margin-top: 0.5rem; padding-top: 0.9rem;
+      font-size: 1.15rem; font-weight: 700;
+    }
+    .pay-note {
+      font-size: 0.8rem; color: var(--muted);
+      padding: 0.75rem 1rem;
+      background: var(--cream-deep);
+      border-radius: 10px;
+      margin-top: 1rem;
+    }
+    .pay-note strong { color: var(--ink-text); font-weight: 600; }
+
+    .confirm-screen {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+    }
+    .confirm-screen .check-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--purple); color: white;
+      font-size: 2rem; display: inline-flex;
+      align-items: center; justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .confirm-screen h2 { margin-bottom: 1rem; }
+    .confirm-screen h2 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+    .confirm-screen p { color: var(--muted); max-width: 500px; margin: 0 auto 1rem; }
+    .confirm-screen .order-no {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      color: var(--purple);
+      margin: 1.5rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="checkout">
+    <div class="container">
+      <div class="checkout-head">
+        <span class="kicker">Secure checkout</span>
+        <h1>Complete your <em>order.</em></h1>
+      </div>
+
+      <div class="shopify-banner">
+        <div class="icon">⬢</div>
+        <div>
+          <h4>Shopify-powered checkout.</h4>
+          <p>This is a demo layout. At launch, this flow is replaced by Shopify's secure, PCI-compliant checkout — your cart contents carry over exactly.</p>
+        </div>
+      </div>
+
+      <div id="checkoutMain">
+        <!-- Rendered by script -->
+      </div>
+    </div>
+  </section>
+
+  <script src="assets/shared.js"></script>
+  <script>
+    const CATALOG = window.BarrierLab.catalog;
+
+    function renderCheckout() {
+      const main = document.getElementById('checkoutMain');
+      const cart = window.BarrierLab.loadCart();
+
+      if (cart.length === 0) {
+        main.innerHTML = `
+          <div class="confirm-screen">
+            <p style="font-size: 1.1rem;">Your cart is empty.</p>
+            <p style="margin: 1.5rem 0 0;">
+              <a href="shop.html" class="btn btn-primary btn-lg">Browse the system →</a>
+            </p>
+          </div>`;
+        return;
+      }
+
+      const subtotal = window.BarrierLab.cartSubtotal();
+      const shipping = subtotal >= 50 ? 0 : 6.5;
+      const tax = subtotal * 0.0875;
+      const total = subtotal + shipping + tax;
+
+      const items = cart.map(item => {
+        const p = CATALOG[item.sku];
+        const price = item.subscribe ? p.subPrice : p.price;
+        return `
+          <div class="summary-item">
+            <div class="thumb">
+              <span style="font-weight:700;color:var(--purple-deep);">${p.initial}</span>
+              <span class="qty-bubble">${item.qty}</span>
+            </div>
+            <div>
+              <div class="nm">${p.name}</div>
+              <div class="mt">${item.subscribe ? 'Subscribe · ' : ''}${p.code}</div>
+            </div>
+            <div style="font-weight:600;">$${(price * item.qty).toFixed(2)}</div>
+          </div>
+        `;
+      }).join('');
+
+      main.innerHTML = `
+        <div class="checkout-layout">
+          <div>
+            <!-- Contact -->
+            <div class="check-card">
+              <h3><span class="step-num">1</span> Contact</h3>
+              <div class="field">
+                <label>Email</label>
+                <input type="email" id="coEmail" placeholder="you@example.com" required>
+              </div>
+              <label style="display:flex; gap:0.6rem; align-items:center; font-size:0.85rem; color:var(--muted);">
+                <input type="checkbox" checked>
+                Email me with launch news and updates
+              </label>
+            </div>
+
+            <!-- Shipping -->
+            <div class="check-card">
+              <h3><span class="step-num">2</span> Shipping address</h3>
+              <div class="field-row">
+                <div class="field">
+                  <label>First name</label>
+                  <input type="text" placeholder="Alex">
+                </div>
+                <div class="field">
+                  <label>Last name</label>
+                  <input type="text" placeholder="Lee">
+                </div>
+              </div>
+              <div class="field">
+                <label>Address</label>
+                <input type="text" placeholder="123 Main St">
+              </div>
+              <div class="field-row-3">
+                <div class="field">
+                  <label>City</label>
+                  <input type="text" placeholder="Brooklyn">
+                </div>
+                <div class="field">
+                  <label>State</label>
+                  <select>
+                    <option>NY</option><option>CA</option><option>TX</option>
+                    <option>FL</option><option>WA</option><option>IL</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>ZIP</label>
+                  <input type="text" placeholder="11201">
+                </div>
+              </div>
+            </div>
+
+            <!-- Shipping method -->
+            <div class="check-card">
+              <h3><span class="step-num">3</span> Shipping method</h3>
+              <div class="radio-group">
+                <label>
+                  <input type="radio" name="ship" ${shipping === 0 ? 'checked' : ''}>
+                  <div>
+                    <div style="font-weight:600;">Standard (3–5 business days)</div>
+                    <div style="font-size:0.8rem; color:var(--muted);">${shipping === 0 ? 'Free over $50' : 'Free over $50'}</div>
+                  </div>
+                  <div class="method-price">${shipping === 0 ? 'FREE' : '$6.50'}</div>
+                </label>
+                <label>
+                  <input type="radio" name="ship">
+                  <div>
+                    <div style="font-weight:600;">Express (2 business days)</div>
+                    <div style="font-size:0.8rem; color:var(--muted);">Guaranteed delivery</div>
+                  </div>
+                  <div class="method-price">$14.00</div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Payment -->
+            <div class="check-card">
+              <h3><span class="step-num">4</span> Payment</h3>
+              <div class="pay-note">
+                <strong>Demo mode.</strong> Payment fields are disabled — at launch, Shopify handles this form and processes cards, Apple Pay, and Shop Pay. Click "Place mock order" below to see the confirmation screen.
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-full btn-lg" id="placeOrderBtn" style="margin-top:1rem;">Place mock order →</button>
+            <p style="text-align:center; margin-top:1rem; font-size:0.8rem; color:var(--muted);">
+              By placing your order you agree to Barrier Lab's Terms and Privacy Policy.
+            </p>
+          </div>
+
+          <div>
+            <div class="summary">
+              <h3>Order summary (${cart.reduce((s,i)=>s+i.qty,0)} items)</h3>
+              ${items}
+              <div class="summary-totals">
+                <div class="row"><span>Subtotal</span><span>$${subtotal.toFixed(2)}</span></div>
+                <div class="row"><span>Shipping</span><span>${shipping === 0 ? 'FREE' : '$' + shipping.toFixed(2)}</span></div>
+                <div class="row"><span>Estimated tax</span><span>$${tax.toFixed(2)}</span></div>
+                <div class="row total"><span>Total</span><span>$${total.toFixed(2)}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('placeOrderBtn').addEventListener('click', () => {
+        const email = document.getElementById('coEmail').value || 'your email';
+        // Clear cart
+        window.BarrierLab.saveCart([]);
+        const orderNo = 'BL-' + Math.floor(Math.random() * 900000 + 100000);
+        main.innerHTML = `
+          <div class="confirm-screen">
+            <div class="check-icon">✓</div>
+            <span class="kicker">Demo order placed</span>
+            <h2 style="margin-top:1rem;">Thanks, your order is <em>in the system.</em></h2>
+            <p>This is a mock confirmation screen — no payment was processed. A receipt would go to <strong style="color:var(--ink-text);">${email}</strong>, and at launch your order would be fulfilled by our warehouse in 1–2 business days.</p>
+            <div class="order-no">Order ${orderNo}</div>
+            <p style="margin-top: 2rem;">
+              <a href="shop.html" class="btn btn-outline">Continue shopping</a>
+              <a href="index.html" class="btn btn-primary" style="margin-left:0.5rem;">Back to home</a>
+            </p>
+          </div>
+        `;
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', renderCheckout);
+    window.addEventListener('barrierlab:cart-updated', renderCheckout);
+  </script>
+</body>
+</html>

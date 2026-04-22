@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inner Barrier Complex — BL-03 | Barrier Lab</title>
+  <meta name="description" content="Inner Barrier Complex: 90 adult capsules supporting the gut-skin axis — lactoferrin, zinc, vitamin D, and a 15B CFU probiotic blend. Clinical dosing, no fillers.">
+  <link rel="icon" type="image/png" href="assets/mark-purple.png">
+  <link rel="stylesheet" href="assets/shared.css">
+  <style>
+    .pdp-hero {
+      padding: 3rem 0 4rem;
+      background: linear-gradient(180deg, var(--cream) 0%, var(--lavender) 100%);
+    }
+    .pdp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    @media (max-width: 900px) { .pdp-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+    .pdp-visual-panel {
+      background: white;
+      border-radius: 22px;
+      aspect-ratio: 4 / 5;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--line);
+    }
+    .pdp-visual-panel .viz-bottle { transform: scale(1.3); }
+
+    .pdp-thumbs { display: flex; gap: 0.75rem; margin-top: 1rem; }
+    .pdp-thumb {
+      width: 72px; height: 72px; background: var(--lavender);
+      border: 1px solid var(--line); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 0.72rem; font-weight: 600;
+      color: var(--purple-deep); text-transform: lowercase;
+      letter-spacing: 0.02em;
+    }
+    .pdp-thumb.is-active { border-color: var(--purple); border-width: 2px; }
+
+    .pdp-code { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.2em; color: var(--purple); text-transform: uppercase; }
+    .pdp-h1 { font-size: clamp(2.25rem, 4.5vw, 3.5rem); line-height: 1.05; margin: 0.75rem 0; }
+    .pdp-h1 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+    .pdp-subhead { font-size: 1.1rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
+
+    .pdp-price-block { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem; }
+    .pdp-price { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.02em; }
+    .pdp-price-sub { color: var(--muted); font-size: 0.95rem; }
+
+    .pdp-opt { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; }
+    .pdp-opt label {
+      display: flex; flex-direction: column; gap: 0.2rem;
+      padding: 1rem 1.25rem; border: 1.5px solid var(--line);
+      border-radius: 14px; cursor: pointer; transition: all 0.15s; position: relative;
+    }
+    .pdp-opt label:has(input:checked) { border-color: var(--purple); background: var(--lavender); }
+    .pdp-opt input { position: absolute; opacity: 0; }
+    .pdp-opt .opt-label { font-weight: 600; font-size: 0.95rem; }
+    .pdp-opt .opt-price { color: var(--muted); font-size: 0.85rem; }
+    .pdp-opt .opt-save { font-size: 0.7rem; color: var(--purple); font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
+
+    .pdp-benefits {
+      list-style: none; padding: 1.5rem; margin: 1.5rem 0 0;
+      background: var(--lavender); border-radius: 14px;
+    }
+    .pdp-benefits li { padding: 0.45rem 0; font-size: 0.92rem; color: var(--ink-soft); }
+    .pdp-benefits li::before { content: '✓'; color: var(--purple); font-weight: 700; margin-right: 0.75rem; }
+
+    .pdp-strip {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+      padding: 2.5rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+      margin: 4rem 0; text-align: center;
+    }
+    @media (max-width: 700px) { .pdp-strip { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
+    .pdp-strip-item .num {
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 500;
+      font-size: 1.9rem; color: var(--purple); line-height: 1;
+    }
+    .pdp-strip-item .lbl { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+
+    .pdp-section { padding: 4rem 0; }
+    .pdp-section h2 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple); }
+
+    /* Ingredient spec rows — Seed-style */
+    .spec-rows { margin-top: 2rem; border-top: 1px solid var(--line); }
+    .spec-row {
+      display: grid;
+      grid-template-columns: 220px 1fr 200px;
+      gap: 2rem;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .spec-row { grid-template-columns: 1fr; gap: 0.75rem; }
+    }
+    .spec-role {
+      font-size: 0.72rem; font-weight: 700;
+      color: var(--purple); letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .spec-name { font-weight: 700; font-size: 1.15rem; margin: 0.35rem 0 0.2rem; letter-spacing: -0.01em; }
+    .spec-dose { font-size: 0.85rem; color: var(--muted); }
+    .spec-body { font-size: 0.95rem; color: var(--ink-soft); line-height: 1.55; }
+    .spec-form {
+      background: var(--cream); border: 1px solid var(--line);
+      border-radius: 12px; padding: 0.9rem 1rem;
+      font-size: 0.85rem;
+    }
+    .spec-form .spec-form-lbl {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
+      color: var(--purple-deep); text-transform: uppercase; display: block; margin-bottom: 0.3rem;
+    }
+
+    .how-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+    @media (max-width: 800px) { .how-steps { grid-template-columns: 1fr; } }
+    .how-step { background: var(--lavender); border-radius: 16px; padding: 1.75rem; }
+    .how-step .step-num {
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 500;
+      font-size: 2rem; color: var(--purple-deep); line-height: 1; margin-bottom: 0.5rem;
+    }
+    .how-step h4 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+    .how-step p { font-size: 0.9rem; color: var(--ink-soft); margin: 0; }
+
+    .pair-callout {
+      background: var(--ink); color: var(--cream);
+      border-radius: 22px; padding: 3rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+      align-items: center; margin: 4rem 0;
+    }
+    @media (max-width: 800px) { .pair-callout { grid-template-columns: 1fr; } }
+    .pair-callout h3 { color: var(--cream); font-size: 1.8rem; margin-bottom: 0.75rem; }
+    .pair-callout h3 em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; color: var(--purple-light); }
+    .pair-callout p { color: #C7C0E8; font-size: 0.95rem; }
+
+    /* Dosing panel */
+    .dosing-panel {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 800px) { .dosing-panel { grid-template-columns: 1fr; } }
+    .dosing-cell h4 { font-size: 1rem; margin-bottom: 0.5rem; }
+    .dosing-cell p { font-size: 0.9rem; color: var(--ink-soft); margin: 0 0 0.6rem; }
+    .dosing-cell .dose-pill {
+      display: inline-block;
+      background: var(--lavender);
+      color: var(--purple-deep);
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="pdp-hero">
+    <div class="container">
+      <div class="pdp-grid">
+        <!-- Visual column -->
+        <div>
+          <div class="pdp-visual-panel">
+            <div class="viz-bottle">
+              <span class="viz-label">inner<br>barrier</span>
+              <span class="viz-code">BL-03</span>
+            </div>
+          </div>
+          <div class="pdp-thumbs">
+            <div class="pdp-thumb is-active">bottle</div>
+            <div class="pdp-thumb">cap</div>
+            <div class="pdp-thumb">capsule</div>
+            <div class="pdp-thumb">panel</div>
+          </div>
+        </div>
+
+        <!-- Buy column -->
+        <div>
+          <span class="pdp-code">BL-03 · Inside · Adult</span>
+          <h1 class="pdp-h1"><em>Inner</em> Barrier Complex</h1>
+          <p class="pdp-subhead">A daily capsule stack for adults: lactoferrin, zinc, vitamin D, quercetin, and a 15 billion CFU probiotic blend — the gut side of the skin barrier, dosed clinically.</p>
+
+          <div class="pdp-price-block">
+            <span class="pdp-price" id="pdpPrice">$49.00</span>
+            <span class="pdp-price-sub">90 capsules · 30-day supply</span>
+          </div>
+
+          <div class="pdp-opt">
+            <label>
+              <input type="radio" name="sub" value="once" checked>
+              <span class="opt-label">One-time</span>
+              <span class="opt-price">$49.00</span>
+            </label>
+            <label>
+              <input type="radio" name="sub" value="subscribe">
+              <span class="opt-label">Subscribe</span>
+              <span class="opt-price">$41.65 · every 30 days</span>
+              <span class="opt-save">Save 15%</span>
+            </label>
+          </div>
+
+          <button class="btn btn-primary btn-full btn-lg js-add-to-cart" data-sku="bl-03" id="pdpAdd">Add to cart — $49.00</button>
+
+          <ul class="pdp-benefits">
+            <li>15 B CFU probiotic blend — <em>L. rhamnosus GG</em> + <em>L. paracasei</em></li>
+            <li>Lactoferrin 200 mg — the breast-milk immune protein, now in caps</li>
+            <li>Zinc bisglycinate + D3 2,000 IU — barrier cofactors, bioavailable forms</li>
+            <li>Quercetin dihydrate + vitamin C — mast-cell and histamine support</li>
+            <li>No artificial fillers · gluten-free · third-party tested</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+
+      <div class="pdp-strip">
+        <div class="pdp-strip-item"><div class="num">90</div><div class="lbl">Capsules</div></div>
+        <div class="pdp-strip-item"><div class="num">30</div><div class="lbl">Day supply</div></div>
+        <div class="pdp-strip-item"><div class="num">15B</div><div class="lbl">CFU probiotic</div></div>
+        <div class="pdp-strip-item"><div class="num">9</div><div class="lbl">Actives, clinical dose</div></div>
+      </div>
+
+      <!-- Trust strip — how the formula was developed -->
+      <div class="trust-strip">
+        <div class="trust-head">
+          <span class="kicker">How it was built</span>
+          <h3>A <em>human-tested</em> formula — not a marketing formulation.</h3>
+        </div>
+        <div class="trust-grid">
+          <div class="trust-cell">
+            <div class="ic">◉</div>
+            <div class="body">
+              <strong>Human-tested</strong>
+              The Inner Barrier Complex was refined across repeated rounds of real-user testing with adults living with reactive, atopic skin — before a single bottle reached the shelf.
+            </div>
+          </div>
+          <div class="trust-cell">
+            <div class="ic">▲</div>
+            <div class="body">
+              <strong>Science-backed ingredients</strong>
+              Every active — the amino-acid quartet, algal omega-3, D3, zinc, biotin, selenium — is chosen from peer-reviewed research on adult skin-barrier nutrition.
+            </div>
+          </div>
+          <div class="trust-cell">
+            <div class="ic">◆</div>
+            <div class="body">
+              <strong>Proprietary complex</strong>
+              Individual ingredients you can read below. The specific ratios, sequencing, and co-formulation work stays ours.
+            </div>
+          </div>
+        </div>
+        <p class="trust-foot">These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Inner Barrier Complex is a dietary supplement designed to support normal skin-barrier and immune function in adults.</p>
+      </div>
+
+      <!-- Ingredient grid — horizontal-scroll molecule rail (BL-03) -->
+      <div class="ing-scroll">
+        <div class="ing-scroll-head">
+          <div>
+            <span class="ing-kicker">• BL-03 · Inner Barrier Complex · Adult Capsule</span>
+            <h2>Ten nutrients, one <em>barrier-first</em> stack.</h2>
+          </div>
+          <p>Three capsules a day deliver the amino-acid, lipid, and micronutrient inputs that adult skin-barrier research ties to better atopic outcomes — nothing decorative, nothing at beauty-influencer doses.</p>
+          <div class="ing-scroll-controls">
+            <button class="ing-scroll-btn" data-rail="ingTrackBL03" data-dir="-1" aria-label="Scroll left">←</button>
+            <button class="ing-scroll-btn" data-rail="ingTrackBL03" data-dir="1" aria-label="Scroll right">→</button>
+          </div>
+        </div>
+
+        <div class="ing-scroll-track" id="ingTrackBL03">
+          <!-- 1. L-Histidine -->
+          <div class="ing-mol-card">
+            <span class="ing-top-tag">Capsule Hero</span>
+            <h3>L-Histidine</h3>
+            <p class="ing-desc">The filaggrin precursor — clinically studied at 800 mg in adult atopic dermatitis.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <polygon class="mol-stroke" points="55,50 75,42 90,55 80,72 60,68" fill="#fff"/>
+                  <line class="mol-stroke" x1="90" y1="55" x2="110" y2="48"/>
+                  <line class="mol-stroke" x1="110" y1="48" x2="125" y2="60"/>
+                  <line class="mol-stroke" x1="125" y1="60" x2="140" y2="50"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="75" cy="42" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="110" cy="48" r="3.5"/>
+                  <circle class="mol-fill" cx="125" cy="60" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="140" cy="50" r="3.5"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 800 mg per serving</p>
+            <p class="ing-form">Fermentation-derived, vegan, USP-grade — the exact form and dose used in the Tan 2017 trial.</p>
+          </div>
+
+          <!-- 2. L-Glutamine -->
+          <div class="ing-mol-card">
+            <h3>L-Glutamine</h3>
+            <p class="ing-desc">Conditionally essential amino acid for gut-lining integrity.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <line class="mol-stroke" x1="30" y1="50" x2="55" y2="40"/>
+                  <line class="mol-stroke" x1="55" y1="40" x2="80" y2="52"/>
+                  <line class="mol-stroke" x1="80" y1="52" x2="105" y2="40"/>
+                  <line class="mol-stroke" x1="105" y1="40" x2="130" y2="52"/>
+                  <line class="mol-stroke" x1="130" y1="52" x2="155" y2="40"/>
+                  <line class="mol-stroke" x1="80" y1="52" x2="80" y2="72"/>
+                </g>
+                <g>
+                  <circle class="mol-fill-hollow" cx="30" cy="50" r="3.5"/>
+                  <circle class="mol-fill" cx="55" cy="40" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="80" cy="52" r="3.5"/>
+                  <circle class="mol-fill" cx="105" cy="40" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="130" cy="52" r="3.5"/>
+                  <circle class="mol-fill" cx="155" cy="40" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="80" cy="72" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 500 mg per serving</p>
+            <p class="ing-form">Free-form vegan L-glutamine — rapidly absorbed without needing to be cleaved from a protein.</p>
+          </div>
+
+          <!-- 3. L-Glycine -->
+          <div class="ing-mol-card">
+            <h3>L-Glycine</h3>
+            <p class="ing-desc">Smallest amino acid — raw material for collagen and glutathione synthesis.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <line class="mol-stroke" x1="60" y1="50" x2="80" y2="40"/>
+                  <line class="mol-stroke" x1="80" y1="40" x2="100" y2="52"/>
+                  <line class="mol-stroke" x1="100" y1="52" x2="120" y2="40"/>
+                  <line class="mol-stroke" x1="80" y1="40" x2="80" y2="22"/>
+                  <line class="mol-stroke" x1="100" y1="52" x2="100" y2="72"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="60" cy="50" r="4"/>
+                  <circle class="mol-fill-hollow" cx="80" cy="40" r="4"/>
+                  <circle class="mol-fill" cx="100" cy="52" r="4"/>
+                  <circle class="mol-fill-hollow" cx="120" cy="40" r="4"/>
+                  <circle class="mol-fill" cx="80" cy="22" r="3"/>
+                  <circle class="mol-fill-hollow" cx="100" cy="72" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 500 mg per serving</p>
+            <p class="ing-form">Free-form L-glycine — the simplest amino acid, high bioavailability without needing a carrier.</p>
+          </div>
+
+          <!-- 4. L-Serine -->
+          <div class="ing-mol-card">
+            <h3>L-Serine</h3>
+            <p class="ing-desc">Key component of the phospholipids that seal the barrier.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <line class="mol-stroke" x1="55" y1="50" x2="75" y2="40"/>
+                  <line class="mol-stroke" x1="75" y1="40" x2="95" y2="52"/>
+                  <line class="mol-stroke" x1="95" y1="52" x2="115" y2="40"/>
+                  <line class="mol-stroke" x1="115" y1="40" x2="135" y2="52"/>
+                  <line class="mol-stroke" x1="75" y1="40" x2="75" y2="22"/>
+                  <line class="mol-stroke" x1="115" y1="40" x2="115" y2="22"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="55" cy="50" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="75" cy="40" r="3.5"/>
+                  <circle class="mol-fill" cx="95" cy="52" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="115" cy="40" r="3.5"/>
+                  <circle class="mol-fill" cx="135" cy="52" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="75" cy="22" r="3"/>
+                  <circle class="mol-fill-hollow" cx="115" cy="22" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 200 mg per serving</p>
+            <p class="ing-form">Fermentation-derived L-serine — the form skin uses to synthesize phosphatidylserine and sphingolipids.</p>
+          </div>
+
+          <!-- 5. Algal Omega-3 -->
+          <div class="ing-mol-card">
+            <h3>Algal Omega-3</h3>
+            <p class="ing-desc">DHA + EPA from microalgae — the anti-inflammatory lipids eczema skin tends to lack.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <path class="mol-stroke" d="M15 55 L30 42 L50 52 L65 40 L85 52 L100 40 L120 52 L135 40 L155 52 L170 42" />
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="15" cy="55" r="4"/>
+                  <circle class="mol-fill-hollow" cx="30" cy="42" r="3"/>
+                  <circle class="mol-fill" cx="50" cy="52" r="3"/>
+                  <circle class="mol-fill-hollow" cx="65" cy="40" r="3"/>
+                  <circle class="mol-fill" cx="85" cy="52" r="3"/>
+                  <circle class="mol-fill-hollow" cx="100" cy="40" r="3"/>
+                  <circle class="mol-fill" cx="120" cy="52" r="3"/>
+                  <circle class="mol-fill-hollow" cx="135" cy="40" r="3"/>
+                  <circle class="mol-fill" cx="155" cy="52" r="3"/>
+                  <circle class="mol-fill-hollow" cx="170" cy="42" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 300 mg per serving</p>
+            <p class="ing-form">Schizochytrium sp. algal oil — fish-free, oxidation-tested, no burpy aftertaste.</p>
+          </div>
+
+          <!-- 6. Vitamin D3 -->
+          <div class="ing-mol-card">
+            <h3>Vitamin D3</h3>
+            <p class="ing-desc">Supports immune-cell regulation in the skin and barrier-lipid synthesis.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <polygon class="mol-stroke" points="55,55 72,42 92,50 95,70 75,80 58,73" fill="#fff"/>
+                  <polygon class="mol-stroke" points="95,70 112,58 130,65 128,82" fill="#fff"/>
+                  <line class="mol-stroke" x1="72" y1="42" x2="70" y2="22"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="72" cy="42" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="112" cy="58" r="3.5"/>
+                  <circle class="mol-fill" cx="70" cy="22" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 2,000 IU per serving</p>
+            <p class="ing-form">Lichen-sourced cholecalciferol — vegan D3, significantly better absorbed than synthetic D2.</p>
+          </div>
+
+          <!-- 7. Zinc -->
+          <div class="ing-mol-card">
+            <h3>Zinc</h3>
+            <p class="ing-desc">Supports immune function and keratinocyte turnover — levels often low in eczema.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <circle class="mol-stroke" cx="90" cy="50" r="18"/>
+                  <line class="mol-stroke" x1="90" y1="32" x2="90" y2="15"/>
+                  <line class="mol-stroke" x1="90" y1="68" x2="90" y2="88"/>
+                  <line class="mol-stroke" x1="72" y1="50" x2="55" y2="50"/>
+                  <line class="mol-stroke" x1="108" y1="50" x2="125" y2="50"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="90" cy="50" r="5"/>
+                  <circle class="mol-fill-hollow" cx="90" cy="15" r="3.5"/>
+                  <circle class="mol-fill" cx="55" cy="50" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="125" cy="50" r="3.5"/>
+                  <circle class="mol-fill" cx="90" cy="88" r="3.5"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 15 mg per serving</p>
+            <p class="ing-form">Zinc bisglycinate — chelated form with the highest absorption and gentlest on the stomach.</p>
+          </div>
+
+          <!-- 8. Biotin -->
+          <div class="ing-mol-card">
+            <h3>Biotin</h3>
+            <p class="ing-desc">Cofactor in the fatty-acid synthesis skin uses for ceramides.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <polygon class="mol-stroke" points="50,55 65,40 85,40 90,58 78,75 60,72" fill="#fff"/>
+                  <line class="mol-stroke" x1="90" y1="58" x2="110" y2="55"/>
+                  <line class="mol-stroke" x1="110" y1="55" x2="128" y2="45"/>
+                  <line class="mol-stroke" x1="128" y1="45" x2="148" y2="55"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="65" cy="40" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="85" cy="40" r="3.5"/>
+                  <circle class="mol-fill" cx="110" cy="55" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="128" cy="45" r="3.5"/>
+                  <circle class="mol-fill" cx="148" cy="55" r="3.5"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 300 mcg per serving</p>
+            <p class="ing-form">D-biotin — the naturally active isomer, at a thoughtful dose (not 10,000 mcg beauty-gummy megadoses).</p>
+          </div>
+
+          <!-- 9. Selenium -->
+          <div class="ing-mol-card">
+            <h3>Selenium</h3>
+            <p class="ing-desc">Trace mineral that powers glutathione peroxidase — the skin's antioxidant defense.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <circle class="mol-stroke" cx="90" cy="50" r="14"/>
+                  <circle class="mol-stroke" cx="55" cy="40" r="8"/>
+                  <circle class="mol-stroke" cx="130" cy="45" r="9"/>
+                  <circle class="mol-stroke" cx="65" cy="75" r="7"/>
+                  <circle class="mol-stroke" cx="120" cy="78" r="8"/>
+                  <line class="mol-stroke" x1="76" y1="50" x2="63" y2="40"/>
+                  <line class="mol-stroke" x1="104" y1="50" x2="121" y2="45"/>
+                  <line class="mol-stroke" x1="84" y1="64" x2="70" y2="75"/>
+                  <line class="mol-stroke" x1="98" y1="62" x2="114" y2="72"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="90" cy="50" r="4"/>
+                  <circle class="mol-fill-hollow" cx="55" cy="40" r="3"/>
+                  <circle class="mol-fill" cx="130" cy="45" r="3"/>
+                  <circle class="mol-fill-hollow" cx="65" cy="75" r="2.5"/>
+                  <circle class="mol-fill" cx="120" cy="78" r="2.5"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 100 mcg per serving</p>
+            <p class="ing-form">Selenomethionine — the organic, food-form of selenium (not synthetic selenite).</p>
+          </div>
+
+          <!-- 10. Fulvic & Humic Acid Blend -->
+          <div class="ing-mol-card">
+            <h3>Fulvic &amp; Humic Acid</h3>
+            <p class="ing-desc">Natural mineral cofactor complex — 70+ trace minerals in a plant-derived matrix.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <polygon class="mol-stroke" points="40,55 55,40 75,45 78,63 62,75 44,70" fill="#fff"/>
+                  <polygon class="mol-stroke" points="78,63 92,50 112,55 115,75 98,85 82,80" fill="#fff"/>
+                  <polygon class="mol-stroke" points="115,75 130,60 148,65 146,82" fill="#fff"/>
+                  <line class="mol-stroke" x1="55" y1="40" x2="50" y2="22"/>
+                  <line class="mol-stroke" x1="92" y1="50" x2="95" y2="28"/>
+                  <line class="mol-stroke" x1="130" y1="60" x2="140" y2="42"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="55" cy="40" r="3"/>
+                  <circle class="mol-fill-hollow" cx="92" cy="50" r="3"/>
+                  <circle class="mol-fill" cx="130" cy="60" r="3"/>
+                  <circle class="mol-fill-hollow" cx="50" cy="22" r="2.5"/>
+                  <circle class="mol-fill" cx="95" cy="28" r="2.5"/>
+                  <circle class="mol-fill-hollow" cx="140" cy="42" r="2.5"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Dose · 300 mg per serving</p>
+            <p class="ing-form">Plant-derived fulvic and humic acids — the mineral complex that supports micronutrient uptake.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- How to use -->
+      <div class="pdp-section" style="padding-top:0;">
+        <span class="kicker">How to take</span>
+        <h2 style="margin-top:1rem;">Three <em>caps</em>. Once a day.</h2>
+        <div class="how-steps">
+          <div class="how-step">
+            <div class="step-num">01</div>
+            <h4>With breakfast</h4>
+            <p>Three capsules with food and a full glass of water. Mornings are easiest to stay consistent — and probiotics don't care.</p>
+          </div>
+          <div class="how-step">
+            <div class="step-num">02</div>
+            <h4>Daily, not just in flares</h4>
+            <p>The gut-skin axis is a long feedback loop. Give it 6–8 weeks before judging. Our trial data sits around the 8-week mark.</p>
+          </div>
+          <div class="how-step">
+            <div class="step-num">03</div>
+            <h4>Pair with Recovery Balm</h4>
+            <p>Outside + inside. Balm seals the barrier while the capsules work on why it keeps breaking.</p>
+          </div>
+        </div>
+
+        <div class="dosing-panel">
+          <div class="dosing-cell">
+            <h4>Adults only</h4>
+            <p>BL-03 is dosed for adults 18+. The zinc, D3, and quercetin levels are not appropriate for kids.</p>
+            <span class="dose-pill">For kids → BL-02 Inner Powder</span>
+          </div>
+          <div class="dosing-cell">
+            <h4>Taking a prescription?</h4>
+            <p>This stack is additive, not a substitute. It pairs well with topical steroids, dupilumab, or JAK inhibitors. Mention it to your prescriber at your next visit.</p>
+            <span class="dose-pill">Rx-compatible</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pair callout -->
+      <div class="pair-callout">
+        <div>
+          <span class="kicker" style="color:var(--purple-light);">Pair with the outside</span>
+          <h3>Capsules can't seal a <em>broken</em> barrier.</h3>
+          <p>Inner Barrier Complex works on the inflammation loop that keeps your skin reactive. Recovery Balm handles the surface layer it's broken — the two pieces together are the full system.</p>
+        </div>
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <a href="recovery-balm.html" class="btn btn-primary">Recovery Balm →</a>
+          <a href="shop.html#bundles" class="btn btn-outline" style="color:var(--cream); border-color:var(--cream);">Adult bundle — save $12 →</a>
+        </div>
+      </div>
+
+      <!-- How the Inner Barrier Complex compares -->
+      <section class="cmp-stage">
+        <div class="cmp-top">
+          <div>
+            <h2 class="cmp-title">How the <em>Inner Barrier<br/>Complex</em> compares:</h2>
+            <p class="cmp-lead">Most adults with eczema take a daily multi and maybe a probiotic, then wonder why their skin still flares. Those products weren't built for a broken barrier. Here's what a stack designed for adult atopic skin does differently from the two supplements already in your cabinet.</p>
+          </div>
+          <div class="cmp-panel">
+            <div class="cmp-highlight-col" style="left: calc(1.7/4.7 * 100%); right: calc(2/4.7 * 100%); top: 0.5rem; bottom: 0.5rem;"></div>
+            <div class="cmp-grid">
+              <div class="cmp-head cmp-head--label">&nbsp;</div>
+              <div class="cmp-head">
+                <span class="cmp-chip">BL-03</span>
+                <div style="margin-top:0.45rem;">Inner Barrier<br/>Complex</div>
+              </div>
+              <div class="cmp-head">Adult<br/>Multivitamin</div>
+              <div class="cmp-head">Adult<br/>Probiotic</div>
+
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Filaggrin-rebuilding amino acids <small>(histidine · glutamine · glycine · serine at clinical doses)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Formulated for adult atopic skin <small>(not a generic "daily health" blend)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Algal EPA + DHA at skin-relevant dose <small>(300mg omega-3, no fish burp)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Clinical-dose D3 for barrier immunity <small>(2000 IU — the dose used in eczema trials)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot partial"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Bioavailable zinc + selenium + biotin <small>(picolinate · selenomethionine · D-biotin)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot partial"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Fulvic + humic mineral cofactors <small>(for amino-acid and mineral uptake)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">No iron, no mega-dosed B-complex <small>(adult eczema skin doesn't need either)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Pairs with a barrier-repair cream <small>(two-front system, not a single capsule)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+            </div>
+            <div class="cmp-legend">
+              <span class="cmp-legend-item"><span class="cmp-dot yes"></span>Yes</span>
+              <span class="cmp-legend-item"><span class="cmp-dot partial"></span>Partial</span>
+              <span class="cmp-legend-item"><span class="cmp-dot no"></span>No</span>
+            </div>
+            <p class="cmp-foot">"Adult Multivitamin" = typical formulations like Centrum Adult or One A Day. "Adult Probiotic" = typical single-strain formulations like Culturelle or Align. Brand-specific formulations vary.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <div class="pdp-section" style="padding-top:0;">
+        <span class="kicker">Good to know</span>
+        <h2 style="margin-top:1rem;">Common <em>questions</em>.</h2>
+        <div style="max-width:800px; margin-top:2rem;">
+          <div class="acc-item">
+            <button class="acc-btn">How long until I notice a difference? <span class="acc-icon">+</span></button>
+            <div class="acc-content"><p>Skin-barrier feedback loops are slow. Most people report calmer reactivity and fewer flare days between week 6 and week 10. Give one full bottle (30 days) before judging, and two if you can.</p></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn">Do I need to refrigerate it? <span class="acc-icon">+</span></button>
+            <div class="acc-content"><p>No. The probiotic strains are enteric-coated and shelf-stable through the labeled expiration. Store at room temperature, out of direct sun.</p></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn">Can I take it while pregnant or nursing? <span class="acc-icon">+</span></button>
+            <div class="acc-content"><p>Individual ingredients (L. rhamnosus GG, lactoferrin, D3, zinc, vitamin C) are generally regarded as safe in pregnancy and lactation. Quercetin and this combined stack have not been studied in pregnancy — please talk to your OB before starting.</p></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn">Can I take this alongside my dermatologist's treatment? <span class="acc-icon">+</span></button>
+            <div class="acc-content"><p>Yes — none of the ingredients interact with topical steroids, calcineurin inhibitors, antihistamines, or biologics like Dupixent. We'd still recommend telling your prescribing doctor what you're adding, especially with any immune-modulating drug.</p></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn">What if it doesn't work for me? <span class="acc-icon">+</span></button>
+            <div class="acc-content"><p>60-day money-back. Not a restocking fee, not store credit — we refund the subscription you tried. Eczema is heterogeneous, and we'd rather lose a sale than keep a customer on something that isn't moving.</p></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="assets/shared.js"></script>
+  <script>
+    // Subscribe toggle updates price + add-to-cart button
+    const radios = document.querySelectorAll('input[name=sub]');
+    const priceEl = document.getElementById('pdpPrice');
+    const addBtn = document.getElementById('pdpAdd');
+    radios.forEach(r => r.addEventListener('change', () => {
+      const sub = document.querySelector('input[name=sub]:checked').value === 'subscribe';
+      priceEl.textContent = sub ? '$41.65' : '$49.00';
+      addBtn.textContent = sub ? 'Add to cart — $41.65 / 30 days' : 'Add to cart — $49.00';
+      addBtn.dataset.subscribe = sub ? 'true' : 'false';
+    }));
+
+    // Wire ingredient-scroll prev/next buttons
+    document.querySelectorAll('.ing-scroll-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const track = document.getElementById(btn.dataset.rail);
+        if (!track) return;
+        const dir = Number(btn.dataset.dir);
+        track.scrollBy({ left: dir * (track.clientWidth * 0.85), behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <!-- Barrier Lab brandmark: layered plant bud.
+       Five rounded petals + small crown at top. White fill on transparent bg.
+       Negative space (stem + gaps between petals) is left transparent so it
+       picks up whatever background it sits on. -->
+  <g fill="#ffffff" fill-rule="evenodd">
+
+    <!-- Upper-left big petal -->
+    <path d="M 200 70
+             C 150 65, 115 105, 110 160
+             C 108 205, 130 240, 168 255
+             C 180 260, 192 258, 196 250
+             C 199 240, 198 170, 198 120
+             C 198 95, 197 80, 200 70 Z"/>
+
+    <!-- Upper-right big petal -->
+    <path d="M 200 70
+             C 250 65, 285 105, 290 160
+             C 292 205, 270 240, 232 255
+             C 220 260, 208 258, 204 250
+             C 201 240, 202 170, 202 120
+             C 202 95, 203 80, 200 70 Z"/>
+
+    <!-- Crown left (small triangle-leaf) -->
+    <path d="M 188 40
+             C 178 50, 172 62, 174 82
+             C 186 80, 195 74, 198 66
+             C 198 58, 196 48, 192 40
+             C 190 38, 189 38, 188 40 Z"/>
+
+    <!-- Crown right (small triangle-leaf) -->
+    <path d="M 212 40
+             C 222 50, 228 62, 226 82
+             C 214 80, 205 74, 202 66
+             C 202 58, 204 48, 208 40
+             C 210 38, 211 38, 212 40 Z"/>
+
+    <!-- Lower-left outer leaf -->
+    <path d="M 110 230
+             C 75 250, 62 290, 85 330
+             C 110 355, 155 355, 180 335
+             C 188 328, 190 318, 186 308
+             C 180 294, 160 275, 140 258
+             C 125 245, 115 234, 110 230 Z"/>
+
+    <!-- Lower-right outer leaf -->
+    <path d="M 290 230
+             C 325 250, 338 290, 315 330
+             C 290 355, 245 355, 220 335
+             C 212 328, 210 318, 214 308
+             C 220 294, 240 275, 260 258
+             C 275 245, 285 234, 290 230 Z"/>
+
+    <!-- Center bottom petal (the front-most leaf) -->
+    <path d="M 200 250
+             C 178 258, 165 280, 168 310
+             C 172 340, 188 358, 200 360
+             C 212 358, 228 340, 232 310
+             C 235 280, 222 258, 200 250 Z"/>
+
+  </g>
+</svg>

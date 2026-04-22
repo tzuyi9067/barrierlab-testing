@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recovery Balm — BL-01 | Barrier Lab</title>
+  <meta name="description" content="Recovery Balm: a ceramide and niacinamide cream that rebuilds the skin barrier during and after flare-ups. 1.7 oz. Fragrance-free, steroid-free.">
+  <link rel="icon" type="image/png" href="assets/mark-purple.png">
+  <link rel="stylesheet" href="assets/shared.css">
+  <style>
+    .pdp-hero {
+      padding: 3rem 0 4rem;
+      background: linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 100%);
+    }
+    .pdp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .pdp-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+    .pdp-visual-panel {
+      background: white;
+      border-radius: 22px;
+      aspect-ratio: 4 / 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      position: relative;
+    }
+    .pdp-visual-panel .viz-jar { transform: scale(1.3); }
+    .pdp-thumbs {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .pdp-thumb {
+      width: 72px; height: 72px;
+      background: var(--lavender);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--purple-deep);
+      text-transform: lowercase;
+      letter-spacing: 0.02em;
+    }
+    .pdp-thumb.is-active { border-color: var(--purple); border-width: 2px; }
+
+    .pdp-code { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.2em; color: var(--purple); text-transform: uppercase; }
+    .pdp-h1 {
+      font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+      line-height: 1.05;
+      margin: 0.75rem 0;
+    }
+    .pdp-h1 em {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--purple);
+    }
+    .pdp-subhead { font-size: 1.1rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
+
+    .pdp-price-block { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem; }
+    .pdp-price { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.02em; }
+    .pdp-price-sub { color: var(--muted); font-size: 0.95rem; }
+
+    .pdp-opt {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .pdp-opt label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      padding: 1rem 1.25rem;
+      border: 1.5px solid var(--line);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .pdp-opt label:has(input:checked) {
+      border-color: var(--purple);
+      background: var(--lavender);
+    }
+    .pdp-opt input { position: absolute; opacity: 0; }
+    .pdp-opt .opt-label { font-weight: 600; font-size: 0.95rem; }
+    .pdp-opt .opt-price { color: var(--muted); font-size: 0.85rem; }
+    .pdp-opt .opt-save { font-size: 0.7rem; color: var(--purple); font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
+
+    .pdp-benefits {
+      list-style: none;
+      padding: 1.5rem;
+      margin: 1.5rem 0 0;
+      background: var(--lavender);
+      border-radius: 14px;
+    }
+    .pdp-benefits li {
+      padding: 0.45rem 0;
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+    }
+    .pdp-benefits li::before {
+      content: '✓';
+      color: var(--purple);
+      font-weight: 700;
+      margin-right: 0.75rem;
+    }
+
+    .pdp-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      margin: 4rem 0;
+      text-align: center;
+    }
+    @media (max-width: 700px) { .pdp-strip { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
+    .pdp-strip-item .num {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1.8rem;
+      color: var(--purple);
+      line-height: 1;
+    }
+    .pdp-strip-item .lbl {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    .pdp-section { padding: 4rem 0; }
+    .pdp-section h2 em {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--purple);
+    }
+
+    .ingredient-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 800px) { .ingredient-grid { grid-template-columns: 1fr; } }
+    .ing-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+    .ing-card h4 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--ink-text);
+      margin: 0.35rem 0 0.5rem;
+    }
+    .ing-card p { font-size: 0.9rem; color: var(--muted); margin: 0; }
+    .ing-card .role {
+      font-size: 0.7rem;
+      color: var(--purple);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 800px) { .how-steps { grid-template-columns: 1fr; } }
+    .how-step {
+      background: var(--lavender);
+      border-radius: 16px;
+      padding: 1.75rem;
+    }
+    .how-step .step-num {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 2rem;
+      color: var(--purple-deep);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .how-step h4 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+    .how-step p { font-size: 0.9rem; color: var(--ink-soft); margin: 0; }
+
+    .pair-callout {
+      background: var(--ink);
+      color: var(--cream);
+      border-radius: 22px;
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      margin: 4rem 0;
+    }
+    @media (max-width: 800px) { .pair-callout { grid-template-columns: 1fr; } }
+    .pair-callout h3 {
+      color: var(--cream);
+      font-size: 1.8rem;
+      margin-bottom: 0.75rem;
+    }
+    .pair-callout h3 em {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--purple-light);
+    }
+    .pair-callout p { color: #C7C0E8; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+
+  <section class="pdp-hero">
+    <div class="container">
+      <div class="pdp-grid">
+        <!-- Visual column -->
+        <div>
+          <div class="pdp-visual-panel">
+            <div class="viz-jar">
+              <span class="viz-label">barrier<br>lab.</span>
+              <span class="viz-code">BL-01</span>
+            </div>
+          </div>
+          <div class="pdp-thumbs">
+            <div class="pdp-thumb is-active">jar</div>
+            <div class="pdp-thumb">lid</div>
+            <div class="pdp-thumb">texture</div>
+            <div class="pdp-thumb">hand</div>
+          </div>
+        </div>
+
+        <!-- Buy column -->
+        <div>
+          <span class="pdp-code">BL-01 · Outside</span>
+          <h1 class="pdp-h1"><em>Recovery</em> Balm</h1>
+          <p class="pdp-subhead">A ceramide + niacinamide cream that rebuilds the skin barrier during and after flare-ups. Fragrance-free. Steroid-free. Safe for infants and up.</p>
+
+          <div class="pdp-price-block">
+            <span class="pdp-price" id="pdpPrice">$32.00</span>
+            <span class="pdp-price-sub">1.7 oz · 50 ml</span>
+          </div>
+
+          <div class="pdp-opt">
+            <label>
+              <input type="radio" name="sub" value="once" checked>
+              <span class="opt-label">One-time</span>
+              <span class="opt-price">$32.00</span>
+            </label>
+            <label>
+              <input type="radio" name="sub" value="subscribe">
+              <span class="opt-label">Subscribe</span>
+              <span class="opt-price">$27.20 · every 8 wks</span>
+              <span class="opt-save">Save 15%</span>
+            </label>
+          </div>
+
+          <button class="btn btn-primary btn-full btn-lg js-add-to-cart" data-sku="bl-01" id="pdpAdd">Add to cart — $32.00</button>
+
+          <ul class="pdp-benefits">
+            <li>Ceramides NP, AP & EOP — identical to your skin's own</li>
+            <li>4% niacinamide to calm redness and itch</li>
+            <li>Shea butter + colloidal oat for immediate relief</li>
+            <li>Fragrance-free, dye-free, steroid-free</li>
+            <li>Pediatrician-safe · works with topical Rx</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+
+      <div class="pdp-strip">
+        <div class="pdp-strip-item"><div class="num">50ml</div><div class="lbl">Per jar</div></div>
+        <div class="pdp-strip-item"><div class="num">4–8 wk</div><div class="lbl">Typical supply</div></div>
+        <div class="pdp-strip-item"><div class="num">0</div><div class="lbl">Fragrance / steroid</div></div>
+        <div class="pdp-strip-item"><div class="num">4mo+</div><div class="lbl">Infant safe</div></div>
+      </div>
+
+      <!-- Trust strip — how the formula was developed -->
+      <div class="trust-strip">
+        <div class="trust-head">
+          <span class="kicker">How it was built</span>
+          <h3>A <em>human-tested</em> formula — not a marketing formulation.</h3>
+        </div>
+        <div class="trust-grid">
+          <div class="trust-cell">
+            <div class="ic">◉</div>
+            <div class="body">
+              <strong>Human-tested</strong>
+              The balm was refined across repeated rounds of use-testing with real people before a single jar was filled for sale.
+            </div>
+          </div>
+          <div class="trust-cell">
+            <div class="ic">▲</div>
+            <div class="body">
+              <strong>Science-backed ingredients</strong>
+              Every active — ceramides, niacinamide, madecassoside, hyaluronic acid — sits on a body of peer-reviewed skin-barrier research.
+            </div>
+          </div>
+          <div class="trust-cell">
+            <div class="ic">◆</div>
+            <div class="body">
+              <strong>Proprietary complex</strong>
+              The ratio work is ours. You can read every ingredient below — the formulation logic stays in the lab.
+            </div>
+          </div>
+        </div>
+        <p class="trust-foot">Barrier Lab cosmetics are formulated in an FDA-regulated cGMP facility. Individual results vary — this balm supports skin-barrier function; it is not a drug and is not a substitute for care prescribed by a dermatologist.</p>
+      </div>
+
+      <!-- Ingredient grid — horizontal-scroll molecule rail (BL-01) -->
+      <div class="ing-scroll" id="ingScrollBL01">
+        <div class="ing-scroll-head">
+          <div>
+            <span class="ing-kicker">• BL-01 · The Recovery Balm</span>
+            <h2>Barrier-repairing lipids that work <em>with</em> your skin.</h2>
+          </div>
+          <p>The Recovery Balm is formulated around the 3:1:1 lipid ratio — the same ceramide-cholesterol-fatty-acid mix your stratum corneum already uses — so the formula rebuilds the wall instead of sitting on top of it.</p>
+          <div class="ing-scroll-controls">
+            <button class="ing-scroll-btn" data-rail="ingTrackBL01" data-dir="-1" aria-label="Scroll left">←</button>
+            <button class="ing-scroll-btn" data-rail="ingTrackBL01" data-dir="1" aria-label="Scroll right">→</button>
+          </div>
+        </div>
+
+        <div class="ing-scroll-track" id="ingTrackBL01">
+          <!-- 1. Ceramide NP -->
+          <div class="ing-mol-card">
+            <span class="ing-top-tag">Balm Exclusive</span>
+            <h3>Ceramide NP</h3>
+            <p class="ing-desc">The lipid your eczema-prone skin is missing. Rebuilds the intercellular "mortar" between skin cells.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <line class="mol-stroke" x1="15" y1="55" x2="35" y2="45"/>
+                  <line class="mol-stroke" x1="35" y1="45" x2="55" y2="55"/>
+                  <line class="mol-stroke" x1="55" y1="55" x2="75" y2="45"/>
+                  <line class="mol-stroke" x1="75" y1="45" x2="95" y2="55"/>
+                  <line class="mol-stroke" x1="95" y1="55" x2="115" y2="45"/>
+                  <line class="mol-stroke" x1="115" y1="45" x2="135" y2="55"/>
+                  <line class="mol-stroke" x1="135" y1="55" x2="155" y2="45"/>
+                  <line class="mol-stroke" x1="155" y1="45" x2="170" y2="50"/>
+                  <line class="mol-stroke" x1="75" y1="45" x2="75" y2="25"/>
+                  <line class="mol-stroke" x1="75" y1="25" x2="90" y2="18"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="15" cy="55" r="5"/>
+                  <circle class="mol-fill-hollow" cx="35" cy="45" r="4"/>
+                  <circle class="mol-fill" cx="55" cy="55" r="4"/>
+                  <circle class="mol-fill" cx="75" cy="45" r="5"/>
+                  <circle class="mol-fill-hollow" cx="95" cy="55" r="4"/>
+                  <circle class="mol-fill" cx="115" cy="45" r="4"/>
+                  <circle class="mol-fill-hollow" cx="135" cy="55" r="4"/>
+                  <circle class="mol-fill" cx="155" cy="45" r="5"/>
+                  <circle class="mol-fill-hollow" cx="170" cy="50" r="3"/>
+                  <circle class="mol-fill" cx="75" cy="25" r="3"/>
+                  <circle class="mol-fill-hollow" cx="90" cy="18" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Why it's essential</p>
+            <p class="ing-form">Matches the phytosphingosine backbone of your skin's own ceramides — a plant-derived, identical-to-skin form.</p>
+          </div>
+
+          <!-- 2. Cholesterol -->
+          <div class="ing-mol-card">
+            <h3>Cholesterol</h3>
+            <p class="ing-desc">A structural lipid that keeps ceramides organized in the right ratio.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <polygon class="mol-stroke" points="50,55 70,45 90,55 90,75 70,85 50,75" fill="#fff"/>
+                  <polygon class="mol-stroke" points="90,55 110,45 130,55 130,75 110,85 90,75" fill="#fff"/>
+                  <line class="mol-stroke" x1="130" y1="55" x2="145" y2="48"/>
+                  <line class="mol-stroke" x1="145" y1="48" x2="160" y2="55"/>
+                  <line class="mol-stroke" x1="50" y1="55" x2="35" y2="48"/>
+                  <line class="mol-stroke" x1="35" y1="48" x2="20" y2="55"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="70" cy="45" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="110" cy="45" r="3.5"/>
+                  <circle class="mol-fill" cx="145" cy="48" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="35" cy="48" r="3"/>
+                  <circle class="mol-fill" cx="20" cy="55" r="4"/>
+                  <circle class="mol-fill-hollow" cx="160" cy="55" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Bioavailable form</p>
+            <p class="ing-form">Ultra-pure, non-animal cholesterol — delivered in the clinical 3:1:1 ratio with ceramides and fatty acids.</p>
+          </div>
+
+          <!-- 3. Fatty Acids -->
+          <div class="ing-mol-card">
+            <h3>Fatty Acids</h3>
+            <p class="ing-desc">The third member of the barrier lipid triad — seals the gaps between bricks.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <line class="mol-stroke" x1="20" y1="50" x2="40" y2="40"/>
+                  <line class="mol-stroke" x1="40" y1="40" x2="60" y2="50"/>
+                  <line class="mol-stroke" x1="60" y1="50" x2="80" y2="40"/>
+                  <line class="mol-stroke" x1="80" y1="40" x2="100" y2="50"/>
+                  <line class="mol-stroke" x1="100" y1="50" x2="120" y2="40"/>
+                  <line class="mol-stroke" x1="120" y1="40" x2="140" y2="50"/>
+                  <line class="mol-stroke" x1="140" y1="50" x2="160" y2="40"/>
+                  <path class="mol-stroke" d="M160 40 l 6 -3 M160 40 l 6 3" />
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="20" cy="50" r="5"/>
+                  <circle class="mol-fill-hollow" cx="40" cy="40" r="3.5"/>
+                  <circle class="mol-fill" cx="60" cy="50" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="80" cy="40" r="3.5"/>
+                  <circle class="mol-fill" cx="100" cy="50" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="120" cy="40" r="3.5"/>
+                  <circle class="mol-fill" cx="140" cy="50" r="3.5"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Bioavailable form</p>
+            <p class="ing-form">Plant-derived free fatty acids (linoleic, palmitic, stearic) — the exact chain lengths found in healthy skin.</p>
+          </div>
+
+          <!-- 4. Colloidal Oatmeal -->
+          <div class="ing-mol-card">
+            <h3>Colloidal Oatmeal</h3>
+            <p class="ing-desc">FDA-recognized skin protectant that calms itch on contact.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <circle class="mol-stroke" cx="90" cy="50" r="22"/>
+                  <line class="mol-stroke" x1="90" y1="28" x2="90" y2="14"/>
+                  <line class="mol-stroke" x1="108" y1="38" x2="124" y2="30"/>
+                  <line class="mol-stroke" x1="112" y1="60" x2="128" y2="68"/>
+                  <line class="mol-stroke" x1="90" y1="72" x2="90" y2="88"/>
+                  <line class="mol-stroke" x1="68" y1="38" x2="52" y2="30"/>
+                  <line class="mol-stroke" x1="68" y1="62" x2="52" y2="70"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="90" cy="50" r="5"/>
+                  <circle class="mol-fill-hollow" cx="90" cy="14" r="4"/>
+                  <circle class="mol-fill" cx="124" cy="30" r="4"/>
+                  <circle class="mol-fill-hollow" cx="128" cy="68" r="4"/>
+                  <circle class="mol-fill" cx="90" cy="88" r="4"/>
+                  <circle class="mol-fill-hollow" cx="52" cy="30" r="4"/>
+                  <circle class="mol-fill" cx="52" cy="70" r="4"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Why it's essential</p>
+            <p class="ing-form">Finely-milled whole oat, delivering avenanthramides — the anti-itch molecules unique to oats.</p>
+          </div>
+
+          <!-- 5. Madecassoside -->
+          <div class="ing-mol-card">
+            <h3>Madecassoside</h3>
+            <p class="ing-desc">A molecule from Centella asiatica that quiets visible redness.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <polygon class="mol-stroke" points="40,50 55,35 75,40 80,60 62,72 43,68" fill="#fff"/>
+                  <polygon class="mol-stroke" points="80,60 95,48 115,55 118,75 100,86 82,80" fill="#fff"/>
+                  <line class="mol-stroke" x1="118" y1="75" x2="135" y2="70"/>
+                  <line class="mol-stroke" x1="55" y1="35" x2="45" y2="22"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="55" cy="35" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="75" cy="40" r="3.5"/>
+                  <circle class="mol-fill" cx="95" cy="48" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="115" cy="55" r="3.5"/>
+                  <circle class="mol-fill" cx="135" cy="70" r="4"/>
+                  <circle class="mol-fill-hollow" cx="45" cy="22" r="3.5"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Bioavailable form</p>
+            <p class="ing-form">Purified triterpenoid from Centella — clinically studied at 0.1–1% for atopic-prone skin.</p>
+          </div>
+
+          <!-- 6. Allantoin -->
+          <div class="ing-mol-card">
+            <h3>Allantoin</h3>
+            <p class="ing-desc">Softens flakes and helps dull rough patches let go.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <polygon class="mol-stroke" points="70,40 100,40 110,60 90,75 70,65" fill="#fff"/>
+                  <line class="mol-stroke" x1="70" y1="40" x2="55" y2="30"/>
+                  <line class="mol-stroke" x1="100" y1="40" x2="115" y2="28"/>
+                  <line class="mol-stroke" x1="110" y1="60" x2="130" y2="62"/>
+                  <line class="mol-stroke" x1="90" y1="75" x2="90" y2="90"/>
+                  <line class="mol-stroke" x1="70" y1="65" x2="50" y2="70"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="70" cy="40" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="100" cy="40" r="3.5"/>
+                  <circle class="mol-fill" cx="110" cy="60" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="55" cy="30" r="3"/>
+                  <circle class="mol-fill" cx="115" cy="28" r="3"/>
+                  <circle class="mol-fill-hollow" cx="130" cy="62" r="3"/>
+                  <circle class="mol-fill" cx="90" cy="90" r="3"/>
+                  <circle class="mol-fill-hollow" cx="50" cy="70" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Why it's essential</p>
+            <p class="ing-form">A gentle keratolytic — helps the skin shed stuck, rough cells without the sting of acids.</p>
+          </div>
+
+          <!-- 7. Glycerin -->
+          <div class="ing-mol-card">
+            <h3>Glycerin</h3>
+            <p class="ing-desc">The humectant skin researchers keep coming back to. Draws water into the stratum corneum.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <line class="mol-stroke" x1="55" y1="55" x2="75" y2="42"/>
+                  <line class="mol-stroke" x1="75" y1="42" x2="95" y2="55"/>
+                  <line class="mol-stroke" x1="95" y1="55" x2="115" y2="42"/>
+                  <line class="mol-stroke" x1="55" y1="55" x2="40" y2="68"/>
+                  <line class="mol-stroke" x1="75" y1="42" x2="75" y2="22"/>
+                  <line class="mol-stroke" x1="95" y1="55" x2="95" y2="78"/>
+                  <line class="mol-stroke" x1="115" y1="42" x2="130" y2="30"/>
+                </g>
+                <g>
+                  <circle class="mol-fill-hollow" cx="55" cy="55" r="4"/>
+                  <circle class="mol-fill" cx="75" cy="42" r="4"/>
+                  <circle class="mol-fill-hollow" cx="95" cy="55" r="4"/>
+                  <circle class="mol-fill" cx="115" cy="42" r="4"/>
+                  <circle class="mol-fill" cx="40" cy="68" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="75" cy="22" r="3.5"/>
+                  <circle class="mol-fill" cx="95" cy="78" r="3.5"/>
+                  <circle class="mol-fill-hollow" cx="130" cy="30" r="3.5"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Bioavailable form</p>
+            <p class="ing-form">Vegetable-derived, 99.7% pure glycerin at an effective 5%+ dose.</p>
+          </div>
+
+          <!-- 8. Panthenol -->
+          <div class="ing-mol-card">
+            <h3>Panthenol (Pro-Vit B5)</h3>
+            <p class="ing-desc">Penetrates into the epidermis, converts to Vitamin B5, soothes inflamed skin.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <line class="mol-stroke" x1="25" y1="55" x2="45" y2="42"/>
+                  <line class="mol-stroke" x1="45" y1="42" x2="65" y2="55"/>
+                  <line class="mol-stroke" x1="65" y1="55" x2="85" y2="42"/>
+                  <line class="mol-stroke" x1="85" y1="42" x2="105" y2="55"/>
+                  <line class="mol-stroke" x1="105" y1="55" x2="125" y2="42"/>
+                  <line class="mol-stroke" x1="125" y1="42" x2="145" y2="55"/>
+                  <line class="mol-stroke" x1="65" y1="55" x2="65" y2="75"/>
+                  <line class="mol-stroke" x1="105" y1="55" x2="105" y2="75"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="25" cy="55" r="4"/>
+                  <circle class="mol-fill-hollow" cx="45" cy="42" r="4"/>
+                  <circle class="mol-fill" cx="65" cy="55" r="4"/>
+                  <circle class="mol-fill-hollow" cx="85" cy="42" r="4"/>
+                  <circle class="mol-fill" cx="105" cy="55" r="4"/>
+                  <circle class="mol-fill-hollow" cx="125" cy="42" r="4"/>
+                  <circle class="mol-fill" cx="145" cy="55" r="4"/>
+                  <circle class="mol-fill-hollow" cx="65" cy="75" r="3"/>
+                  <circle class="mol-fill-hollow" cx="105" cy="75" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Bioavailable form</p>
+            <p class="ing-form">D-panthenol — the alcohol form that skin converts into active pantothenic acid (Vit B5).</p>
+          </div>
+
+          <!-- 9. Hyaluronic Acid -->
+          <div class="ing-mol-card">
+            <h3>Hyaluronic Acid</h3>
+            <p class="ing-desc">Binds up to 1,000× its weight in water inside the skin.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <polygon class="mol-stroke" points="40,50 55,38 75,42 78,60 62,72 45,68" fill="#fff"/>
+                  <polygon class="mol-stroke" points="78,60 95,48 115,55 118,75 100,85 82,78" fill="#fff"/>
+                  <polygon class="mol-stroke" points="118,75 135,62 155,70 153,85" fill="#fff"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="55" cy="38" r="3"/>
+                  <circle class="mol-fill-hollow" cx="95" cy="48" r="3"/>
+                  <circle class="mol-fill" cx="135" cy="62" r="3"/>
+                  <circle class="mol-fill-hollow" cx="45" cy="68" r="3"/>
+                  <circle class="mol-fill" cx="100" cy="85" r="3"/>
+                  <circle class="mol-fill-hollow" cx="155" cy="70" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Bioavailable form</p>
+            <p class="ing-form">A blend of low- and high-molecular-weight HA — hydrates at the surface and deeper in the epidermis.</p>
+          </div>
+
+          <!-- 10. Squalane -->
+          <div class="ing-mol-card">
+            <h3>Squalane</h3>
+            <p class="ing-desc">Plant-derived occlusive that mimics the oil your skin already makes.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <line class="mol-stroke" x1="15" y1="50" x2="30" y2="40"/>
+                  <line class="mol-stroke" x1="30" y1="40" x2="50" y2="50"/>
+                  <line class="mol-stroke" x1="50" y1="50" x2="65" y2="40"/>
+                  <line class="mol-stroke" x1="65" y1="40" x2="85" y2="50"/>
+                  <line class="mol-stroke" x1="85" y1="50" x2="100" y2="40"/>
+                  <line class="mol-stroke" x1="100" y1="40" x2="120" y2="50"/>
+                  <line class="mol-stroke" x1="120" y1="50" x2="135" y2="40"/>
+                  <line class="mol-stroke" x1="135" y1="40" x2="155" y2="50"/>
+                  <line class="mol-stroke" x1="155" y1="50" x2="170" y2="40"/>
+                  <line class="mol-stroke" x1="30" y1="40" x2="30" y2="25"/>
+                  <line class="mol-stroke" x1="65" y1="40" x2="65" y2="25"/>
+                  <line class="mol-stroke" x1="100" y1="40" x2="100" y2="25"/>
+                  <line class="mol-stroke" x1="135" y1="40" x2="135" y2="25"/>
+                </g>
+                <g>
+                  <circle class="mol-fill-hollow" cx="15" cy="50" r="3"/>
+                  <circle class="mol-fill" cx="30" cy="40" r="3"/>
+                  <circle class="mol-fill-hollow" cx="50" cy="50" r="3"/>
+                  <circle class="mol-fill" cx="65" cy="40" r="3"/>
+                  <circle class="mol-fill-hollow" cx="85" cy="50" r="3"/>
+                  <circle class="mol-fill" cx="100" cy="40" r="3"/>
+                  <circle class="mol-fill-hollow" cx="120" cy="50" r="3"/>
+                  <circle class="mol-fill" cx="135" cy="40" r="3"/>
+                  <circle class="mol-fill-hollow" cx="155" cy="50" r="3"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Bioavailable form</p>
+            <p class="ing-form">100% plant-based squalane from sugarcane — identical to the squalene in human sebum, but shelf-stable.</p>
+          </div>
+
+          <!-- 11. Shea Butter -->
+          <div class="ing-mol-card">
+            <h3>Shea Butter</h3>
+            <p class="ing-desc">A traditional occlusive rich in Vitamin E and barrier-supporting fatty acids.</p>
+            <div class="mol-stage">
+              <svg viewBox="0 0 180 100" width="100%" height="100">
+                <g fill="none" stroke-width="1.5">
+                  <circle class="mol-stroke" cx="90" cy="50" r="14"/>
+                  <circle class="mol-stroke" cx="55" cy="45" r="10"/>
+                  <circle class="mol-stroke" cx="125" cy="55" r="11"/>
+                  <circle class="mol-stroke" cx="70" cy="75" r="8"/>
+                  <circle class="mol-stroke" cx="108" cy="25" r="7"/>
+                </g>
+                <g>
+                  <circle class="mol-fill" cx="90" cy="50" r="4"/>
+                  <circle class="mol-fill-hollow" cx="55" cy="45" r="3"/>
+                  <circle class="mol-fill" cx="125" cy="55" r="3"/>
+                  <circle class="mol-fill-hollow" cx="70" cy="75" r="2.5"/>
+                  <circle class="mol-fill" cx="108" cy="25" r="2.5"/>
+                </g>
+              </svg>
+            </div>
+            <p class="ing-label">Why it's essential</p>
+            <p class="ing-form">Unrefined, fair-trade West African shea — delivers oleic and stearic acids plus natural tocopherols.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pdp-section" style="padding-top:0;">
+        <span class="kicker">How to use</span>
+        <h2 style="margin-top:1rem;">Three steps. <em>Twice a day.</em></h2>
+        <div class="how-steps">
+          <div class="how-step">
+            <div class="step-num">01</div>
+            <h4>Cleanse gently</h4>
+            <p>Fragrance-free wash, lukewarm water. Pat — don't rub — the skin mostly dry.</p>
+          </div>
+          <div class="how-step">
+            <div class="step-num">02</div>
+            <h4>Apply while damp</h4>
+            <p>A pea-sized dab on each patch within 3 minutes of drying off. Warm between fingers, press into skin.</p>
+          </div>
+          <div class="how-step">
+            <div class="step-num">03</div>
+            <h4>Layer any Rx</h4>
+            <p>If using a prescription, apply Rx first, then seal with Recovery Balm. Morning + night, every day.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pair with inside -->
+      <div class="pair-callout">
+        <div>
+          <span class="kicker" style="color:var(--purple-light);">Pair with the inside</span>
+          <h3>Skin is just <em>half</em> the barrier.</h3>
+          <p>Recovery Balm rebuilds what's broken on the outside. Inner Barrier Complex and Inner Powder support the gut-skin axis from within — the part most eczema brands skip.</p>
+        </div>
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <a href="inner-barrier.html" class="btn btn-primary">Inner Barrier Complex →</a>
+          <a href="inner-powder.html" class="btn btn-outline" style="color:var(--cream); border-color:var(--cream);">Inner Powder →</a>
+        </div>
+      </div>
+
+      <!-- How the Recovery Balm compares -->
+      <section class="cmp-stage">
+        <div class="cmp-top">
+          <div>
+            <h2 class="cmp-title">How the <em>Recovery<br/>Balm</em> compares:</h2>
+            <p class="cmp-lead">Most eczema creams are sandbags leaned against the wall — they slow water loss, they don't rebuild what's broken. Here's what a barrier-repair formula does differently from the two creams in every parent's bathroom.</p>
+          </div>
+          <div class="cmp-panel">
+            <div class="cmp-highlight-col" style="left: calc(1.7/4.7 * 100%); right: calc(2/4.7 * 100%); top: 0.5rem; bottom: 0.5rem;"></div>
+            <div class="cmp-grid">
+              <div class="cmp-head cmp-head--label">&nbsp;</div>
+              <div class="cmp-head">
+                <span class="cmp-chip">BL-01</span>
+                <div style="margin-top:0.45rem;">Recovery<br/>Balm</div>
+              </div>
+              <div class="cmp-head">Drugstore<br/>Ceramide Cream</div>
+              <div class="cmp-head">Petrolatum<br/>Ointment</div>
+
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Rebuilds barrier lipids <small>(ceramides in the clinical 3:1:1 ratio)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot partial"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Filaggrin-focused formulation <small>(addresses root-cause protein loss)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Calms visible redness <small>(madecassoside · Centella asiatica)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Non-petrolatum base <small>(squalane + shea instead)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot partial"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Multi-molecular-weight HA <small>(hydrates surface + deeper epidermis)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Zero fragrance / dyes / essential oils <small>(formulated for reactive skin)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot partial"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+              </div>
+              <div class="cmp-row">
+                <div class="cmp-cell cmp-cell--label">Pairs with an inside-out protocol <small>(system, not a single product)</small></div>
+                <div class="cmp-cell"><span class="cmp-dot yes"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+                <div class="cmp-cell"><span class="cmp-dot no"></span></div>
+              </div>
+            </div>
+            <div class="cmp-legend">
+              <span class="cmp-legend-item"><span class="cmp-dot yes"></span>Yes</span>
+              <span class="cmp-legend-item"><span class="cmp-dot partial"></span>Partial</span>
+              <span class="cmp-legend-item"><span class="cmp-dot no"></span>No</span>
+            </div>
+            <p class="cmp-foot">"Drugstore Ceramide Cream" = typical formulations like CeraVe Moisturizing Cream. "Petrolatum Ointment" = typical formulations like Aquaphor Healing Ointment. Brand-specific formulations vary.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <div class="pdp-section" style="padding-top:0;">
+        <span class="kicker">Good to know</span>
+        <h2 style="margin-top:1rem;">Common <em>questions</em>.</h2>
+        <div style="max-width:800px; margin-top:2rem;">
+          <div class="acc-item">
+            <button class="acc-btn">Can I use this with my child's prescription? <span class="acc-icon">+</span></button>
+            <div class="acc-content"><p>Yes. Apply the prescription first, wait two minutes, then seal with Recovery Balm. Most dermatologists recommend pairing a barrier cream with any topical corticosteroid or calcineurin inhibitor.</p></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn">How is this different from CeraVe or Cetaphil? <span class="acc-icon">+</span></button>
+            <div class="acc-content"><p>Higher ceramide concentration, clinical-grade niacinamide (4% vs ~2%), and no fragrance or preservative irritants common in mass-market moisturizers. It's also part of a two-front system — pair with our oral barrier products for the full approach.</p></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn">How long does a jar last? <span class="acc-icon">+</span></button>
+            <div class="acc-content"><p>For a single person applying twice daily to arms and legs, a jar lasts roughly 4–8 weeks. Subscribe every 8 weeks is sized for an average adult user.</p></div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn">Where is Recovery Balm made? <span class="acc-icon">+</span></button>
+            <div class="acc-content"><p>Formulated and filled in the US, in a cGMP facility that works with FDA-regulated cosmetics. We source the ceramides and niacinamide from Germany and the shea from a fair-trade co-op in Ghana.</p></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="assets/shared.js"></script>
+  <script>
+    // Subscribe toggle updates price + add-to-cart button
+    const radios = document.querySelectorAll('input[name=sub]');
+    const priceEl = document.getElementById('pdpPrice');
+    const addBtn = document.getElementById('pdpAdd');
+    radios.forEach(r => r.addEventListener('change', () => {
+      const sub = document.querySelector('input[name=sub]:checked').value === 'subscribe';
+      priceEl.textContent = sub ? '$27.20' : '$32.00';
+      addBtn.textContent = sub ? 'Add to cart — $27.20 / 8 wks' : 'Add to cart — $32.00';
+      addBtn.dataset.subscribe = sub ? 'true' : 'false';
+    }));
+
+    // Wire ingredient-scroll prev/next buttons
+    document.querySelectorAll('.ing-scroll-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const track = document.getElementById(btn.dataset.rail);
+        if (!track) return;
+        const dir = Number(btn.dataset.dir);
+        track.scrollBy({ left: dir * (track.clientWidth * 0.85), behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
